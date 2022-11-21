@@ -10,8 +10,8 @@ function Admin_Disaster() {
         <Admin_sidebar />
         <div class="card">
           <div className='button'>
-          <button type="button" className="btn btn-primary" id='add_relief_progam'>Create Disaster</button>
-          <button type="button" className="btn btn-primary" id='add_relief_progam'>Success</button>
+          <button type="button" className="btn btn-primary" id='add_relief_progam'>Add Disaster</button>
+          <button type="button" className="btn btn-primary" id='add_relief_progam'>Add Disaster Category</button>
           </div>
           
           <table class="table">

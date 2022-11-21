@@ -1,0 +1,24 @@
+html{
+    scroll-behavior: smooth;
+}
+#ABOUT{
+    
+}
+#CREATEALERT{
+    
+}
+  
+.card{
+    margin-left: 20%;
+    width: 75%;
+    margin-top: 2%;
+}
+
+.vl {
+    border-left: 2px solid black;
+    height: 28%;
+    position: absolute;
+    left: 60%;
+    margin-left: -3px;
+    top: 4%;
+  }

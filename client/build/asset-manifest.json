@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/Disaster-relief-management-system/static/css/main.a865a337.css",
+    "main.js": "/Disaster-relief-management-system/static/js/main.e3a1a0c9.js",
+    "static/js/787.ec704a7a.chunk.js": "/Disaster-relief-management-system/static/js/787.ec704a7a.chunk.js",
+    "static/media/disaster.jpg": "/Disaster-relief-management-system/static/media/disaster.fb8558060c354427d7f9.jpg",
+    "static/media/person.png": "/Disaster-relief-management-system/static/media/person.f685659d27ab81eff47b.png",
+    "index.html": "/Disaster-relief-management-system/index.html",
+    "main.a865a337.css.map": "/Disaster-relief-management-system/static/css/main.a865a337.css.map",
+    "main.e3a1a0c9.js.map": "/Disaster-relief-management-system/static/js/main.e3a1a0c9.js.map",
+    "787.ec704a7a.chunk.js.map": "/Disaster-relief-management-system/static/js/787.ec704a7a.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a865a337.css",
+    "static/js/main.e3a1a0c9.js"
+  ]
+}

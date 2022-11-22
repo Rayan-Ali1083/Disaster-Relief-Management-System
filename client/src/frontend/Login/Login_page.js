@@ -1,20 +1,22 @@
 import './Login_page.css'
-import { Link, NavLink, redirect } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import person from './images/person.png'
 import React, {useState} from 'react'
 import Axios from 'axios'
 
 const Login_page = () => {
 
+  const navigate = useNavigate();
    const [user, setUser] = useState({
     email: "", password:""
    });
-   const[loginStatus, setLoginStatus] = useState("");
+   const[loginStatus, setLoginStatus] = useState();
 
-   const authenticate = ()=>{
+   const authenticate = (loginStatus)=>{
 
         if(loginStatus){
-          <Link to='Signup.js' activeClassName="active">{loginStatus}</Link>
+          console.log("here");
+          navigate('Admin_Home.js')
         }
    };
   
@@ -24,9 +26,10 @@ const Login_page = () => {
        //setLoginStatus(response.data.message)
         alert(response.data.message);
       }else{
-        setLoginStatus('true')
-        alert("Logged In");
-        //authenticate()
+        setLoginStatus(true);
+        // alert("Logged In");
+        authenticate(loginStatus);
+        
       }
     });
   };

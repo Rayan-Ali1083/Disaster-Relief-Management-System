@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import { NavLink } from 'react-router-dom';
 import './Signup.css'
+import Axios from 'axios'
 
 function Signup() {
 
@@ -8,6 +9,11 @@ function Signup() {
     fname: "", lname: "", cnicnum: "", phnnum: "" , email: "" , password: "" , organization: "" , empID: "" 
   });
 
+  const SubmitU = ()=>{
+    Axios.post("http://localhost:3001/api/insert",{lname:newUser.lname,password:newUser.password,}).then(()=>{
+      alert('Success');
+    });
+  };
   let name, value;
 
   const handleInputs = (e) =>{
@@ -51,6 +57,7 @@ function Signup() {
                 </div>
               </div>
               <NavLink to='/' end><button type="button" className="btn btn-primary" style={{"marginLeft": "10%"}}>Go Back</button></NavLink>
+              <button type="button" onClick={SubmitU} className="btn btn-primary" style={{"float":"right"}}>Submit</button>
             </div>
         </div>
     </>

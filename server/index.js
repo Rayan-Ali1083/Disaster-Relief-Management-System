@@ -3,6 +3,12 @@ const app = express();
 const bodyParser = require('body-parser')
 const mysql = require('mysql')
 const cors = require ('cors')
+const bcrypt = require('bcrypt');
+const { response } = require('express');
+const cookieParser = require('cookie-parser')
+const session = require('express-session')
+
+const saltRounds = 10
 
 
 const db = mysql.createPool({
@@ -23,12 +29,45 @@ app.post("/api/insert", (req,res)=>{
     const lname = req.body.lname
     const password = req.body.password
 
-    const sqlInsert = 
+    bcrypt.hash(password,saltRounds, (err,hash)=>{
+
+        if(err){
+            console.log(err);
+        }
+        const sqlInsert = 
     "Insert into logindet (username,pass) VALUES(?,?)";
-    db.query(sqlInsert, [lname,password],(err,result)=>{
+    db.query(sqlInsert, [lname,hash],(err,result)=>{
         console.log(result)
+    }); 
+    })
+   
+});
+
+app.post("/api/login", (req,res)=>{
+
+    const username = req.body.username;
+    const password = req.body.password;
+
+    const sqlRet = "Select * from logindet where username = ?";
+    db.query(sqlRet, username,(err,result)=>{
+        if(err){
+            res.send({err:err});
+        }
+        if(result.length > 0){
+            bcrypt.compare(password,result[0].pass,(error,response)=>{
+                if(response){
+                    res.send(result)
+                }else{
+                    res.send({message:"Wrong username/password combination"})
+                }
+            })
+        }else{
+            res.send({message:"User doesn't exist"})
+        }
+
     });
 });
+
 app.listen(3001, () => {
 
     console.log("running on port 3001");

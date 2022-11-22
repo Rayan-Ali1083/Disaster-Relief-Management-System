@@ -1,7 +1,8 @@
-import React, {useState} from 'react'
+import React, {useState,useEffect} from 'react'
 import { NavLink } from 'react-router-dom';
 import './Signup.css'
 import Axios from 'axios'
+
 
 function Signup() {
 
@@ -10,10 +11,15 @@ function Signup() {
   });
 
   const SubmitU = ()=>{
-    Axios.post("http://localhost:3001/api/insert",{lname:newUser.lname,password:newUser.password,}).then(()=>{
-      alert('Success');
+    Axios.post("http://localhost:3001/api/insert",{user:newUser}).then((resultx)=>{
+      if(resultx.data.message){
+        alert(resultx.data.message);
+      }else{
+        alert(resultx.data.message1);
+      }
     });
   };
+
   let name, value;
 
   const handleInputs = (e) =>{
@@ -21,8 +27,10 @@ function Signup() {
     name = e.target.name;
     value = e.target.value;
     setnewUser({...newUser, [name]:value});
-    
+   
    }
+
+ 
 
   return (
     <>

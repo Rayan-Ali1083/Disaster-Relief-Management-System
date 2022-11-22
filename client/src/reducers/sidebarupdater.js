@@ -5,7 +5,7 @@ const initialState = () =>{
         <>
         <div className="sidenav">
             <a href="#WHOAREWE">Who Are We</a>
-            <a href="#ANALYSIS">Analysis</a>
+            <a href="#ANALYSIS">Active Programs</a>
             <a href="#ABOUT">Meet The eam</a>
             <a href="#CONTACT">Contact</a>
         </div>
@@ -13,7 +13,7 @@ const initialState = () =>{
     )
 }
 
-const admin_analysis = () =>{
+const admin_products_services = () =>{
     return(
         <>
             <div className="sidenav">
@@ -50,7 +50,7 @@ const admin_relief_program = () =>{
 const side_bar_update = (state = initialState(), action) =>{
     switch(action.type){
         case "admin_home": return initialState();
-        case "admin_analysis": return admin_analysis();
+        case "admin_products_services": return admin_products_services();
         case "admin_organization": return admin_organization();
         case "admin_relief_program": return admin_relief_program();
         default: return initialState();

@@ -2,7 +2,7 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import './Header.css'
 import { useDispatch } from "react-redux";
-import { admin_home, admin_analysis, admin_organization, admin_relief_program, admin_disaster} from '../actions/index';
+import { admin_home, admin_analysis, admin_organization, admin_relief_program, admin_products_services} from '../actions/index';
 
 function Header() {
 
@@ -18,17 +18,18 @@ function Header() {
                 <NavLink to='/Admin_Home.js' className="nav-link active" onClick={ () => sidedispatch(admin_home())} >Home</NavLink>
               </li>
               <li className="nav-item">
-                <NavLink to='/Admin_Organizations.js' className="nav-link active" onClick={ () => sidedispatch(admin_organization())}>Organizations</NavLink>
-              </li>
-              <li className="nav-item">
                 <NavLink to='/Admin_Disaster.js' className="nav-link active" onClick={ () => sidedispatch(admin_organization())}>Disasters</NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink to='/Admin_Analysis.js' className="nav-link active" onClick={ () => sidedispatch(admin_analysis())}>Analysis</NavLink>
               </li>
               <li className="nav-item">
                 <NavLink to='/Admin_Relief_Program.js' className="nav-link active" onClick={ () => sidedispatch(admin_relief_program())}>Relief Program</NavLink>
               </li>
+              <li className="nav-item">
+                <NavLink to='/Admin_Organizations.js' className="nav-link active" onClick={ () => sidedispatch(admin_organization())}>Organizations</NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink to='/Admin_Products_Services.js' className="nav-link active" onClick={ () => sidedispatch(admin_products_services())}>Products/Services</NavLink>
+              </li>
+              
             </ul>
             
           </div>

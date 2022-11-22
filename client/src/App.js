@@ -3,7 +3,7 @@ import Signup from './frontend/Signup/Signup'
 import Header from './Extras/Header'
 import Admin_Home  from './frontend/Admin/Admin_Home';
 import Admin_Organizations from './frontend/Admin/Admin_Organizations';
-import Admin_Analysis from './frontend/Admin/Admin_Analysis';
+import Admin_Products_Services from './frontend/Admin/Admin_Products_Services';
 import Admin_Relief_Program from './frontend/Admin/Admin_Relief_Program';
 import Admin_sidebar from './Extras/Admin_sidebar';
 import Admin_Disaster from './frontend/Admin/Admin_Disaster'
@@ -21,7 +21,7 @@ function App() {
         <Route path='/Admin_Home.js' element={<Admin_Home />} />
         <Route path='/Admin_sidebar.js' element={<Admin_sidebar />} />
         <Route path='/Admin_Organizations.js' element={<Admin_Organizations />} />
-        <Route path='/Admin_Analysis.js' element={<Admin_Analysis />} />
+        <Route path='/Admin_Products_Services.js' element={<Admin_Products_Services />} />
         <Route path='/Admin_Relief_Program.js' element={<Admin_Relief_Program />} />
         <Route path='/Admin_Disaster.js' element={<Admin_Disaster />} />
       </Routes>

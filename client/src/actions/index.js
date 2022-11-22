@@ -4,9 +4,9 @@ export const admin_home = () =>{
     }
 }
 
-export const admin_analysis = () =>{
+export const admin_products_services = () =>{
     return{
-        type:'admin_analysis'
+        type:'admin_products_services'
     }
 }
 

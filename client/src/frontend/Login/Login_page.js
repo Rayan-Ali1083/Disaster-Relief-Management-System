@@ -27,8 +27,7 @@ const Login_page = () => {
         alert(response.data.message);
       }else{
         setLoginStatus(true);
-        // alert("Logged In");
-        authenticate(loginStatus);
+        navigate('Admin_Home.js')
         
       }
     });

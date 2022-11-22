@@ -4,9 +4,9 @@ const initialState = () =>{
     return(
         <>
         <div className="sidenav">
-            <a href="#CREATEALERT">Create Alert</a>
+            <a href="#WHOAREWE">Who Are We</a>
             <a href="#ANALYSIS">Analysis</a>
-            <a href="#ABOUT">About</a>
+            <a href="#ABOUT">Meet The eam</a>
             <a href="#CONTACT">Contact</a>
         </div>
     </>

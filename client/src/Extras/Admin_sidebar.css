@@ -19,6 +19,8 @@
   
   .sidenav a:hover {
     color: #42b625;
+    border-style: dashed;
+    border-color: white;
   }
 
   

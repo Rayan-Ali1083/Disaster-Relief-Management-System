@@ -15,8 +15,8 @@ const db = mysql.createPool({
 
     host:'localhost',
     user: 'root',
-    password: 'fast123',
-    database: 'drms'
+    password: 'fast',
+    database: 'dbtest'
 
 });
 
@@ -31,7 +31,7 @@ app.post("/api/insert", (req,res)=>{
     const user = req.body.user
     
     const sqlRet = "Select * from logindet where username = ?";
-    db.query(sqlRet,user.lname,(err,result)=>{
+    db.query(sqlRet,user.user_name,(err,result)=>{
         if(err){
             console.log(err)
         }
@@ -40,14 +40,14 @@ app.post("/api/insert", (req,res)=>{
             res.send({message:"Username already exists"});
         }
         else{
-            bcrypt.hash(user.password,saltRounds, (err,hash)=>{
+            bcrypt.hash(user.pass,saltRounds, (err,hash)=>{
 
         if(err){
             console.log(err);
         }
         const sqlInsert = 
     "Insert into logindet (username,pass) VALUES(?,?)";
-    db.query(sqlInsert, [user.lname,hash],(err,result)=>{
+    db.query(sqlInsert, [user.user_name,hash],(err,result)=>{
         console.log(err)
         res.send({message1:"Successfully Registered"})
     }); 

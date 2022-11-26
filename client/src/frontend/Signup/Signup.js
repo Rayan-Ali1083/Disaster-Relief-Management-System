@@ -17,7 +17,7 @@ function Signup() {
       }else{
         alert(resultx.data.message1);
       }
-    });
+    })
   };
 
   let name, value;
@@ -36,18 +36,18 @@ function Signup() {
       <div id="pic"></div>
         <div className="card-body" id='mid-body'>
             <div>
-              <h3 style={{"textAlign":"center"}}>Person Details</h3>
-                <input type="email" className='small-input' onChange={handleInputs} placeholder="Organization Province"></input>
-                <input type="email" className='small-input' onChange={handleInputs} placeholder="Last Name"></input>
+            <h3 style={{"textAlign":"center"}}>Person Details</h3>
+                <input type="email" className='small-input' value={newUser.fname} name="fname" onChange={handleInputs} placeholder="Organization Province"></input>
+                <input type="email" className='small-input' value={newUser.lname} name="lname" onChange={handleInputs} placeholder="User Name"></input>
 
-                <input type="email" className='small-input' onChange={handleInputs} placeholder="CNIC Number"></input>
-                <input type="email" className='small-input' onChange={handleInputs} placeholder="Phone Number"></input>
+                <input type="email" className='small-input' value={newUser.cnicnum} name="cnicnum" onChange={handleInputs} placeholder="CNIC Number"></input>
+                <input type="email" className='small-input' value={newUser.phnnum} name="phnnum" onChange={handleInputs} placeholder="Phone Number"></input>
 
-                <input type="email" className='small-input' onChange={handleInputs} placeholder="Email Address"></input>
-                <input type="email" className='small-input' onChange={handleInputs} placeholder="Password"></input>
+                <input type="email" className='small-input' value={newUser.email} name="email" onChange={handleInputs} placeholder="Email Address"></input>
+                <input type="email" className='small-input' value={newUser.password} name="password" onChange={handleInputs} placeholder="Password"></input>
 
-                <input type="email" className='small-input' onChange={handleInputs} placeholder="Organization Name"></input>
-                <input type="email" className='small-input' onChange={handleInputs} placeholder="Employee ID"></input>                
+                <input type="email" className='small-input' value={newUser.organization} name="organization" onChange={handleInputs} placeholder="Organization Name"></input>
+                <input type="email" className='small-input' value={newUser.empID} name="empID" onChange={handleInputs} placeholder="Employee ID"></input>                
             
               <div className="radio" style={{'marginLeft': '10%'}}>
                 <div className="form-check" style={{'marginTop':'2%'}}>

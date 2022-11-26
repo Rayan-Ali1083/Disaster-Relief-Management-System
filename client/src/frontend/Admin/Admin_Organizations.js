@@ -1,8 +1,30 @@
-import React from 'react'
+import React ,{useState,useEffect} from 'react'
 import Header from '../../Extras/Header'
 import Admin_sidebar from '../../Extras/Admin_sidebar'
+import Axios from 'axios'
 
 function Admin_Organizations() {
+
+  const [orgname,Setorgname] = useState([]);
+  const [pendingorg,Setpendingorg] = useState([]);
+
+  useEffect(()=>{
+    Axios.get("http://localhost:3001/api/orginfo").then((response)=>{
+      Setorgname(response.data)
+      //console.log(response.data)
+
+    })
+
+  },[])
+
+const getPending = ()=>{
+
+  Axios.get("http://localhost:3001/api/getpending").then((response)=>{
+    console.log(response.data)
+    Setpendingorg(response.data)
+
+  })  
+}
   return (
     <>
         <Header />
@@ -11,10 +33,17 @@ function Admin_Organizations() {
           <div className='button'>
           
           <button type="button" className="btn btn-primary" id='add_relief_progam'>Add Organization Category</button>
-          <button type="button" className="btn btn-primary" id='add_relief_progam'>Add Organization</button>
+          <button type="button" onClick={getPending} className="btn btn-primary" id='add_relief_progam'>Add Organization</button>
           <button type="button" className="btn btn-primary" id='add_relief_progam'>Remove Organization</button>
           </div>
-          
+
+          {/* {orgname.map((val)=>{
+            console.log(val.orgname)
+        return <h3>{val.username}</h3>
+      })} */}
+ {pendingorg.map((val)=>{
+  return <h3>{val.username}</h3>
+})}
           <table class="table">
   <thead>
     <tr>
@@ -27,26 +56,30 @@ function Admin_Organizations() {
     </tr>
   </thead>
   <tbody>
-    <tr>
+
+    
+  <tr>
       <th scope="row">1</th>
       <td>100</td>
-      <td>Katrina</td>
-      <td>11/21/2022</td>
+       <td>JDC</td>
       <td>404</td>
       <td>404</td>
 
     </tr>
+
     <tr>
       <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>1/10/2002</td>
-      <td>Jacob</td>
-      <td>Jacob</td>
+      <td>101</td>
+       <td>JDD</td>
+      <td>404</td>
+      <td>404</td>
 
     </tr>
+   
+   
   </tbody>
 </table>
+
         </div>
         
     </>

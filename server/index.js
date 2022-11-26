@@ -32,7 +32,11 @@ app.post("/api/insert", (req,res)=>{
     
     const sqlRet = "Select * from logindet where username = ?";
     db.query(sqlRet,user.lname,(err,result)=>{
+        if(err){
+            console.log(err)
+        }
         if(result.length > 0){
+            console.log(result)
             res.send({message:"Username already exists"});
         }
         else{

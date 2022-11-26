@@ -58,6 +58,27 @@ app.post("/api/insert", (req,res)=>{
    
 });
 
+app.get("/api/orginfo",(req,res)=>{
+
+    const sqlget = 
+    "Select username from logindet";
+    db.query(sqlget, (err,result)=>{
+        console.log(err)
+        res.send(result)
+    }); 
+})
+
+app.get("/api/getpending",(req,res)=>{
+
+    const hold = "Pending";
+    const sqlget = 
+    "Select username from logindet where status=?";
+    db.query(sqlget,hold, (err,result)=>{
+        console.log(err)
+        res.send(result)
+    }); 
+})
+
 
 app.post("/api/login", (req,res)=>{
 
@@ -83,6 +104,9 @@ app.post("/api/login", (req,res)=>{
 
     });
 });
+
+
+
 
 app.listen(3001, () => {
 

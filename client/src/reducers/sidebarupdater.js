@@ -6,7 +6,7 @@ const initialState = () =>{
         <div className="sidenav">
             <a href="#WHOAREWE">Who Are We</a>
             <a href="#ANALYSIS">Active Programs</a>
-            <a href="#ABOUT">Meet The eam</a>
+            <a href="#ABOUT">Meet The Team</a>
             <a href="#CONTACT">Contact</a>
         </div>
     </>

@@ -7,7 +7,7 @@ import Axios from 'axios'
 function Signup() {
 
   const [newUser,setnewUser] = useState({
-    fname: "", lname: "", cnicnum: "", phnnum: "" , email: "" , password: "" , organization: "" , empID: "" 
+    org_name: "", user_name: "", pass: "", email: "" , org_cate: "", org_province: "" 
   });
 
   const SubmitU = ()=>{
@@ -36,35 +36,18 @@ function Signup() {
       <div id="pic"></div>
         <div className="card-body" id='mid-body'>
             <div>
-            <h3 style={{"textAlign":"center"}}>Person Details</h3>
-                <input type="email" className='small-input' value={newUser.fname} name="fname" onChange={handleInputs} placeholder="Organization Province"></input>
-                <input type="email" className='small-input' value={newUser.lname} name="lname" onChange={handleInputs} placeholder="User Name"></input>
+              <h3 style={{"textAlign":"center"}}>Organization Details</h3>
+                <input type="email" className='small-input' value={newUser.org_name} name='org_name' onChange={handleInputs} placeholder="Organization Name"></input>
+                <input type="email" className='small-input' value={newUser.user_name} name='user_name' onChange={handleInputs} placeholder="User Name"></input>
 
-                <input type="email" className='small-input' value={newUser.cnicnum} name="cnicnum" onChange={handleInputs} placeholder="CNIC Number"></input>
-                <input type="email" className='small-input' value={newUser.phnnum} name="phnnum" onChange={handleInputs} placeholder="Phone Number"></input>
+                <input type="email" className='small-input' value={newUser.pass} name='pass' onChange={handleInputs} placeholder="Password"></input>
+                <input type="email" className='small-input' value={newUser.email} name='email' onChange={handleInputs} placeholder="Email Address"></input>
 
-                <input type="email" className='small-input' value={newUser.email} name="email" onChange={handleInputs} placeholder="Email Address"></input>
-                <input type="email" className='small-input' value={newUser.password} name="password" onChange={handleInputs} placeholder="Password"></input>
-
-                <input type="email" className='small-input' value={newUser.organization} name="organization" onChange={handleInputs} placeholder="Organization Name"></input>
-                <input type="email" className='small-input' value={newUser.empID} name="empID" onChange={handleInputs} placeholder="Employee ID"></input>                
+                <input type="email" className='small-input' value={newUser.org_cate} name='org_cate' onChange={handleInputs} placeholder="Organization Category"></input>
+                <input type="email" className='small-input' value={newUser.org_province} name='org_province' onChange={handleInputs} placeholder="Province"></input>
             
-              <div className="radio" style={{'marginLeft': '10%'}}>
-                <div className="form-check" style={{'marginTop':'2%'}}>
-                  <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" defaultChecked></input>
-                  <label className="form-check-label" htmlFor="flexRadioDefault1">
-                    Male
-                  </label>
-                </div>
-                <div className="form-check">
-                  <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" ></input>
-                  <label className="form-check-label" htmlFor="flexRadioDefault2">
-                    Female
-                  </label>
-                </div>
-              </div>
-              <NavLink to='/' end><button type="button" className="btn btn-primary" style={{"marginLeft": "10%"}}>Go Back</button></NavLink>
-              <button type="button" onClick={SubmitU} className="btn btn-primary" style={{"float":"right"}}>Submit</button>
+              <NavLink to='/' end><button type="button" className="btn btn-primary" style={{"marginLeft": "10%", "marginTop": "10%"}}>Go Back</button></NavLink>
+              <button type="button" onClick={SubmitU} className="btn btn-primary" style={{"marginTop": "10%", "marginLeft": "68%"}}>Submit</button>
             </div>
         </div>
     </>

@@ -37,7 +37,7 @@ const getPending = ()=>{
           <button type="button" className="btn btn-primary" id='add_relief_progam'>Remove Organization</button>
           </div>
 
-    <h1>ID :  NAME :    STATUS   CONTACT :    </h1><br></br>
+    <h1>ID :  NAME :    STATUS   CONTACT:    </h1><br></br>
 
           {orgname.map((val)=>{
           

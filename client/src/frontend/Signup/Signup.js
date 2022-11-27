@@ -11,7 +11,7 @@ function Signup() {
   });
 
   const SubmitU = ()=>{
-    Axios.post("http://localhost:3001/api/insert",{user:newUser}).then((resultx)=>{
+    Axios.post("http://localhost:3001/api/signup",{user:newUser}).then((resultx)=>{
       if(resultx.data.message){
         alert(resultx.data.message);
       }else{

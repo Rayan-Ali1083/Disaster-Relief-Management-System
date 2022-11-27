@@ -20,17 +20,19 @@ const db = mysql.createPool({
 
 });
 
+
+
 app.use(cors());
 app.use(express.json())
 app.use(bodyParser.urlencoded({extended:true}))
 
-app.post("/api/insert", (req,res)=>{
-
+app.post("/api/signup", (req,res)=>{
+  
     //const lname = req.body.lname
     //const password = req.body.password
     const user = req.body.user
     
-    const sqlRet = "Select * from logindet where username = ?";
+    const sqlRet = "Select Username from users where Username = ?";
     db.query(sqlRet,user.user_name,(err,result)=>{
         if(err){
             console.log(err)
@@ -45,9 +47,21 @@ app.post("/api/insert", (req,res)=>{
         if(err){
             console.log(err);
         }
+
+        const sqldet = "Insert into organizations (org_name,org_category_id,org_contact) VALUES (?,?,?)"
+        db.query(sqldet,[user.org_name,user.cate,user.email],(err,result)=>{
+            console.log(err)
+        })
+        var holder = ""
+        const sqlUdet = "Select Org_id from organizations where org_name = ?";
+        db.query(sqlUdet,user.org_name,(err,result)=>{
+            holder = result.data
+            console.log(err)
+        })
+
         const sqlInsert = 
-    "Insert into logindet (username,pass) VALUES(?,?)";
-    db.query(sqlInsert, [user.user_name,hash],(err,result)=>{
+    "Insert into users (Username,password,Org_id) VALUES(?,?,?)";
+    db.query(sqlInsert, [user.user_name,hash,holder],(err,result)=>{
         console.log(err)
         res.send({message1:"Successfully Registered"})
     }); 

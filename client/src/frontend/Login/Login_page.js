@@ -65,7 +65,9 @@ const Login_page = () => {
         <NavLink to='Admin_Home.js'>
           <button type="button" className="btn btn-primary" style={{"marginLeft": "85%", "marginTop": "3%"}}>Admin</button>
         </NavLink>
-
+        <NavLink to='Users_Home.js'>
+          <button type="button" className="btn btn-primary" style={{"marginLeft": "70%", "marginTop": "-4.75%"}}>Users</button>
+        </NavLink>
     <h1>{loginStatus}</h1>
       </div>
     </>

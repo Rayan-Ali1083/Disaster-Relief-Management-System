@@ -1,9 +1,22 @@
-import React from 'react'
+import React ,{useState,useEffect} from 'react'
 import Header from '../../Extras/Header'
 import Admin_sidebar from '../../Extras/Admin_sidebar'
 import './admin_relief_program.css'
+import Axios from 'axios'
 
 function Admin_Disaster() {
+
+
+  const [disasterdet,Setdisasterdet] = useState([]);
+
+  useEffect(()=>{
+    Axios.get("http://localhost:3001/api/disasterinfo").then((response)=>{
+      Setdisasterdet(response.data)
+      //console.log(response.data)
+
+    })
+
+  },[])
   return (
     <>
         <Header/>
@@ -25,22 +38,19 @@ function Admin_Disaster() {
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>100</td>
-      <td>Katrina</td>
-      <td>11/21/2022</td>
-      <td>404</td>
+  {disasterdet.map((val)=>(
+  <tr>
+   <th scope="row">1</th>
+   <td>{val.disaster_id}</td>
+   <td>{val.disaster_name}</td>
+   <td>{val.disaster_date}</td>
+   <td>{val.disaster_type}</td>
+   
+ </tr>
 
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>1/10/2002</td>
-      <td>Jacob</td>
 
-    </tr>
+    ))}
+  
   </tbody>
 </table>
         </div>

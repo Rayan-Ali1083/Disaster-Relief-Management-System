@@ -106,6 +106,28 @@ app.get("/api/orginfo",(req,res)=>{
     }); 
 })
 
+app.get("/api/disasterinfo",(req,res)=>{
+    const sqlget = 
+    "Select d.disaster_id,d.disaster_name,d.disaster_date,dc.disaster_type from disaster d, disaster_category dc where d.disaster_type_id = dc.disaster_type_id";
+    db.query(sqlget, (err,result)=>{
+        console.log(err)
+        res.send(result)
+    }); 
+
+})
+
+app.get("/api/reliefinfo",(req,res)=>{
+
+    const sqlget = 
+    "Select r.program_id,r.program_name,r.program_status,d.disaster_name,r.start_date,r.end_date from relief_program r, disaster d where r.disaster_id = d.disaster_id";
+    db.query(sqlget, (err,result)=>{
+        console.log(err)
+        res.send(result)
+    }); 
+
+
+
+})
 app.get("/api/getpending",(req,res)=>{
 
     const hold = "PENDING";

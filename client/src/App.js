@@ -7,6 +7,7 @@ import Admin_Products_Services from './frontend/Admin/Admin_Products_Services';
 import Admin_Relief_Program from './frontend/Admin/Admin_Relief_Program';
 import Admin_sidebar from './Extras/Admin_sidebar';
 import Admin_Disaster from './frontend/Admin/Admin_Disaster'
+import Users_Home from './frontend/Users/Users_Home';
 import React from 'react';
 import './App.css'
 import {BrowserRouter as Router,Route, Routes} from "react-router-dom"
@@ -24,6 +25,8 @@ function App() {
         <Route path='/Admin_Products_Services.js' element={<Admin_Products_Services />} />
         <Route path='/Admin_Relief_Program.js' element={<Admin_Relief_Program />} />
         <Route path='/Admin_Disaster.js' element={<Admin_Disaster />} />
+        <Route path='/Users_Home.js' element={<Users_Home />} />
+        
       </Routes>
     </Router>
   )

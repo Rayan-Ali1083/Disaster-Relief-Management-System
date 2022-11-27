@@ -1,0 +1,21 @@
+ul {
+    display: flex;
+    align-items: stretch; /* Default */
+    justify-content: space-between;
+    width: 80%;
+    margin-left: 13%;
+    padding: 0;
+
+}
+li {
+    display: block;
+    flex: 0 1 auto; /* Default */
+    list-style-type: none;
+    background: #fafafa;
+}
+
+#try a:hover{
+    color: #42b625;
+    text-decoration: underline;
+    transition-delay: 0.0625s;
+}

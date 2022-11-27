@@ -21,10 +21,12 @@ const db = mysql.createPool({
 });
 
 
-
 app.use(cors());
 app.use(express.json())
 app.use(bodyParser.urlencoded({extended:true}))
+
+
+
 
 app.post("/api/signup", (req,res)=>{
   
@@ -34,11 +36,12 @@ app.post("/api/signup", (req,res)=>{
     
     const sqlRet = "Select Username from users where Username = ?";
     db.query(sqlRet,user.user_name,(err,result)=>{
+        console.log(result.data)
         if(err){
             console.log(err)
         }
         if(result.length > 0){
-            console.log(result)
+            console.log(result.data)
             res.send({message:"Username already exists"});
         }
         else{
@@ -48,20 +51,41 @@ app.post("/api/signup", (req,res)=>{
             console.log(err);
         }
 
-        const sqldet = "Insert into organizations (org_name,org_category_id,org_contact) VALUES (?,?,?)"
+        
+    function InsertU (){
+        return new Promise ((resolve,reject)=>{
+
+             const sqldet = "Insert into organizations (org_name,org_category_id,org_contact) VALUES (?,?,?)"
         db.query(sqldet,[user.org_name,user.cate,user.email],(err,result)=>{
             console.log(err)
+            return resolve(result)
         })
-        var holder = ""
-        const sqlUdet = "Select Org_id from organizations where org_name = ?";
+        })
+        
+    }
+        
+
+     
+      async function getUser(){
+            var check = await InsertU();
+            return new Promise((resolve,reject)=>{
+
+       const sqlUdet = "Select Org_id from 'organizations' where Org_name = ?";
         db.query(sqlUdet,user.org_name,(err,result)=>{
-            holder = result.data
-            console.log(err)
+            console.log("Result" + result.data)
+            return resolve(result.data)
         })
 
+
+            })
+       
+
+        }
+        var holder = getUser()
+        console.log("holder " + holder)
         const sqlInsert = 
     "Insert into users (Username,password,Org_id) VALUES(?,?,?)";
-    db.query(sqlInsert, [user.user_name,hash,holder],(err,result)=>{
+    db.query(sqlInsert, [user.user_name,hash,holder.data],(err,result)=>{
         console.log(err)
         res.send({message1:"Successfully Registered"})
     }); 
@@ -75,7 +99,7 @@ app.post("/api/signup", (req,res)=>{
 app.get("/api/orginfo",(req,res)=>{
 
     const sqlget = 
-    "Select username from logindet";
+    "Select org_id,org_name,org_status,org_contact from organizations";
     db.query(sqlget, (err,result)=>{
         console.log(err)
         res.send(result)
@@ -84,9 +108,9 @@ app.get("/api/orginfo",(req,res)=>{
 
 app.get("/api/getpending",(req,res)=>{
 
-    const hold = "Pending";
+    const hold = "PENDING";
     const sqlget = 
-    "Select username from logindet where status=?";
+    "Select org_id,org_name,org_status,org_contact from organizations where org_status=?";
     db.query(sqlget,hold, (err,result)=>{
         console.log(err)
         res.send(result)

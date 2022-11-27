@@ -37,12 +37,15 @@ const getPending = ()=>{
           <button type="button" className="btn btn-primary" id='add_relief_progam'>Remove Organization</button>
           </div>
 
+    <h1>ID :  NAME :    STATUS   CONTACT :    </h1><br></br>
+
           {orgname.map((val)=>{
-            console.log(val.orgname)
-        return <h3>{val.username}</h3>
+          
+        return <h3>{val.org_id} {val.org_name} {val.org_status} {val.org_contact}</h3>
       })}
+
  {pendingorg.map((val)=>{
-  return <h3>{val.username}</h3>
+  return <h3>{val.org_id} {val.org_name} {val.org_status} {val.org_contact}</h3>
 })}
           <table class="table">
   <thead>
@@ -56,16 +59,17 @@ const getPending = ()=>{
     </tr>
   </thead>
   <tbody>
-
-    
-  <tr>
-      <th scope="row">1</th>
-      <td>100</td>
-       <td>JDC</td>
+ 
+   <tr>
+      <th>1</th>
+      <td>JDC</td>
+      <td>JDC</td>
       <td>404</td>
       <td>404</td>
 
     </tr>
+  
+  
 
     <tr>
       <th scope="row">2</th>

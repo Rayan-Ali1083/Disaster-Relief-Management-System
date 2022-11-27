@@ -47,7 +47,7 @@ function Admin_Organizations() {
        <td>{val.org_name}</td>
       <td>{val.org_category_id}</td>
       <td>{val.org_status}</td>
-      <td>UNDER CONSTRUCTION</td>
+      <td>{val.program_name}</td>
     </tr>
    ))}
    

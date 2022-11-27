@@ -110,7 +110,7 @@ app.get("/api/getpending",(req,res)=>{
 
     const hold = "PENDING";
     const sqlget = 
-    "Select org_id,org_name,org_status,org_contact from organizations where org_status=?";
+    "Select org_id,org_name,org_status,org_contact, org_category_id from organizations where org_status=?";
     db.query(sqlget,hold, (err,result)=>{
         console.log(err)
         res.send(result)

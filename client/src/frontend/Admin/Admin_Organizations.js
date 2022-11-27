@@ -2,29 +2,21 @@ import React ,{useState,useEffect} from 'react'
 import Header from '../../Extras/Header'
 import Admin_sidebar from '../../Extras/Admin_sidebar'
 import Axios from 'axios'
+import { Link } from 'react-router-dom';
 
 function Admin_Organizations() {
 
   const [orgname,Setorgname] = useState([]);
-  const [pendingorg,Setpendingorg] = useState([]);
+
 
   useEffect(()=>{
     Axios.get("http://localhost:3001/api/orginfo").then((response)=>{
       Setorgname(response.data)
-      //console.log(response.data)
-
     })
 
   },[])
 
-const getPending = ()=>{
 
-  Axios.get("http://localhost:3001/api/getpending").then((response)=>{
-    console.log(response.data)
-    Setpendingorg(response.data)
-
-  })  
-}
   return (
     <>
         <Header />
@@ -33,13 +25,11 @@ const getPending = ()=>{
           <div className='button'>
           
           <button type="button" className="btn btn-primary" id='add_relief_progam'>Add Organization Category</button>
-          <button type="button" onClick={getPending} className="btn btn-primary" id='add_relief_progam'>Add Organization</button>
+          <Link to={"/Add_Org.js"}><button type="button" className="btn btn-primary" id='add_relief_progam'>View/Add Organization</button></Link>
           <button type="button" className="btn btn-primary" id='add_relief_progam'>Remove Organization</button>
           </div>
 
- {pendingorg.map((val)=>{
-  return <h3>{val.org_id} {val.org_name} {val.org_status} {val.org_contact}</h3>
-})}
+ 
           <table className="table">
   <thead>
     <tr>

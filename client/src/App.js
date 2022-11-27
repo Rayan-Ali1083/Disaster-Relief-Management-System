@@ -8,9 +8,11 @@ import Admin_Relief_Program from './frontend/Admin/Admin_Relief_Program';
 import Admin_sidebar from './Extras/Admin_sidebar';
 import Admin_Disaster from './frontend/Admin/Admin_Disaster'
 import Users_Home from './frontend/Users/Users_Home';
+import Add_Org from './frontend/Admin/Admin_Org_Opts/View/Add_Org';
 import React from 'react';
 import './App.css'
 import {BrowserRouter as Router,Route, Routes} from "react-router-dom"
+
 
 function App() {
   return(
@@ -26,6 +28,7 @@ function App() {
         <Route path='/Admin_Relief_Program.js' element={<Admin_Relief_Program />} />
         <Route path='/Admin_Disaster.js' element={<Admin_Disaster />} />
         <Route path='/Users_Home.js' element={<Users_Home />} />
+        <Route path='/Add_Org.js' element={<Add_Org />} />
         
       </Routes>
     </Router>

@@ -32,7 +32,7 @@ app.post("/api/signup", (req,res)=>{
     //const password = req.body.password
     const user = req.body.user
     
-    const sqlRet = "Select * from users where username = ?";
+    const sqlRet = "Select Username from users where Username = ?";
     db.query(sqlRet,user.user_name,(err,result)=>{
         if(err){
             console.log(err)

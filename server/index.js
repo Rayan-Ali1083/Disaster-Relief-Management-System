@@ -15,8 +15,8 @@ const db = mysql.createPool({
 
     host:'localhost',
     user: 'root',
-    password: 'root',
-    database: 'drwms'
+    password: 'fast',
+    database: 'dbtest'
 
 });
 
@@ -99,7 +99,7 @@ app.post("/api/signup", (req,res)=>{
 app.get("/api/orginfo",(req,res)=>{
 
     const sqlget = 
-    "Select org_id,org_name,org_status, org_category_id from organizations";
+    "Select o.org_id,o.org_name,o.org_status, o.org_category_id,r.program_name from relief_program r, organizations o, relief_providers as rp where o.org_id = rp.org_id and rp.program_id = r.program_id";
     db.query(sqlget, (err,result)=>{
         console.log(err)
         res.send(result)

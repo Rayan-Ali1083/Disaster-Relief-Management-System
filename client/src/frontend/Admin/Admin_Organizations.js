@@ -37,10 +37,6 @@ const getPending = ()=>{
           <button type="button" className="btn btn-primary" id='add_relief_progam'>Remove Organization</button>
           </div>
 
-<<<<<<< HEAD
-         
-=======
->>>>>>> 3f75ccb7fd79c9c79d6a13647a4ebfc5aebc1bf4
  {pendingorg.map((val)=>{
   return <h3>{val.org_id} {val.org_name} {val.org_status} {val.org_contact}</h3>
 })}
@@ -55,37 +51,15 @@ const getPending = ()=>{
     </tr>
   </thead>
   <tbody>
-<<<<<<< HEAD
-
-  {orgname.map((val)=>(
-          
-         
-<tr>
-      <th>#</th>
-      <td>{val.org_id}</td>
-      <td>{val.org_name}</td>
-      <td>{val.org_status}</td>
-      <td>{val.org_contact}</td>
-
-    </tr>
-  
-        ))}
-  
- 
-  
-  
-   
-=======
  {orgname.map((val)=>(
     <tr>
       <td>{val.org_id}</td>
        <td>{val.org_name}</td>
       <td>{val.org_category_id}</td>
       <td>{val.org_status}</td>
-      <td>UNDER CONSTRUCTION</td>
+      <td>{val.program_name}</td>
     </tr>
    ))}
->>>>>>> 3f75ccb7fd79c9c79d6a13647a4ebfc5aebc1bf4
    
   </tbody>
 </table>

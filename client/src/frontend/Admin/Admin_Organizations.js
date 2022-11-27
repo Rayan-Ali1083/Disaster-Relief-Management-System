@@ -29,7 +29,7 @@ const getPending = ()=>{
     <>
         <Header />
         <Admin_sidebar />
-        <div class="card">
+        <div className="card">
           <div className='button'>
           
           <button type="button" className="btn btn-primary" id='add_relief_progam'>Add Organization Category</button>
@@ -37,20 +37,14 @@ const getPending = ()=>{
           <button type="button" className="btn btn-primary" id='add_relief_progam'>Remove Organization</button>
           </div>
 
-    <h1>ID :  NAME :    STATUS   CONTACT :    </h1><br></br>
-
-          {orgname.map((val)=>{
           
-        return <h3>{val.org_id} {val.org_name} {val.org_status} {val.org_contact}</h3>
-      })}
 
  {pendingorg.map((val)=>{
   return <h3>{val.org_id} {val.org_name} {val.org_status} {val.org_contact}</h3>
 })}
-          <table class="table">
+          <table className="table">
   <thead>
     <tr>
-      <th scope="col">#</th>
       <th scope="col">Organization ID</th>
       <th scope="col">Organization Name</th>
       <th scope="col">Organization type</th>
@@ -59,27 +53,15 @@ const getPending = ()=>{
     </tr>
   </thead>
   <tbody>
- 
-   <tr>
-      <th>1</th>
-      <td>JDC</td>
-      <td>JDC</td>
-      <td>404</td>
-      <td>404</td>
-
-    </tr>
-  
-  
-
+ {orgname.map((val)=>(
     <tr>
-      <th scope="row">2</th>
-      <td>101</td>
-       <td>JDD</td>
-      <td>404</td>
-      <td>404</td>
-
+      <td>{val.org_id}</td>
+       <td>{val.org_name}</td>
+      <td>{val.org_category_id}</td>
+      <td>{val.org_status}</td>
+      <td>UNDER CONSTRUCTION</td>
     </tr>
-   
+   ))}
    
   </tbody>
 </table>

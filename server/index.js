@@ -15,8 +15,8 @@ const db = mysql.createPool({
 
     host:'localhost',
     user: 'root',
-    password: 'fast',
-    database: 'dbtest'
+    password: 'fast123',
+    database: 'drwms'
 
 });
 
@@ -125,8 +125,6 @@ app.get("/api/reliefinfo",(req,res)=>{
         res.send(result)
     }); 
 
-
-
 })
 app.get("/api/getpending",(req,res)=>{
 
@@ -137,6 +135,16 @@ app.get("/api/getpending",(req,res)=>{
         console.log(err)
         res.send(result)
     }); 
+})
+
+app.get("/api/productsinfo",(req,res)=>{
+
+    const sqlget = 
+    "Select Product_id,Product_name,Product_category from product;";
+    db.query(sqlget, (err,result)=>{
+        console.log(err)
+        res.send(result)
+    });     
 })
 
 

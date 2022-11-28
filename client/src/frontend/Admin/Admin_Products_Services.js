@@ -1,8 +1,24 @@
-import React from 'react'
+import React ,{useState,useEffect} from 'react'
 import Header from '../../Extras/Header'
 import Admin_sidebar from '../../Extras/Admin_sidebar'
+import Axios from 'axios'
+import { Link } from 'react-router-dom';
 
 function Admin_Products_Services() {
+
+  const [productsdet,Setproductsdet] = useState([]);
+
+  useEffect(()=>{
+    Axios.get("http://localhost:3001/api/productsinfo").then((response)=>{
+      Setproductsdet(response.data)
+      //console.log(response.data)
+
+    })
+
+  },[])
+
+
+
   return (
     <>
         <Header />
@@ -21,30 +37,27 @@ function Admin_Products_Services() {
           <table class="table">
         <thead>
     <tr>
-      <th scope="col">#</th>
+      
       <th scope="col">Product ID</th>
       <th scope="col">Product Name</th>
       <th scope="col">Product Category</th>
-      <th scope="col">Relief Program</th>
+      
 
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>100</td>
-      <td>Katrina</td>
-      <td>Ended</td>
-      <td>404</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-      <td>Jacob</td>
-    </tr>
-  </tbody>
+
+{productsdet.map((val)=>(
+  <tr>
+   
+   <td>{val.Product_id}</td>
+   <td>{val.Product_name}</td>
+   <td>{val.Product_category}</td>
+ </tr>
+
+
+    ))}
+    </tbody>
 </table>
         </div>
         <div class="card">
@@ -61,24 +74,23 @@ function Admin_Products_Services() {
       <th scope="col">Service ID</th>
       <th scope="col">Service Name</th>
       <th scope="col">Service Category</th>
-      <th scope="col">Relief Program</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
+     <tr>
       <th scope="row">1</th>
       <td>100</td>
       <td>Katrina</td>
       <td>Ended</td>
-      <td>404</td>
     </tr>
     <tr>
       <th scope="row">2</th>
       <td>Jacob</td>
       <td>Thornton</td>
       <td>@fat</td>
-      <td>Jacob</td>
-    </tr>
+    </tr> 
+  
+
   </tbody>
 </table>
         </div>

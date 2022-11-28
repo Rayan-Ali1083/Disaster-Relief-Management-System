@@ -42,6 +42,7 @@ function Admin_Organizations() {
   </thead>
   <tbody>
  {orgname.map((val)=>(
+  
     <tr>
       <td>{val.org_id}</td>
        <td>{val.org_name}</td>

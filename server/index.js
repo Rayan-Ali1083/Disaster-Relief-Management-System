@@ -15,8 +15,8 @@ const db = mysql.createPool({
 
     host:'localhost',
     user: 'root',
-    password: 'fast123',
-    database: 'drwms'
+    password: 'fast',
+    database: 'dbtest'
 
 });
 
@@ -51,44 +51,72 @@ app.post("/api/signup", (req,res)=>{
             console.log(err);
         }
 
-        
-    function InsertU (){
-        return new Promise ((resolve,reject)=>{
+        var holder =  ""
+        let myPromise = new Promise (function(myResolve,myReject){
 
-             const sqldet = "Insert into organizations (org_name,org_category_id,org_contact) VALUES (?,?,?)"
+       const sqldet = "Insert into organizations (org_name,org_category_id,org_contact) VALUES (?,?,?)"
         db.query(sqldet,[user.org_name,user.cate,user.email],(err,result)=>{
-            console.log(err)
-            return resolve(result)
+            if(err){
+                myReject("error")
+                console.log(err)
+            }else{
+
+                myResolve("ok")
+            }
+            
+           
         })
+
         })
+
+       myPromise.then(
         
-    }
+       function() {  let data = new Promise((resolve,reject)=>{
         
+        const sqlUdet = "Select Org_id from organizations where Org_name = ?";
+        db.query(sqlUdet,user.org_name,(err,result)=>{
+            if(err){
+                console.log("ERR during SEL" + err)
+                reject(result)
+            }else{
+                 let resultx = JSON.parse(JSON.stringify(result));
+                 holder = result[0].Org_id
+                 resolve(result)
+                // resultx.forEach((v) => console.log(v));
+                // console.log(resultx)
+              
+            }
+         
+        })
+       })
+    
+           data.then(
+            function(){
+                  const sqlInsert = 
+                "Insert into users (Username,password,Org_id) VALUES(?,?,?)";
+                db.query(sqlInsert, [user.user_name,hash,holder],(err,result)=>{
+                    console.log(err)
+                    res.send({message1:"Successfully Registered"})}
+           )
+                })}
+
+       )
+       
+        
+       
+        
+ 
 
      
-      async function getUser(){
-            var check = await InsertU();
-            return new Promise((resolve,reject)=>{
-
-       const sqlUdet = "Select Org_id from 'organizations' where Org_name = ?";
-        db.query(sqlUdet,user.org_name,(err,result)=>{
-            console.log("Result" + result.data)
-            return resolve(result.data)
-        })
-
-
-            })
-       
-
-        }
-        var holder = getUser()
-        console.log("holder " + holder)
-        const sqlInsert = 
-    "Insert into users (Username,password,Org_id) VALUES(?,?,?)";
-    db.query(sqlInsert, [user.user_name,hash,holder.data],(err,result)=>{
-        console.log(err)
-        res.send({message1:"Successfully Registered"})
-    }); 
+    //   function ins (){
+    //   const sqlInsert = 
+    // "Insert into users (Username,password,Org_id) VALUES(?,?,?)";
+    // db.query(sqlInsert, [user.user_name,hash,holder],(err,result)=>{
+    //     console.log(err)
+    //     res.send({message1:"Successfully Registered"})
+    // }); 
+    //   }
+ 
     })
         }
     })

@@ -30,8 +30,6 @@ app.use(bodyParser.urlencoded({extended:true}))
 
 app.post("/api/signup", (req,res)=>{
   
-    //const lname = req.body.lname
-    //const password = req.body.password
     const user = req.body.user
     
     const sqlRet = "Select Username from users where Username = ?";
@@ -171,7 +169,32 @@ app.get("/api/productsinfo",(req,res)=>{
     });     
 })
 
+app.post("/api/approvePending",(req,res)=>{
+    const user = req.body.user
+    const hold = "ACTIVE"
+    const SqlU = "Update organizations set org_status = ? where org_id = ?"
 
+    db.query(SqlU,[hold,user],(err,result)=>{
+        if(err){
+            res.send(err)
+        }else{
+            res.send({message:"Status Updated"})
+        }
+    })
+})
+
+app.post("/api/declinePending",(req,res)=>{
+    const user = req.body.user
+    const SqlU = "Delete from organizations where org_id = ?"
+
+    db.query(SqlU,user,(err,result)=>{
+        if(err){
+            res.send(err)
+        }else{
+            res.send({message:"Registration Request Declined"})
+        }
+    })
+})
 app.post("/api/login", (req,res)=>{
 
     const username = req.body.username;

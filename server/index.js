@@ -45,7 +45,13 @@ app.post("/api/signup", (req,res)=>{
             res.send({message:"Username already exists"});
         }
         else{
-            bcrypt.hash(user.pass,saltRounds, (err,hash)=>{
+            const SqlI = "Select org_name,org_contact from organizations where org_name = ? or org_contact = ?"
+            db.query(SqlI,[user.org_name,user.org_email],(err,result)=>{
+                if(result.length > 0){
+                    res.send({message:"Incorrect Details"})
+                }
+                else{
+           bcrypt.hash(user.pass,saltRounds, (err,hash)=>{
 
         if(err){
             console.log(err);
@@ -103,21 +109,11 @@ app.post("/api/signup", (req,res)=>{
        )
        
         
-       
-        
- 
-
-     
-    //   function ins (){
-    //   const sqlInsert = 
-    // "Insert into users (Username,password,Org_id) VALUES(?,?,?)";
-    // db.query(sqlInsert, [user.user_name,hash,holder],(err,result)=>{
-    //     console.log(err)
-    //     res.send({message1:"Successfully Registered"})
-    // }); 
-    //   }
- 
     })
+
+                }
+            })
+ 
         }
     })
    

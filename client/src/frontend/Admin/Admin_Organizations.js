@@ -26,7 +26,7 @@ function Admin_Organizations() {
           
           <button type="button" className="btn btn-primary" id='add_relief_progam'>Add Organization Category</button>
           <Link to={"/Add_Org.js"}><button type="button" className="btn btn-primary" id='add_relief_progam'>View/Add Organization</button></Link>
-          <button type="button" className="btn btn-primary" id='add_relief_progam'>Remove Organization</button>
+          <Link to={"/Remove_Org.js"}><button type="button" className="btn btn-primary" id='add_relief_progam'>Remove Organization</button></Link>
           </div>
 
  

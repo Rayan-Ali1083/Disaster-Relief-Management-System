@@ -3,6 +3,7 @@ import Header from '../../Extras/Header'
 import Admin_sidebar from '../../Extras/Admin_sidebar'
 import './admin_relief_program.css'
 import Axios from 'axios'
+import { Link } from 'react-router-dom';
 
 function Admin_Relief_Program() {
 
@@ -25,7 +26,7 @@ function Admin_Relief_Program() {
         <Admin_sidebar />
         <div class="card">
           <div className='button'>
-            <button type="button" className="btn btn-primary" id='add_relief_progam'>Success</button>
+            <Link to={'/Create_Relief_Prog.js'} ><button type="button" className="btn btn-primary" id='add_relief_progam'>Create Relief Program</button></Link>
           </div>
           <table class="table">
   <thead>

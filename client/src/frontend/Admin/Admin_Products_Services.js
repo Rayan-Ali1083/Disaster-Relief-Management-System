@@ -26,11 +26,10 @@ function Admin_Products_Services() {
         <div class="card">
           <div className='button'>
           
-          
-          <button type="button" className="btn btn-primary" id='add_relief_progam'>Remove Product</button>
-          
-          <button type="button" className="btn btn-primary" id='add_relief_progam'>Edit Product</button>
-          <button type="button" className="btn btn-primary" id='add_relief_progam'>Add Product</button>
+          <Link to={"/Remove_Products.js"}><button type="button" className="btn btn-primary" id='add_relief_progam'>Remove Product</button></Link>
+          <Link to={"/Edit_Products.js"}><button type="button" className="btn btn-primary" id='add_relief_progam'>Edit Product</button></Link>
+          <Link to={"/Add_Products.js"}><button type="button" className="btn btn-primary" id='add_relief_progam'>Add Product</button></Link>
+
 
 
           </div>
@@ -60,41 +59,6 @@ function Admin_Products_Services() {
     </tbody>
 </table>
         </div>
-        <div class="card">
-          <div className='button'>
-          <button type="button" className="btn btn-primary" id='add_relief_progam'>Remove Service</button>
-          
-          <button type="button" className="btn btn-primary" id='add_relief_progam'>Edit Service</button>
-          <button type="button" className="btn btn-primary" id='add_relief_progam'>Add Service  </button>
-          </div>
-          <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Service ID</th>
-      <th scope="col">Service Name</th>
-      <th scope="col">Service Category</th>
-    </tr>
-  </thead>
-  <tbody>
-     <tr>
-      <th scope="row">1</th>
-      <td>100</td>
-      <td>Katrina</td>
-      <td>Ended</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr> 
-  
-
-  </tbody>
-</table>
-        </div>
-
     </>
     
   )

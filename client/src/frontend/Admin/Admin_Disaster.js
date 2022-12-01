@@ -3,6 +3,7 @@ import Header from '../../Extras/Header'
 import Admin_sidebar from '../../Extras/Admin_sidebar'
 import './admin_relief_program.css'
 import Axios from 'axios'
+import { Link } from 'react-router-dom';
 
 function Admin_Disaster() {
 
@@ -23,7 +24,7 @@ function Admin_Disaster() {
         <Admin_sidebar />
         <div class="card">
           <div className='button'>
-          <button type="button" className="btn btn-primary" id='add_relief_progam'>Add Disaster</button>
+          <Link to={'/Add_Disaster.js'}><button type="button" className="btn btn-primary" id='add_relief_progam'>Add Disaster</button></Link>
           <button type="button" className="btn btn-primary" id='add_relief_progam'>Add Disaster Category</button>
           </div>
           
@@ -35,6 +36,7 @@ function Admin_Disaster() {
       <th scope="col">Disaster Name</th>
       <th scope="col">Disaster date</th>
       <th scope="col">Disaster type</th>
+      
     </tr>
   </thead>
   <tbody>

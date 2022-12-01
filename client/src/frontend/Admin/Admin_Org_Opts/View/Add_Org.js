@@ -9,7 +9,7 @@ function Add_Org() {
           Setpendingorg(response.data)
         })
     
-      })
+      },[])
 
 
       const ApproveU = (org_id)=>{

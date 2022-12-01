@@ -15,8 +15,8 @@ const db = mysql.createPool({
 
     host:'localhost',
     user: 'root',
-    password: 'root',
-    database: 'drwms'
+    password: 'fast',
+    database: 'dbtest'
 
 });
 
@@ -54,12 +54,21 @@ app.post("/api/signup", (req,res)=>{
         if(err){
             console.log(err);
         }
-
+        var orgCategory = ""
+        let lastPromise = new Promise (function(Res,Rej){ const SqlCat = "Select org_category_id from org_category where org_type =? "
+        db.query(SqlCat,user.org_cate,(err,result)=>{
+            let resultx = JSON.parse(JSON.stringify(result));
+                orgCategory = result[0].org_category_id
+                console.log(orgCategory)
+                Res(result)
+        })})
+      lastPromise.then(
+        function (){
         var holder =  ""
         let myPromise = new Promise (function(myResolve,myReject){
 
        const sqldet = "Insert into organizations (org_name,org_category_id,org_contact) VALUES (?,?,?)"
-        db.query(sqldet,[user.org_name,user.cate,user.email],(err,result)=>{
+        db.query(sqldet,[user.org_name,orgCategory,user.email],(err,result)=>{
             if(err){
                 myReject("error")
                 console.log(err)
@@ -85,6 +94,7 @@ app.post("/api/signup", (req,res)=>{
             }else{
                  let resultx = JSON.parse(JSON.stringify(result));
                  holder = result[0].Org_id
+                 console.log(holder)
                  resolve(result)
                 // resultx.forEach((v) => console.log(v));
                 // console.log(resultx)
@@ -104,7 +114,10 @@ app.post("/api/signup", (req,res)=>{
            )
                 })}
 
-       )
+       )}
+      )
+       
+       
        
         
     })
@@ -127,6 +140,18 @@ app.get("/api/orginfo",(req,res)=>{
         res.send(result)
     }); 
 })
+
+app.get("/api/remOrg",(req,res)=>{
+const status = "ACTIVE"
+const admin = "ORG_0001"
+    const sqlget = 
+    "Select o.org_id,o.org_name,o.org_status, o.org_category_id,r.program_name from relief_program r, organizations o, relief_providers as rp where o.org_id = rp.org_id or rp.program_id = r.program_id and o.Org_status = ? and o.Org_id != ?";
+    db.query(sqlget,[status,admin], (err,result)=>{
+        console.log(err)
+        res.send(result)
+    }); 
+})
+
 
 app.get("/api/disasterinfo",(req,res)=>{
     const sqlget = 
@@ -182,7 +207,19 @@ app.post("/api/approvePending",(req,res)=>{
         }
     })
 })
+app.post("/api/addProd",(req,res)=>{
+    const user = req.body.prod
+    const hold = "ACTIVE"
+    const SqlU = "Insert into product (Product_name,Product_category) VALUES (?,?)"
 
+    db.query(SqlU,[user.product_name,user.product_cate],(err,result)=>{
+        if(err){
+            res.send(err)
+        }else{
+            res.send({message:"Product Added"})
+        }
+    })
+})
 app.post("/api/declinePending",(req,res)=>{
     const user = req.body.user
     const SqlU = "Delete from organizations where org_id = ?"
@@ -191,7 +228,7 @@ app.post("/api/declinePending",(req,res)=>{
         if(err){
             res.send(err)
         }else{
-            res.send({message:"Registration Request Declined"})
+            res.send({message:"Organization Removed"})
         }
     })
 })

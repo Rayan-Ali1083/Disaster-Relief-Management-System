@@ -11,7 +11,15 @@ function Remove_Products() {
 
     })
 
-  },[])
+  })
+
+  const Remove_Prod = (product_id)=>{
+    Axios.post("http://localhost:3001/api/remproducts",{user:product_id}).then((resultx)=>{
+      if(resultx.data.message){
+        alert(resultx.data.message);
+      }
+    })
+  };
 
   return (
     <>
@@ -30,10 +38,10 @@ function Remove_Products() {
             <tbody>
             {prodinfo.map((val=>
                  <tr>
-                    <td>{val.product_id}</td>
-                    <td >{val.product_name}</td>
-                    <td >{val.product_category}</td>
-                    <td><button type="button" style={{"background":"#ff392e", "borderRadius":"5px", "borderStyle":"none"}}>REMOVE</button></td>
+                    <td>{val.Product_id}</td>
+                    <td >{val.Product_name}</td>
+                    <td >{val.Product_category}</td>
+                    <td><button type="button" onClick={()=>{Remove_Prod(val.Product_id)}} style={{"background":"#ff392e", "borderRadius":"5px", "borderStyle":"none"}}>REMOVE</button></td>
 
                 </tr>
              ) )}

@@ -220,6 +220,19 @@ app.post("/api/addProd",(req,res)=>{
         }
     })
 })
+
+app.post("/api/remproducts",(req,res)=>{
+    const user = req.body.user
+    const SqlU = "Delete from product where Product_id = ?"
+
+    db.query(SqlU,user,(err,result)=>{
+        if(err){
+            res.send(err)
+        }else{
+            res.send({message:"Product Removed"})
+        }
+    })
+})
 app.post("/api/declinePending",(req,res)=>{
     const user = req.body.user
     const SqlU = "Delete from organizations where org_id = ?"

@@ -16,8 +16,8 @@ const db = mysql.createPool({
 
     host:'localhost',
     user: 'root',
-    password: 'fast',
-    database: 'dbtest'
+    password: 'fast123',
+    database: 'drwms'
 
 });
 

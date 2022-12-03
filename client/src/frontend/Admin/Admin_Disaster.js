@@ -101,7 +101,7 @@ function Admin_Disaster() {
       <th scope="col">Disaster Name</th>
       <th scope="col">Disaster date</th>
       <th scope="col">Disaster type</th>
-      
+      <th scope="col">Option</th>
     </tr>
   </thead>
   <tbody>
@@ -112,7 +112,7 @@ function Admin_Disaster() {
    <td>{val.disaster_name}</td>
    <td>{val.disaster_date}</td>
    <td>{val.disaster_type}</td>
-   
+   <td><button type="button" class="btn btn-primary">Disaster Details</button></td>
  </tr>
 
 

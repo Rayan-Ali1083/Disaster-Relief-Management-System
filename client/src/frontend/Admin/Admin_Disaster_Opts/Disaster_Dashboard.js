@@ -8,20 +8,20 @@ function Disaster_Dashboard() {
           <table className="table">
         <thead>
             <tr>
-            <th scope="col"></th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-            <th scope="col">Option</th>
+            <th scope="col">Disaster Location ID</th>
+            <th scope="col">Disaster Name</th>
+            <th scope="col">City Name</th>
+            <th scope="col">Location Name</th>
             </tr>
         </thead>
   <tbody>
  
     <tr>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td>007</td>
+        <td>James Bold</td>
+        <td>Karachi</td>
+        <td>Gulshan</td>
 
-        <button type="button" style={{"background":"#89bd79", "borderRadius":"5px", "borderStyle":"none"}}>Add</button>
     </tr>
    
   </tbody>

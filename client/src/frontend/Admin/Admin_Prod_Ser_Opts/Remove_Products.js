@@ -11,7 +11,7 @@ function Remove_Products() {
 
     })
 
-  })
+  },[])
 
   const Remove_Prod = (product_id)=>{
     Axios.post("http://localhost:3001/api/remproducts",{user:product_id}).then((resultx)=>{

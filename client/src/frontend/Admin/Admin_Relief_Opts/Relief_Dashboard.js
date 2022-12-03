@@ -58,7 +58,47 @@ function Relief_Dashboard() {
         </tbody>
     </table>
     <h3>PRODUCT REQUIREMENT
-        <button type="button" className="btn btn-primary" style={{"marginLeft":"10%"}}>Raise Requirment</button>
+        <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style={{"marginLeft":"10%"}}>Raise Requirment</button>
+        <div class="modal-centered modal-scrollable modal fade modal-lg" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5 text-black" id="exampleModalLabel">ADD ORGANIZATION CATEGORY</h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="d-grid gap-2 col-6 mx-auto">                    
+                                <select class="form-select" aria-label="Default select example">
+                                <option selected>--Select Product--</option>
+                                <option value="1">Milk</option>
+                                <option value="2">Choclate</option>
+                                <option value="3">Condom</option>
+                                </select>
+                                <select class="form-select" aria-label="Default select example">
+                                <option selected>--Disaster Location--</option>
+                                <option value="1">Your mom</option>
+                                <option value="2">Fast</option>
+                                <option value="3">lol</option>
+                                </select>
+                                <select class="form-select" aria-label="Default select example">
+                                <option selected>--Relief Program--</option>
+                                <option value="1">ABCD</option>
+                                <option value="2">AAA</option>
+                                <option value="3">XXX</option>
+                                </select>
+                                <input type="text" class="form-control" placeholder="Quantity" aria-label="Recipient's username" aria-describedby="basic-addon2"></input>
+                                <input type="date" style={{"fontSize":"medium"}}></input>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+
+                          <button type="button" className="btn btn-outline-success" data-bs-dismiss="modal">Add</button>
+                          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Go Back</button>
+                         
+                        </div>
+                      </div>
+                    </div>
+                    </div>
     </h3>
     <table className="table">
         <thead>

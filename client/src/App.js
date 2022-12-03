@@ -16,6 +16,8 @@ import Remove_Products from './frontend/Admin/Admin_Prod_Ser_Opts/Remove_Product
 import Create_Relief_Prog from './frontend/Admin/Admin_Relief_Opts/Create_Relief_Prog';
 import Users_Relief_Programs from './frontend/Users/Users_Relief_Programs';
 import Add_Disaster from './frontend/Admin/Admin_Disaster_Opts/Add_Disaster';
+import Disaster_Dashboard from './frontend/Admin/Admin_Disaster_Opts/Disaster_Dashboard';
+import Relief_Dashboard from './frontend/Admin/Admin_Relief_Opts/Relief_Dashboard';
 import React from 'react';
 import './App.css'
 import {BrowserRouter as Router,Route, Routes} from "react-router-dom"
@@ -43,6 +45,8 @@ function App() {
         <Route path='/Remove_Products.js' element={<Remove_Products />} />
         <Route path='/Create_Relief_Prog.js' element={<Create_Relief_Prog />} />
         <Route path='/Add_Disaster.js' element={<Add_Disaster />} />
+        <Route path='/Disaster_Dashboard.js' element={<Disaster_Dashboard />} />
+        <Route path='/Relief_Dashboard.js' element={<Relief_Dashboard />} />
         
       </Routes>
     </Router>

@@ -49,7 +49,7 @@ function Admin_Disaster() {
     <>
         <Header/>
         <Admin_sidebar />
-        <div class="card">
+        <div className="card">
           <div className='button'>
           <Link to={'/Add_Disaster.js'}><button type="button" className="btn btn-primary" id='add_relief_progam'>Add Disaster</button></Link>
           <button type="button" className="btn btn-primary" id='add_relief_progam' data-bs-toggle="modal" data-bs-target="#exampleModal">Add Disaster Category</button>
@@ -65,35 +65,70 @@ function Admin_Disaster() {
                         </div>
                         <div class="modal-body">
                             <div class="d-grid gap-2 col-6 mx-auto">
-                                
-                            <input type="email" className='large-input' value={newCategory.Disaster_type} name='Disaster_type' onChange={handleInputs} placeholder="Disaster Category"></input>
-                            
 
-                               
+                            <input type="email" className='large-input' value={newCategory.Disaster_type} name='Disaster_type' onChange={handleInputs} placeholder="Disaster Category"></input>
+
+
+
                               </div>                                  
                         </div>
                         <div class="modal-footer">
 
                           <button type="button" onClick={SubmitU} className="btn btn-outline-success" data-bs-dismiss="modal">Add</button>
                           <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Go Back</button>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+    
+          <button type="button" className="btn btn-primary"  id='add_relief_progam' data-bs-toggle="modal" data-bs-target="#exampleModal">Disaster Locations</button>
+          <div className="modal-centered modal-scrollable modal fade modal-xl" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div className="modal-dialog">
+                      <div className="modal-content">
+                        <div className="modal-header">
+                          <h1 className="modal-title fs-5 text-black" id="exampleModalLabel">ADD LOCATION</h1>
+                          <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div className="modal-body">
+                            <div className="d-grid gap-2 col-6 mx-auto">
+                            <div class="form-group">
+                              <label for="exampleFormControlSelect1">Cities</label>
+                              <select class="form-control" id="exampleFormControlSelect1">
+                                <option>--Select City--</option>
+                                <option>Lahore</option>
+                                <option>Sukkur</option>
+                                <option>Taiwan</option>
+                                <option>dholakpur</option>
+                              </select>
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleFormControlSelect1">Disaster</label>
+                              <select class="form-control" id="exampleFormControlSelect1">
+                                <option>--Select Disaster--</option>
+                                <option>Cal</option>
+                                <option>DE</option>
+                                <option>Nadeem Boi</option>
+                                <option>Muazzam</option>
+                              </select>
+                            </div>
+                              <input type="text" class="form-control" placeholder="Location Name" aria-label="Location Name" aria-describedby="basic-addon1"></input>
+                            </div>      
+                        </div>
+                        <div className="modal-footer">
+
+                          <button type="button" onClick={SubmitU} className="btn btn-outline-success" data-bs-dismiss="modal">Add</button>
+                          <button type="button" className="btn btn-outline-secondary" data-bs-dismiss="modal">Go Back</button>
                          
                         </div>
                       </div>
                     </div>
                   </div>
-
-
-
-
-
-
-
-
-
-
+          
+          {/* yeh aik different page pe jaye ha */}
           </div>
           
-          <table class="table">
+          <table className="table">
   <thead>
     <tr>
       <th scope="col">#</th>
@@ -101,7 +136,7 @@ function Admin_Disaster() {
       <th scope="col">Disaster Name</th>
       <th scope="col">Disaster date</th>
       <th scope="col">Disaster type</th>
-      
+      <th scope="col">Option</th>
     </tr>
   </thead>
   <tbody>
@@ -112,7 +147,7 @@ function Admin_Disaster() {
    <td>{val.disaster_name}</td>
    <td>{val.disaster_date}</td>
    <td>{val.disaster_type}</td>
-   
+   <td><Link to={'/Disaster_Dashboard.js'}><button type="button" className="btn btn-primary">Disaster Dashboard</button></Link></td>
  </tr>
 
 

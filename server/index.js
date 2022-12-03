@@ -7,6 +7,7 @@ const bcrypt = require('bcrypt');
 const { response } = require('express');
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
+const mom = require('moment')
 
 const saltRounds = 10
 
@@ -15,7 +16,7 @@ const db = mysql.createPool({
 
     host:'localhost',
     user: 'root',
-    password: 'fast123',
+    password: 'root',
     database: 'drwms'
 
 });

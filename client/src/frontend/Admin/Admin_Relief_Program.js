@@ -53,7 +53,7 @@ function Admin_Relief_Program() {
    <td>{val.disaster_name}</td>
    <td>{val.start_date}</td>
    <td>{val.end_date}</td>
-   <td><button type="button" class="btn btn-primary">Dashboard</button></td>
+   <td><Link to={'/Relief_Dashboard.js'} ><button type="button" class="btn btn-primary">Dashboard</button></Link></td>
  </tr>
 
 

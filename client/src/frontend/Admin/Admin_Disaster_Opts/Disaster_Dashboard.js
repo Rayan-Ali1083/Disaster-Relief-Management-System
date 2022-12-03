@@ -1,10 +1,10 @@
 import React from 'react'
 
-function Disaster_Locations() {
+function Disaster_Dashboard() {
   return (
     <>
         <div className="card" style={{"margin": "auto", "width": "100%","border": "10px solid green","padding":"5%"}}>
-          <h3>DISASTER LOCATIONS</h3>
+          <h3>DISASTER DASHBOARD</h3>
           <table className="table">
         <thead>
             <tr>
@@ -32,4 +32,4 @@ function Disaster_Locations() {
   )
 }
 
-export default Disaster_Locations
+export default Disaster_Dashboard

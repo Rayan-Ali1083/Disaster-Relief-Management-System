@@ -7,7 +7,6 @@ const bcrypt = require('bcrypt');
 const { response } = require('express');
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
-const mom = require('moment')
 
 const saltRounds = 10
 
@@ -16,8 +15,8 @@ const db = mysql.createPool({
 
     host:'localhost',
     user: 'root',
-    password: 'root',
-    database: 'drwms'
+    password: 'fast',
+    database: 'dbtest'
 
 });
 
@@ -159,6 +158,25 @@ app.get("/api/disasterinfo",(req,res)=>{
     "Select d.disaster_id,d.disaster_name,d.disaster_date,dc.disaster_type from disaster d, disaster_category dc where d.disaster_type_id = dc.disaster_type_id";
     db.query(sqlget, (err,result)=>{
         console.log(err)
+        console.log(result)
+        res.send(result)
+    }); 
+
+})
+app.get("/api/disastercateg",(req,res)=>{
+    const sqlget = 
+    "Select disaster_type from disaster_category";
+    db.query(sqlget, (err,result)=>{
+        console.log(err)
+        res.send(result)
+    }); 
+
+})
+app.get("/api/disastername",(req,res)=>{
+    const sqlget = 
+    "Select disaster_name from disaster";
+    db.query(sqlget, (err,result)=>{
+        console.log(err)
         res.send(result)
     }); 
 
@@ -222,6 +240,78 @@ app.post("/api/addProd",(req,res)=>{
     })
 })
 
+app.post("/api/addDisaster",(req,res)=>{
+
+    const u = req.body.dis
+    var hol =  ""
+
+let dPromise = new Promise (function(Resolve,Reject){
+
+  const SqlD = "Select disaster_type_id from disaster_category where disaster_type = ?"
+        db.query(SqlD,u.dis_type,(err,result)=>{
+            let resultx = JSON.parse(JSON.stringify(result))
+            console.log(result)
+            hol = result[0].disaster_type_id
+            Resolve("ok")
+            
+        })
+
+
+
+})
+      dPromise.then(
+
+        function() { 
+             SqlR = "Insert into disaster (disaster_name,disaster_date,disaster_type_id) VALUES (?,?,?)"
+            db.query(SqlR,[u.dis_name,u.date,hol],(err,result)=>{
+                if(err){
+                    console.log(err)
+                }
+                res.send({message:"Disaster Added"})
+            })}
+      )
+   
+          
+        }
+    )
+
+
+app.post("/api/addReliefP",(req,res)=>{
+
+    const user = req.body.prog
+
+
+    var dis = ""
+    let dPromise = new Promise(function(Resolve,Reject){
+
+        const sql = "Select disaster_id from disaster where disaster_name = ?"
+        db.query(sql,user.dis_name,(err,result)=>{
+
+            let resultx = JSON.parse(JSON.stringify(result))
+            dis = result[0].disaster_id
+            Resolve("ok")
+        })
+
+    })
+
+    dPromise.then(
+        function(){
+
+            const SqlI = "Insert into relief_program(program_name,program_status,start_date,disaster_id) VALUES(?,?,?,?)"
+  
+            db.query(SqlI,[user.prog_name,user.prog_status,user.sdate,dis],(err,result)=>{
+                if(err){
+                    console.log(err)
+                }
+                res.send({message:"Relief Program Created"})
+                  
+            })
+  
+        }
+
+    )
+
+})
 
 app.post("/api/add_disastercategory",(req,res)=>{
     const user = req.body.category

@@ -24,7 +24,7 @@ function Admin_Disaster() {
     Disaster_type: "" 
   });
 
-  const SubmitU = ()=>{
+  const SubmitNewCateg = ()=>{
     Axios.post("http://localhost:3001/api/add_disastercategory",{category:newCategory}).then((resultx)=>{
       if(resultx.data.message){
         alert(resultx.data.message);
@@ -74,7 +74,7 @@ function Admin_Disaster() {
                         </div>
                         <div class="modal-footer">
 
-                          <button type="button" onClick={SubmitU} className="btn btn-outline-success" data-bs-dismiss="modal">Add</button>
+                          <button type="button" onClick={SubmitNewCateg} className="btn btn-outline-success" data-bs-dismiss="modal">Add</button>
                           <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Go Back</button>
 
                         </div>
@@ -117,7 +117,7 @@ function Admin_Disaster() {
                         </div>
                         <div className="modal-footer">
 
-                          <button type="button" onClick={SubmitU} className="btn btn-outline-success" data-bs-dismiss="modal">Add</button>
+                          <button type="button" onClick={SubmitNewCateg} className="btn btn-outline-success" data-bs-dismiss="modal">Add</button>
                           <button type="button" className="btn btn-outline-secondary" data-bs-dismiss="modal">Go Back</button>
                          
                         </div>

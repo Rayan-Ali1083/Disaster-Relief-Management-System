@@ -15,7 +15,11 @@ const db = mysql.createPool({
 
     host:'localhost',
     user: 'root',
+<<<<<<< HEAD
     password: 'root',
+=======
+    password: 'fast123',
+>>>>>>> eb3fb520febcb378b1dad3caf2cb8031f50dfdb3
     database: 'drwms'
 
 });
@@ -217,6 +221,35 @@ app.post("/api/addProd",(req,res)=>{
             res.send(err)
         }else{
             res.send({message:"Product Added"})
+        }
+    })
+})
+
+
+app.post("/api/add_disastercategory",(req,res)=>{
+    const user = req.body.category
+    const hold = "ACTIVE"
+    const SqlU = "Insert into disaster_category (Disaster_type) VALUES (?)"
+
+    db.query(SqlU,[user.Disaster_type],(err,result)=>{
+        if(err){
+            res.send(err)
+        }else{
+            res.send({message:"New Category Added"})
+        }
+    })
+})
+
+app.post("/api/add_orgcategory",(req,res)=>{
+    const user = req.body.category
+    const hold = "ACTIVE"
+    const SqlU = "Insert into org_category (Org_type) VALUES (?)"
+
+    db.query(SqlU,[user.Org_type],(err,result)=>{
+        if(err){
+            res.send(err)
+        }else{
+            res.send({message:"New Category Added"})
         }
     })
 })

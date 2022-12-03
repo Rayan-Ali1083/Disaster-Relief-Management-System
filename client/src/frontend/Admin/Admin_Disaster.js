@@ -52,7 +52,36 @@ function Admin_Disaster() {
         <div className="card">
           <div className='button'>
           <Link to={'/Add_Disaster.js'}><button type="button" className="btn btn-primary" id='add_relief_progam'>Add Disaster</button></Link>
-          <button type="button" className="btn btn-primary" id='add_relief_progam'>Add Disaster Category</button>
+          <button type="button" className="btn btn-primary" id='add_relief_progam' data-bs-toggle="modal" data-bs-target="#exampleModal">Add Disaster Category</button>
+
+
+
+          <div class="modal-centered modal-scrollable modal fade modal-lg" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5 text-black" id="exampleModalLabel">ADD DISASTER CATEGORY</h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="d-grid gap-2 col-6 mx-auto">
+
+                            <input type="email" className='large-input' value={newCategory.Disaster_type} name='Disaster_type' onChange={handleInputs} placeholder="Disaster Category"></input>
+
+
+
+                              </div>                                  
+                        </div>
+                        <div class="modal-footer">
+
+                          <button type="button" onClick={SubmitU} className="btn btn-outline-success" data-bs-dismiss="modal">Add</button>
+                          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Go Back</button>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+    
           <button type="button" className="btn btn-primary"  id='add_relief_progam' data-bs-toggle="modal" data-bs-target="#exampleModal">Disaster Locations</button>
           <div className="modal-centered modal-scrollable modal fade modal-xl" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div className="modal-dialog">
@@ -63,16 +92,27 @@ function Admin_Disaster() {
                         </div>
                         <div className="modal-body">
                             <div className="d-grid gap-2 col-6 mx-auto">
-                              <div className="dropdown" >
-                              <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="cities" aria-expanded="false">
-                                  Cities
-                                </button>
-                                <button className="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="disaster" aria-expanded="false">
-                                  Disaster
-                                </button>
-                                {/* drop downs ke options add karne hai */}
-                              </div>
-                              <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1"></input>
+                            <div class="form-group">
+                              <label for="exampleFormControlSelect1">Cities</label>
+                              <select class="form-control" id="exampleFormControlSelect1">
+                                <option>--Select City--</option>
+                                <option>Lahore</option>
+                                <option>Sukkur</option>
+                                <option>Taiwan</option>
+                                <option>dholakpur</option>
+                              </select>
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleFormControlSelect1">Disaster</label>
+                              <select class="form-control" id="exampleFormControlSelect1">
+                                <option>--Select Disaster--</option>
+                                <option>Cal</option>
+                                <option>DE</option>
+                                <option>Nadeem Boi</option>
+                                <option>Muazzam</option>
+                              </select>
+                            </div>
+                              <input type="text" class="form-control" placeholder="Location Name" aria-label="Location Name" aria-describedby="basic-addon1"></input>
                             </div>      
                         </div>
                         <div className="modal-footer">

@@ -251,6 +251,24 @@ app.post("/api/dashinfo", (req, res) => {
 
 })
 
+app.post("/api/dislocdashinfo", (req, res) => {
+     
+    const user = req.body.dash
+    const sqlget =
+        "select dl.Disaster_location_id,dl.Location_name,c.City_name,p.Province_name from disaster_locations dl,cities c,provinces p where dl.Disaster_id=? and dl.city_id=c.City_id and c.Province_id=p.Province_id"
+    db.query(sqlget, user,(err, result) => {
+        if(err){
+         console.log(err)   
+         console.log(result)
+        }
+        else{
+            res.send(result)
+        }
+        
+    });
+
+})
+
 
 app.get("/api/getpending", (req, res) => {
 

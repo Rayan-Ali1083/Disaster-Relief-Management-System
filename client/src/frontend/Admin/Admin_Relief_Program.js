@@ -3,10 +3,13 @@ import Header from '../../Extras/Header'
 import Admin_sidebar from '../../Extras/Admin_sidebar'
 import './admin_relief_program.css'
 import Axios from 'axios'
-import { Link } from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 
 function Admin_Relief_Program() {
 
+
+
+  const navigate= useNavigate()
   
   const [reliefdet,Setreliefdet] = useState([]);
 
@@ -19,6 +22,10 @@ function Admin_Relief_Program() {
 
   },[])
 
+
+  const toComponentB=(program_id)=>{
+    navigate('/Relief_Dashboard.js',{state:{id:program_id}});
+      }
 
   return (
     <>
@@ -53,7 +60,7 @@ function Admin_Relief_Program() {
    <td>{val.disaster_name}</td>
    <td>{val.start_date}</td>
    <td>{val.end_date}</td>
-   <td><Link to={'/Relief_Dashboard.js'} ><button type="button" class="btn btn-primary">Dashboard</button></Link></td>
+   <td><button type="button" onClick={()=>{toComponentB(val.program_id)}} class="btn btn-primary">Dashboard</button></td>
  </tr>
 
 

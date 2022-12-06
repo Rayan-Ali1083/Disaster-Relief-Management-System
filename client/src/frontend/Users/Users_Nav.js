@@ -14,13 +14,13 @@ function Users_Nav() {
                     <a className="nav-link active" aria-current="page" href="/Users_Relief_Programs.js">Relief Programs</a>
                     </li>
                     <li className="nav-item">
-                    <a className="nav-link active" aria-current="page" href="#">Requirements</a>
+                    <a className="nav-link active" aria-current="page" href="/Users_Requirements.js">Requirements</a>
                     </li>
                     <li className="nav-item">
-                    <a className="nav-link active" aria-current="page" href="#">Commitments</a>
+                    <a className="nav-link active" aria-current="page" href="/Users_Commitments.js">Commitments</a>
                     </li>
                     <li className="nav-item">
-                    <a className="nav-link active" aria-current="page" href="#">Fulfilments</a>
+                    <a className="nav-link active" aria-current="page" href="/Users_Fullfilment.js">Fullfillments</a>
                     </li>
                 </ul>
                 </div>

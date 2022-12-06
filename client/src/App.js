@@ -15,6 +15,9 @@ import Edit_Products from './frontend/Admin/Admin_Prod_Ser_Opts/Edit_Products';
 import Remove_Products from './frontend/Admin/Admin_Prod_Ser_Opts/Remove_Products';
 import Create_Relief_Prog from './frontend/Admin/Admin_Relief_Opts/Create_Relief_Prog';
 import Users_Relief_Programs from './frontend/Users/Users_Relief_Programs';
+import Users_Requirements from './frontend/Users/Users_Requirements';
+import Users_Commitments from './frontend/Users/Users_Commitments';
+import Users_Fullfilment from './frontend/Users/Users_Fullfilment';
 import Add_Disaster from './frontend/Admin/Admin_Disaster_Opts/Add_Disaster';
 import Disaster_Dashboard from './frontend/Admin/Admin_Disaster_Opts/Disaster_Dashboard';
 import Relief_Dashboard from './frontend/Admin/Admin_Relief_Opts/Relief_Dashboard';
@@ -47,6 +50,9 @@ function App() {
         <Route path='/Add_Disaster.js' element={<Add_Disaster />} />
         <Route path='/Disaster_Dashboard.js' element={<Disaster_Dashboard />} />
         <Route path='/Relief_Dashboard.js' element={<Relief_Dashboard />} />
+        <Route path='/Users_Requirements.js' element={<Users_Requirements />} />
+        <Route path='/Users_Commitments.js' element={<Users_Commitments />} />
+        <Route path='/Users_Fullfilment.js' element={<Users_Fullfilment />} />
         
       </Routes>
     </Router>

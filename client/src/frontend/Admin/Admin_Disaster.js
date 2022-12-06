@@ -3,9 +3,17 @@ import Header from '../../Extras/Header'
 import Admin_sidebar from '../../Extras/Admin_sidebar'
 import './admin_relief_program.css'
 import Axios from 'axios'
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
+
+import {useNavigate} from 'react-router-dom';
 
 function Admin_Disaster() {
+
+
+  const navigate= useNavigate()
+  const toComponentdisloc=(Disaster_id)=>{
+    navigate('/Disaster_Dashboard.js',{state:{id:Disaster_id}});
+    }
 
 
   const [removeDis, SetremoveDis] = useState([]);
@@ -171,12 +179,21 @@ function Admin_Disaster() {
             <div className="modal-dialog">
               <div className="modal-content">
                 <div className="modal-header">
-                  <h1 className="modal-title fs-5 text-black" id="exampleModalLabel">ADD LOCATION</h1>
+                  <h3 className="modal-title fL-5 text-black" id="exampleModalLabel">ADD DISASTER LOCATION</h3>
                   <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div className="modal-body" >
-                  <div className="d-grid gap-2 col-6 mx-auto" >
-      
+                <div className="card" style={{"margin": "auto", "width": "100%","border": "4px solid black","padding":"5%"}}>
+          {/* <h3>ADD DISASTER LOCATION</h3> */}
+          <table className="table">
+        <thead>
+            <tr>
+            <th scope="col">CITY</th>
+            <th scope="col">DISASTER</th>
+            <th scope="col">LOCATION Name</th>
+            </tr>
+        </thead>
+                   <tbody>
                     <tr >
 
                       <td>
@@ -206,15 +223,17 @@ function Admin_Disaster() {
                       {/* <button type="button" onClick={addDis} style={{ "background": "#89bd79", "borderRadius": "5px", "borderStyle": "none" }}>Add</button> */}
                     </tr>
 
+                    </tbody>
 
 
 
+                    </table>
                   </div>
                 </div>
                 <div className="modal-footer">
 
-                  <button type="button" onClick={addDisLoc} className="btn btn-outline-success" data-bs-dismiss="modal">Add</button>
-                  <button type="button" className="btn btn-outline-secondary" data-bs-dismiss="modal">Go Back</button>
+                  <button type="button" onClick={addDisLoc} className="btn btn-success" data-bs-dismiss="modal">Add</button>
+                  <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Go Back</button>
 
                 </div>
               </div>
@@ -228,16 +247,16 @@ function Admin_Disaster() {
             <div className="modal-dialog modal-fullscreen">
               <div className="modal-content">
                 <div className="modal-header">
-                  <h1 className="modal-title fs-5 text-black" id="exampleModalLabel">REMOVE DISASTER</h1>
+                  <h3 className="modal-title fl-5 text-black" id="exampleModalLabel">REMOVE DISASTER</h3>
                   <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div className="modal-body" >
-                  {/* <div className="d-grid gap-2 col-6 mx-auto" > */}
+                
 
 
 
-                  <div className="card" style={{ "margin": "auto", "width": "100%", "border": "10px solid green", "padding": "5%" }}>
-                    <h3>REMOVE DISASTER</h3>
+                  <div className="card" style={{ "margin": "auto", "width": "100%", "border": "5px solid black", "padding": "5%" }}>
+                    {/* <h3>REMOVE DISASTER</h3> */}
                     <table className="table">
 
                       <thead>
@@ -277,7 +296,7 @@ function Admin_Disaster() {
 
 
 
-                  {/* </div> */}
+                  
                 </div>
                 <div className="modal-footer">
 
@@ -311,7 +330,7 @@ function Admin_Disaster() {
                 <td>{val.disaster_name}</td>
                 <td>{val.disaster_date}</td>
                 <td>{val.disaster_type}</td>
-                <td><Link to={'/Disaster_Dashboard.js'}><button type="button" className="btn btn-primary">Disaster Dashboard</button></Link></td>
+                <td><button type="button" onClick={()=>{toComponentdisloc(val.disaster_id)}} class="btn btn-primary">Dashboard</button></td>
               </tr>
 
 

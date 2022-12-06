@@ -22,6 +22,7 @@ function Add_Products() {
     Axios.post("http://localhost:3001/api/addProd",{prod:newProduct}).then((resultx)=>{
       if(resultx.data.message){
         alert(resultx.data.message);
+        newProduct.product_name.value=" "
       }else{
         alert(resultx.data.message1);
       }

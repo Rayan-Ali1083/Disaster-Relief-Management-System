@@ -10,15 +10,11 @@ const Login_page = () => {
    const [user, setUser] = useState({
     email: "", password:""
    });
-   const[loginStatus, setLoginStatus] = useState();
+   const[loginStatus, setLoginStatus] = useState([]);
 
-   const authenticate = (loginStatus)=>{
-
-        if(loginStatus){
-          console.log("here");
-          navigate('Admin_Home.js')
-        }
-   };
+   const toComponentC=(org_id)=>{
+    navigate('/Users_Home.js',{state:{id:org_id}});
+      }
   
    const login = ()=>{
     Axios.post("http://localhost:3001/api/login",{username:user.email,password:user.password,}).then((response)=>{
@@ -26,8 +22,8 @@ const Login_page = () => {
        //setLoginStatus(response.data.message)
         alert(response.data.message);
       }else{
-        setLoginStatus(true);
-        navigate('Admin_Home.js')
+        setLoginStatus(response.data);
+       toComponentC(response.data)
         
       }
     });

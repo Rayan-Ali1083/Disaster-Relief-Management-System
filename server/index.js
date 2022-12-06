@@ -15,12 +15,8 @@ const db = mysql.createPool({
 
     host:'localhost',
     user: 'root',
-<<<<<<< HEAD
-    password: 'root',
-=======
-    password: 'fast123',
->>>>>>> d6e4eae0a57e65a8c9d0cb932ef6496bb0d6620b
-    database: 'drwms'
+    password: 'fast',
+    database: 'dbtest'
 
 });
 
@@ -147,6 +143,19 @@ app.get("/api/orginfo",(req,res)=>{
     }); 
 })
 
+app.post("/api/orgdetails",(req,res)=>{
+
+    const user = req.body.dash
+    const sqlget = 
+    "Select o.org_id,o.org_name,o.org_status, oc.org_type,o.org_contact from organizations o, org_category oc where o.org_category_id = oc.org_category_id and org_id = ?";
+    db.query(sqlget,user, (err,result)=>{
+        console.log(err)
+        console.log(result)
+        res.send(result)
+    }); 
+})
+
+
 app.get("/api/remOrg",(req,res)=>{
 const status = "ACTIVE"
 const admin = "ORG_0001"
@@ -197,6 +206,20 @@ app.get("/api/disastercateg",(req,res)=>{
     "Select disaster_type from disaster_category";
     db.query(sqlget, (err,result)=>{
         console.log(err)
+        res.send(result)
+    }); 
+
+})
+
+
+app.get("/api/orgtype",(req,res)=>{
+
+    const hold = "ORG_CAT_001"
+    const sqlget = 
+    "Select org_type from org_category where org_category_id != ?";
+    db.query(sqlget,hold, (err,result)=>{
+        console.log(err)
+        console.log(result)
         res.send(result)
     }); 
 
@@ -561,17 +584,29 @@ app.post("/api/login", (req,res)=>{
     const username = req.body.username;
     const password = req.body.password;
 
-    const sqlRet = "Select * from logindet where username = ?";
+    const hold = "PENDING"
+    const check = "Select * from users u, organizations o where u.username = ? and u.org_id = o.org_id and o.org_status = ?"
+    
+    db.query(check,[username,hold],(err,result)=>{
+
+        if(result.length > 0){
+            res.send({message:"Your Registration is Pending"})
+        }
+
+        else{
+ const sqlRet = "Select * from users where username = ?";
     db.query(sqlRet, username,(err,result)=>{
         if(err){
             res.send({err:err});
         }
         if(result.length > 0){
-            bcrypt.compare(password,result[0].pass,(error,response)=>{
+            bcrypt.compare(password,result[0].password,(error,response)=>{
                 if(response){
-                    res.send(result)
+                    res.send(result[0].Org_id)
+                    console.log(response)
                 }else{
                     res.send({message:"Wrong username/password combination"})
+                    console.log(response)
                 }
             })
         }else{
@@ -579,6 +614,11 @@ app.post("/api/login", (req,res)=>{
         }
 
     });
+
+        }
+
+    })
+   
 });
 
 

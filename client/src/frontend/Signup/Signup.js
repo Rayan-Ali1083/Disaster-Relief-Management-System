@@ -20,6 +20,17 @@ function Signup() {
     })
   };
 
+const [orgtype,Setorgtype] = useState([])
+
+  useEffect(() => {
+    Axios.get("http://localhost:3001/api/orgtype").then((response) => {
+      Setorgtype(response.data)
+      console.log(response.data)
+
+    })
+
+  }, [])
+
   let name, value;
 
   const handleInputs = (e) =>{
@@ -45,9 +56,13 @@ function Signup() {
                 
                 <input type="email" className='small-input' value={newUser.org_province} name='org_province' onChange={handleInputs} placeholder="Province"></input>
 
-                  <select className="form-select"  style={{'width':'35%', 'marginLeft':'55%', 'marginTop':'-4%'}}>
-                    <option>Organization Category</option>
-                  </select>
+                  <select className="form-select" value={newUser.org_cate} name='org_cate' onChange={handleInputs} style={{'width':'35%', 'marginLeft':'55%', 'marginTop':'-4%'}}>
+                  <option selected>Organization Category</option>
+                  {orgtype.map((val) => (
+                            <option >{val.org_type}</option>
+                          ))}
+                        </select>
+                 
               <NavLink to='/' end><button type="button" className="btn btn-primary" style={{"marginLeft": "10%", "marginTop": "10%"}}>Go Back</button></NavLink>
               <button type="button" onClick={SubmitU} className="btn btn-primary" style={{"marginTop": "10%", "marginLeft": "68%"}}>Submit</button>
             </div>

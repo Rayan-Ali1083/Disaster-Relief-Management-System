@@ -15,8 +15,8 @@ const db = mysql.createPool({
 
     host:'localhost',
     user: 'root',
-    password: 'root',
-    database: 'drwms'
+    password: 'fast',
+    database: 'dbtest'
 
 });
 
@@ -51,21 +51,23 @@ app.post("/api/signup", (req,res)=>{
                 else{
            bcrypt.hash(user.pass,saltRounds, (err,hash)=>{
 
-        if(err){
-            console.log(err);
-        }
-        var orgCategory = ""
-        let lastPromise = new Promise (function(Res,Rej){ const SqlCat = "Select org_category_id from org_category where org_type =? "
-        db.query(SqlCat,user.org_cate,(err,result)=>{
-            let resultx = JSON.parse(JSON.stringify(result));
-                orgCategory = result[0].org_category_id
-                console.log(orgCategory)
-                Res(result)
-        })})
-      lastPromise.then(
-        function (){
-        var holder =  ""
-        let myPromise = new Promise (function(myResolve,myReject){
+                        if (err) {
+                            console.log(err);
+                        }
+                        var orgCategory = ""
+                        let lastPromise = new Promise(function (Res, Rej) {
+                            const SqlCat = "Select org_category_id from org_category where org_type =? "
+                            db.query(SqlCat, user.org_cate, (err, result) => {
+                                let resultx = JSON.parse(JSON.stringify(result));
+                                console.log(result)
+                                orgCategory = result[0].org_category_id
+                                Res(result)
+                            })
+                        })
+                        lastPromise.then(
+                            function () {
+                                var holder = ""
+                                let myPromise = new Promise(function (myResolve, myReject) {
 
        const sqldet = "Insert into organizations (org_name,org_category_id,org_contact) VALUES (?,?,?)"
         db.query(sqldet,[user.org_name,orgCategory,user.email],(err,result)=>{
@@ -192,7 +194,82 @@ app.get("/api/reliefinfo",(req,res)=>{
     }); 
 
 })
-app.get("/api/getpending",(req,res)=>{
+
+app.get("/api/disastername", (req, res) => {
+    const sqlget =
+        "Select disaster_name from disaster";
+    db.query(sqlget, (err, result) => {
+        console.log(err)
+        res.send(result)
+    });
+
+})
+
+app.get("/api/reliefinfo", (req, res) => {
+
+    const sqlget =
+        "Select r.program_id,r.program_name,r.program_status,d.disaster_name,r.start_date,r.end_date from relief_program r, disaster d where r.disaster_id = d.disaster_id";
+    db.query(sqlget, (err, result) => {
+        console.log(err)
+        res.send(result)
+    });
+
+})
+
+app.post("/api/dashinfo", (req, res) => {
+     
+    const user = req.body.dash
+    const sqlget =
+        "Select r.program_id,r.program_name,r.program_status,r.start_date,pc.p_commitment_id,o.org_name,p.product_name,dl.location_name,pc.comm_qty,pc.comm_date,pc.exp_delivery_date,pc.status,d.disaster_name from relief_program r,disaster d,disaster_locations dl,product_committment pc,organizations o,product p where r.program_id = ? and r.program_id = pc.program_id and pc.product_id = p.product_id and pc.disaster_location_id = dl.disaster_location_id and r.disaster_id = d.disaster_id and pc.org_id = o.org_id "
+    db.query(sqlget, user,(err, result) => {
+        if(err){
+         console.log(err)   
+         console.log(result)
+        }
+        else{
+            res.send(result)
+        }
+        
+    });
+
+})
+
+app.post("/api/dashmoreinfo", (req, res) => {
+     
+    const user = req.body.dash
+    const sqlget =
+        "Select pr.p_requirement_id, p.product_name, dl.location_name, pr.req_qty, pr.request_date from product_requirements pr,disaster_locations dl,product p where pr.program_id = ? and pr.disaster_location_id = dl.disaster_location_id and pr.product_id = p.product_id"
+    db.query(sqlget, user,(err, result) => {
+        if(err){
+         console.log(err)   
+         console.log(result)
+        }
+        else{
+            res.send(result)
+        }
+        
+    });
+
+})
+
+app.post("/api/dashfulinfo", (req, res) => {
+     
+    const user = req.body.dash
+    const sqlget =
+        "Select pf.qty_fullfilled,pf.fullfilled_date,pc.comm_qty,p.product_name,o.org_name from product_fullfillment pf,product_committment pc,product p,organizations o where pf.p_commitment_id = pc.p_commitment_id and pc.product_id = p.product_id and pc.org_id = o.org_id"
+    db.query(sqlget, user,(err, result) => {
+        if(err){
+         console.log(err)   
+         console.log(result)
+        }
+        else{
+            res.send(result)
+        }
+        
+    });
+
+})
+app.get("/api/getpending", (req, res) => {
 
     const hold = "PENDING";
     const sqlget = 

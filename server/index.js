@@ -15,7 +15,11 @@ const db = mysql.createPool({
 
     host:'localhost',
     user: 'root',
+<<<<<<< HEAD
     password: 'root',
+=======
+    password: 'fast123',
+>>>>>>> d6e4eae0a57e65a8c9d0cb932ef6496bb0d6620b
     database: 'drwms'
 
 });
@@ -154,6 +158,29 @@ const admin = "ORG_0001"
     }); 
 })
 
+app.get("/api/remDis", (req, res) => {
+    const status = "ACTIVE"
+    const admin = "ORG_0001"
+    const sqlget =
+    "select d.Disaster_id,d.Disaster_name,d.Disaster_date,dc.Disaster_type from disaster d, disaster_category dc where d.Disaster_type_id=dc.Disaster_type_id;";
+    db.query(sqlget, (err, result) => {
+        console.log(err)
+        res.send(result)
+    });
+})
+
+app.post("/api/removingdisaster", (req, res) => {
+    const disast = req.body.disas
+    const SqlU = "Delete from disaster where Disaster_id = ?"
+
+    db.query(SqlU, disast, (err, result) => {
+        if (err) {
+            res.send(err)
+        } else {
+            res.send({ message: "Disaster Removed" })
+        }
+    })
+})
 
 app.get("/api/disasterinfo",(req,res)=>{
     const sqlget = 
@@ -234,6 +261,27 @@ app.post("/api/dashinfo", (req, res) => {
 
 })
 
+
+app.post("/api/dislocdashinfo", (req, res) => {
+     
+    const user = req.body.dash
+    const sqlget =
+    "select dl.Disaster_location_id,dl.Location_name,c.City_name,p.Province_name from disaster_locations dl,cities c,provinces p where dl.Disaster_id=? and dl.city_id=c.City_id and c.Province_id=p.Province_id"
+    db.query(sqlget, user,(err, result) => {
+        if(err){
+         console.log(err)   
+         console.log(result)
+        }
+        else{
+            res.send(result)
+        }
+        
+    });
+
+})
+
+
+
 app.post("/api/dashmoreinfo", (req, res) => {
      
     const user = req.body.dash
@@ -256,7 +304,7 @@ app.post("/api/dashfulinfo", (req, res) => {
      
     const user = req.body.dash
     const sqlget =
-        "Select pf.qty_fullfilled,pf.fullfilled_date,pc.comm_qty,p.product_name,o.org_name from product_fullfillment pf,product_committment pc,product p,organizations o where pf.p_commitment_id = pc.p_commitment_id and pc.product_id = p.product_id and pc.org_id = o.org_id"
+        "Select pf.qty_fullfilled,pf.fullfilled_date,pc.comm_qty,p.product_name,o.org_name from product_fullfillment pf,product_committment pc,product p,organizations o where pf.p_commitment_id = pc.p_commitment_id and pc.program_id = ? and pc.product_id = p.product_id and pc.org_id = o.org_id"
     db.query(sqlget, user,(err, result) => {
         if(err){
          console.log(err)   
@@ -442,6 +490,72 @@ app.post("/api/declinePending",(req,res)=>{
         }
     })
 })
+
+app.get("/api/cities", (req, res) => {
+    const sqlget =
+        "Select City_name from cities";
+    db.query(sqlget, (err, result) => {
+        console.log(err)
+        res.send(result)
+    });
+
+})
+
+app.get("/api/disasters", (req, res) => {
+    const sqlget =
+        "Select Disaster_name,Disaster_id from disaster";
+    db.query(sqlget, (err, result) => {
+        console.log(err)
+        res.send(result)
+    });
+
+})
+
+app.post("/api/addDisasterLoc", (req, res) => {
+    const u = req.body.disloc
+    var cityid = ""
+    var disid = ""
+    console.log(u)
+    let dPromise = new Promise(function (Resolve, Reject) {
+        const SqlD = "Select City_id from cities where City_name = ?"
+        db.query(SqlD, u.City_name, (err, result) => {
+            let resultx = JSON.parse(JSON.stringify(result))
+            console.log(result)
+            cityid = result[0].City_id
+            console.log(cityid)
+            Resolve("Ok")
+        })
+    })
+    dPromise.then(
+        function () {
+            let newPromise = new Promise(function (Solve, Reeject) {
+                const SqlL = "Select Disaster_id from disaster where DIsaster_name=?"
+                db.query(SqlL, u.Disaster_name, (err, result) => {
+                    let resultx = JSON.parse(JSON.stringify(result))
+                    console.log(result)
+                    disid = result[0].Disaster_id
+                    console.log(disid)
+                    Solve("Ok")
+                })
+            })
+            newPromise.then(
+                function () {
+                    SqlR = "Insert into disaster_locations (City_id,Disaster_id,Location_name) VALUES (?,?,?)"
+                    db.query(SqlR, [cityid, disid, u.Location_name], (err, result) => {
+                        if (err) {
+                            console.log(err)
+                        }
+                        res.send({ message: "Disaster Location Added" })
+                    })
+                }
+            )
+        }
+    )
+}
+)
+
+
+
 app.post("/api/login", (req,res)=>{
 
     const username = req.body.username;

@@ -2,18 +2,20 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import './Header.css'
 import { useDispatch } from "react-redux";
-import { admin_home, admin_analysis, admin_organization, admin_relief_program, admin_products_services} from '../actions/index';
+import { admin_home, admin_organization, admin_relief_program, admin_products_services} from '../actions/index';
 
 function Header() {
 
   const sidedispatch = useDispatch();
   return (
     <>
-        <nav className="navbar navbar-expand-lg bg-light" style={{'height': 80, 'fontSize': 25}}>
+        <nav className="navbar navbar-expand-lg" style={{'height': 80, 'fontSize': 25, 'backgroundColor':'#30574b'}}>
         <div className="container-fluid">
-          <a className="navbar-brand" href="/">LOGO</a>
+          <a className="navbar-brand" href="/">
+            <img src={require("../Extras/logo2.png")} style={{'height':'100px'}}></img>
+          </a>
           <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0" id='try'>
+            <ul className="navbar-nav" id='try'>
               <li className="nav-item">
                 <NavLink to='/Admin_Home.js' className="nav-link active" onClick={ () => sidedispatch(admin_home())} >Home</NavLink>
               </li>

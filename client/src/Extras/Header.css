@@ -11,11 +11,19 @@ li {
     display: block;
     flex: 0 1 auto; /* Default */
     list-style-type: none;
-    background: #fafafa;
+}
+
+.nav-link.active{
+    color: white !important;
 }
 
 #try a:hover{
-    color: #42b625;
+    color: #42b625  !important;
     text-decoration: underline;
     transition-delay: 0.0625s;
+}
+
+
+.nav-item{
+    background-color: #30574b;
 }

@@ -3,7 +3,7 @@ import { Link, NavLink, useNavigate } from 'react-router-dom';
 import person from './images/person.png'
 import React, {useState} from 'react'
 import Axios from 'axios'
-
+import backvid from '../../Extras/backvid.mp4'
 const Login_page = () => {
 
   const navigate = useNavigate();
@@ -40,8 +40,12 @@ const Login_page = () => {
 
   return (
     <>
-      <div className="loginpage"> 
-        <div className="login">
+      <div className="loginpage" style={{"backgroundColor":"black"}}> 
+        
+          <video width="380" height="280" loop autoPlay muted className='loginpage'>
+            <source src={backvid} type="video/mp4" />
+          </video>
+          <div className="login">
           <img id='pp' alt='Background' src={person}></img>
           <div className="mb-3">
             <label className="form-label" id='text'><b>Email address</b></label>

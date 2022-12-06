@@ -4,7 +4,7 @@
     position: fixed;
     overflow: auto;
     top: 13%;
-    background-color: #000000;
+    background-color: #30574b;
     padding-top: 20px;
     border-top-right-radius: 1%;
   }
@@ -13,14 +13,12 @@
     padding: 6px 8px 6px 16px;
     text-decoration: none;
     font-size: 150%;
-    color: #818181;
+    color: white;
     display: block;
   }
   
   .sidenav a:hover {
     color: #42b625;
-    border-style: dashed;
-    border-color: white;
   }
 
   

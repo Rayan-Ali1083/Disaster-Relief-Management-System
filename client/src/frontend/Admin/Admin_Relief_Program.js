@@ -32,6 +32,7 @@ function Admin_Relief_Program() {
         <Header/>
         <Admin_sidebar />
         <div class="card">
+          <div className="card-body">
           <div className='button'>
             <Link to={'/Create_Relief_Prog.js'} ><button type="button" className="btn btn-primary" id='add_relief_progam'>Create Relief Program</button></Link>
           </div>
@@ -66,7 +67,7 @@ function Admin_Relief_Program() {
   </tbody>
 </table>
         </div>
-        
+        </div>
     </>
   )
 }

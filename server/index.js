@@ -15,7 +15,7 @@ const db = mysql.createPool({
 
     host:'localhost',
     user: 'root',
-    password: 'root',
+    password: 'fast123',
     database: 'drwms'
 
 });
@@ -152,6 +152,29 @@ const admin = "ORG_0001"
     }); 
 })
 
+app.get("/api/remDis", (req, res) => {
+    const status = "ACTIVE"
+    const admin = "ORG_0001"
+    const sqlget =
+    "select d.Disaster_id,d.Disaster_name,d.Disaster_date,dc.Disaster_type from disaster d, disaster_category dc where d.Disaster_type_id=dc.Disaster_type_id;";
+    db.query(sqlget, (err, result) => {
+        console.log(err)
+        res.send(result)
+    });
+})
+
+app.post("/api/removingdisaster", (req, res) => {
+    const disast = req.body.disas
+    const SqlU = "Delete from disaster where Disaster_id = ?"
+
+    db.query(SqlU, disast, (err, result) => {
+        if (err) {
+            res.send(err)
+        } else {
+            res.send({ message: "Disaster Removed" })
+        }
+    })
+})
 
 app.get("/api/disasterinfo",(req,res)=>{
     const sqlget = 

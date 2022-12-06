@@ -37,10 +37,7 @@ function Admin_Relief_Program() {
           </div>
           <table class="table">
   <thead>
-
-   
     <tr>
-      <th scope="col">#</th>
       <th scope="col">Program ID</th>
       <th scope="col">Program Name</th>
       <th scope="col">Program Status</th>
@@ -53,7 +50,6 @@ function Admin_Relief_Program() {
 
 {reliefdet.map((val)=>(
   <tr>
-   <th scope="row">1</th>
    <td>{val.program_id}</td>
    <td>{val.program_name}</td>
    <td>{val.program_status}</td>

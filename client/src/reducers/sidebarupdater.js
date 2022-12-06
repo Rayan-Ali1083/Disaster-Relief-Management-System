@@ -28,10 +28,10 @@ const admin_organization = () =>{
         <>
         <div className="sidenav">
             <form className="form-inline">
-                <input className="form-control mr-sm-2" type="search" placeholder="Search ORGANIZATION" aria-label="Search"></input>
+                <input className="form-control mr-sm-2" type="search" placeholder="Search Disaster" aria-label="Search"></input>
+                <br></br>
                 <button className="btn btn-outline-success my-1 my-sm-0" type="submit">Search</button>
             </form>
-            <a href="#filters">Filters</a>
         </div>
     </>
     )

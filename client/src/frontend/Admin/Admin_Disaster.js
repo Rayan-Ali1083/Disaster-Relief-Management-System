@@ -176,29 +176,7 @@ function Admin_Disaster() {
                 </div>
                 <div className="modal-body" >
                   <div className="d-grid gap-2 col-6 mx-auto" >
-                    {/* <div class="form-group">
-                              <label for="exampleFormControlSelect1">Cities</label>
-                              <select class="form-control" id="exampleFormControlSelect1">
-                                <option>--Select City--</option>
-                                <option>Lahore</option>
-                                <option>Sukkur</option>
-                                <option>Taiwan</option>
-                                <option>dholakpur</option>
-                              </select>
-                            </div>
-                            <div class="form-group">
-                              <label for="exampleFormControlSelect1">Disaster</label>
-                              <select class="form-control" id="exampleFormControlSelect1">
-                                <option>--Select Disaster--</option>
-                                <option>Cal</option>
-                                <option>DE</option>
-                                <option>Nadeem Boi</option>
-                                <option>Muazzam</option>
-                              </select>
-                            </div>
-                              <input type="text" class="form-control" placeholder="Location Name" aria-label="Location Name" aria-describedby="basic-addon1"></input> */}
-
-
+      
                     <tr >
 
                       <td>
@@ -319,7 +297,6 @@ function Admin_Disaster() {
         <table className="table">
           <thead>
             <tr>
-              <th scope="col">#</th>
               <th scope="col">Disaster ID</th>
               <th scope="col">Disaster Name</th>
               <th scope="col">Disaster date</th>
@@ -330,7 +307,6 @@ function Admin_Disaster() {
           <tbody>
             {disasterdet.map((val) => (
               <tr>
-                <th scope="row">1</th>
                 <td>{val.disaster_id}</td>
                 <td>{val.disaster_name}</td>
                 <td>{val.disaster_date}</td>

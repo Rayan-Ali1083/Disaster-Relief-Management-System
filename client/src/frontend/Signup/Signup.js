@@ -36,7 +36,7 @@ function Signup() {
       <div id="pic"></div>
         <div className="card-body" id='mid-body'>
             <div>
-              <h3 style={{"textAlign":"center"}}>Organization Details</h3>
+              <h3 style={{"textAlign":"center", "marginTop":'4%'}}>Organization Details</h3>
                 <input type="email" className='small-input' value={newUser.org_name} name='org_name' onChange={handleInputs} placeholder="Organization Name"></input>
                 <input type="email" className='small-input' value={newUser.user_name} name='user_name' onChange={handleInputs} placeholder="User Name"></input>
 

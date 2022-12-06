@@ -316,7 +316,6 @@ function Admin_Disaster() {
         <table className="table">
           <thead>
             <tr>
-              <th scope="col">#</th>
               <th scope="col">Disaster ID</th>
               <th scope="col">Disaster Name</th>
               <th scope="col">Disaster date</th>
@@ -327,7 +326,6 @@ function Admin_Disaster() {
           <tbody>
             {disasterdet.map((val) => (
               <tr>
-                <th scope="row">1</th>
                 <td>{val.disaster_id}</td>
                 <td>{val.disaster_name}</td>
                 <td>{val.disaster_date}</td>

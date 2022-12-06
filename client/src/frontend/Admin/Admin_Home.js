@@ -15,11 +15,11 @@ function Admin_Home() {
           
       <div className="card-body">
         <div>
-        <h2>WHO ARE WE?</h2>
+        <h2 id='WHOAREWE'>WHO ARE WE?</h2>
         <img src={require("../../Extras/map.png")} style={{'width':"60%" ,'height ':"60%"}}></img>
         </div>
         <div className="vl"></div>
-        <div style={{"float":"right", "marginTop":"-34%", "width":"39%"}}>
+        <div style={{"float":"right", "marginTop":"-34%", "width":"39%",  'text-align': 'justify','text-justify': 'inter-word'}}>
           <h3>Introduction: </h3>
           <h5>Welcome to Disaster Relief Management System.
           <br></br>Designed to aid you in managing resources and products keeping you updated and in control of the critical situtations.
@@ -32,41 +32,29 @@ function Admin_Home() {
       
     
       <div className="card-body">
-          <div id='CREATEALERT'>
-            {/* this section is to be removed maybe */}
 
-          </div>
           <h2 style={{'textAlign':'center'}}>MEET THE TEAM</h2>
         <div className="card-group"  id='ABOUT' style={{'marginLeft':'-25%', 'marginTop':'-3%'}}>
       <div className="card">
         <img className="card-img-top" src={require("../../Extras/huzaifa.jpg")} alt="Card image cap"></img>
         <div className="card-body">
-          <h5 className="card-title">HUZAIFA AKA CUTIE</h5>
-          <p className="card-text">TEXT</p>
+          <h5 className="card-title">HUZAIFA TANZEEL</h5>
+         
         </div>
-        {/* <div className="card-footer">
-          <small className="text-muted">Last updated 3 mins ago</small>
-        </div> */}
+        
       </div>
       <div className="card">
         <img className="card-img-top" src={require("../../Extras/maarij.jpg")} alt="Card image cap"></img>
         <div className="card-body">
-          <h5 className="card-title">MAARIJ AMIR AKA SHAPATAR</h5>
-          <p className="card-text">TEXT</p>
+          <h5 className="card-title">MAARIJ AMIR</h5>
         </div>
-      {/* <div className="card-footer">
-        <small className="text-muted">Last updated 3 mins ago</small>
-      </div> */}
+
     </div>
     <div className="card">
       <img className="card-img-top" src={require("../../Extras/rayan.jpg")} alt="Card image cap"></img>
       <div className="card-body">
         <h5 className="card-title">RAYAN AKA DATA SCIENTIST</h5>
-        <p className="card-text">TEXT</p>
       </div>
-      {/* <div className="card-footer">
-        <small className="text-muted"></small>
-      </div> */}
     </div>
     </div>
         </div>

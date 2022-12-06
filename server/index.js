@@ -256,7 +256,7 @@ app.post("/api/dashfulinfo", (req, res) => {
      
     const user = req.body.dash
     const sqlget =
-        "Select pf.qty_fullfilled,pf.fullfilled_date,pc.comm_qty,p.product_name,o.org_name from product_fullfillment pf,product_committment pc,product p,organizations o where pf.p_commitment_id = pc.p_commitment_id and pc.product_id = p.product_id and pc.org_id = o.org_id"
+        "Select pf.qty_fullfilled,pf.fullfilled_date,pc.comm_qty,p.product_name,o.org_name from product_fullfillment pf,product_committment pc,product p,organizations o where pf.p_commitment_id = pc.p_commitment_id and pc.program_id = ? and pc.product_id = p.product_id and pc.org_id = o.org_id"
     db.query(sqlget, user,(err, result) => {
         if(err){
          console.log(err)   

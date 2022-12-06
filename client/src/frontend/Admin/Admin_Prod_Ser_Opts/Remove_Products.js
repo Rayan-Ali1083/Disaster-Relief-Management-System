@@ -48,7 +48,6 @@ function Remove_Products() {
                
             </tbody>
             </table>
-            <p>all products will be visible here and remove button will delete all details of the product</p>
         </div>
     </>
   )

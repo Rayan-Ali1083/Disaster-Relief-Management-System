@@ -53,7 +53,7 @@ function Admin_Home() {
     <div className="card">
       <img className="card-img-top" src={require("../../Extras/rayan.jpg")} alt="Card image cap"></img>
       <div className="card-body">
-        <h5 className="card-title">RAYAN AKA DATA SCIENTIST</h5>
+        <h5 className="card-title">RAYAN ALI</h5>
       </div>
     </div>
     </div>

@@ -42,10 +42,12 @@ function Signup() {
 
                 <input type="email" className='small-input' value={newUser.pass} name='pass' onChange={handleInputs} placeholder="Password"></input>
                 <input type="email" className='small-input' value={newUser.email} name='email' onChange={handleInputs} placeholder="Email Address"></input>
-
-                <input type="email" className='small-input' value={newUser.org_cate} name='org_cate' onChange={handleInputs} placeholder="Organization Category"></input>
+                
                 <input type="email" className='small-input' value={newUser.org_province} name='org_province' onChange={handleInputs} placeholder="Province"></input>
-            
+
+                  <select className="form-select"  style={{'width':'35%', 'marginLeft':'55%', 'marginTop':'-4%'}}>
+                    <option>Organization Category</option>
+                  </select>
               <NavLink to='/' end><button type="button" className="btn btn-primary" style={{"marginLeft": "10%", "marginTop": "10%"}}>Go Back</button></NavLink>
               <button type="button" onClick={SubmitU} className="btn btn-primary" style={{"marginTop": "10%", "marginLeft": "68%"}}>Submit</button>
             </div>

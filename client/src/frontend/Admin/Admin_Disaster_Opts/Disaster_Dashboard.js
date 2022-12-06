@@ -9,9 +9,11 @@ function Disaster_Dashboard() {
         <thead>
             <tr>
             <th scope="col">Disaster Location ID</th>
+            <th scope="col">Location Name</th>
             <th scope="col">Disaster Name</th>
             <th scope="col">City Name</th>
-            <th scope="col">Location Name</th>
+            <th scope="col">Province Name</th>
+            
             </tr>
         </thead>
   <tbody>

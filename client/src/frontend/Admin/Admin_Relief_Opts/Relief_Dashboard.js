@@ -1,7 +1,24 @@
-import React from 'react'
-
+import React ,{useState,useEffect} from 'react'
+import {useLocation} from 'react-router-dom'
+import Axios from'axios'
 function Relief_Dashboard() {
-  return (
+
+  
+  const [reliefdet,Setreliefdet] = useState([]);
+
+const { state } = useLocation();
+useEffect(()=>{
+   const{id}= state;
+  console.log(id)
+   Axios.post("http://localhost:3001/api/dashinfo",{dash:id}).then((response)=>{
+      Setreliefdet(response.data)
+      //console.log(response.data)
+
+    })
+
+},[])
+
+return (
     <>
         <div className="card" style={{"margin": "auto", "width": "100%","border": "10px solid green","padding":"5%"}}>
           <h3>RELIEF PROGRAM DASHBOARD</h3>
@@ -17,13 +34,17 @@ function Relief_Dashboard() {
         </thead>
   <tbody>
  
-    <tr>
-        <td>A</td>
-        <td>A</td>
-        <td>A</td>
-        <td>A</td>
-        <td>A</td>
-    </tr>
+  {reliefdet.map((val)=>(
+  <tr>
+   <td>{val.program_id}</td>
+   <td>{val.program_name}</td>
+   <td>{val.program_status}</td>
+   <td>{val.disaster_name}</td>
+   <td>{val.start_date}</td>
+ </tr>
+
+
+    ))}
    
         </tbody>
     </table>

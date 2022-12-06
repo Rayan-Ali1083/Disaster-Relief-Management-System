@@ -5,6 +5,8 @@ function Relief_Dashboard() {
 
   
   const [reliefdet,Setreliefdet] = useState([]);
+  const [proddet,Setproddet] = useState([]);
+  const [prodful,Setprodful] = useState([]);
 
 const { state } = useLocation();
 useEffect(()=>{
@@ -15,7 +17,18 @@ useEffect(()=>{
       //console.log(response.data)
 
     })
+    
+    Axios.post("http://localhost:3001/api/dashmoreinfo",{dash:id}).then((response)=>{
+      Setproddet(response.data)
+      //console.log(response.data)
 
+    })
+
+    Axios.post("http://localhost:3001/api/dashfulinfo",{dash:id}).then((response)=>{
+      Setprodful(response.data)
+      console.log(response.data)
+
+    })
 },[])
 
 return (
@@ -53,10 +66,9 @@ return (
         <thead>
             <tr>
             <th scope="col">Commitment ID</th>
-            <th scope="col">Organization ID</th>
-            <th scope="col">Product ID</th>
-            <th scope="col">Disaster Location ID</th>
-            <th scope="col">Program ID</th>
+            <th scope="col">Organization</th>
+            <th scope="col">Product</th>
+            <th scope="col">Disaster Location</th>
             <th scope="col">Committed Quantity</th>
             <th scope="col">Committed Date</th>
             <th scope="col">ETD </th>
@@ -64,18 +76,21 @@ return (
             </tr>
         </thead>
   <tbody>
- 
-    <tr>
-        <td>A</td>
-        <td>A</td>
-        <td>A</td>
-        <td>A</td>
-        <td>A</td>
-        <td>A</td>
-        <td>A</td>
-        <td>A</td>
-        <td>A</td>
-    </tr>
+
+  {reliefdet.map((val)=>(
+  <tr>
+   <td>{val.p_commitment_id}</td>
+   <td>{val.org_name}</td>
+   <td>{val.product_name}</td>
+   <td>{val.location_name}</td>
+   <td>{val.comm_qty}</td>
+   <td>{val.comm_date}</td>
+   <td>{val.exp_delivery_date}</td>
+   <td>{val.status}</td>
+ </tr>
+
+
+    ))}
         </tbody>
     </table>
     <h3>PRODUCT REQUIREMENT
@@ -125,23 +140,25 @@ return (
         <thead>
             <tr>
             <th scope="col">Requirement ID</th>
-            <th scope="col">Product ID</th>
-            <th scope="col">Disaster Location ID</th>
-            <th scope="col">Progam ID</th>
+            <th scope="col">Product</th>
+            <th scope="col">Disaster Location</th>
             <th scope="col">Required Quantity</th>
             <th scope="col">Requested Date</th>
             </tr>
         </thead>
   <tbody>
  
-    <tr>
-        <td>A</td>
-        <td>A</td>
-        <td>A</td>
-        <td>A</td>
-        <td>A</td>
-        <td>A</td>
-    </tr>
+  {proddet.map((val)=>(
+  <tr>
+   <td>{val.p_requirement_id}</td>
+   <td>{val.product_name}</td>
+   <td>{val.location_name}</td>
+   <td>{val.req_qty}</td>
+   <td>{val.request_date}</td>
+ </tr>
+
+
+    ))}
         </tbody>
     </table>
     <h3>PRODUCT FULLFILMENT</h3>
@@ -151,21 +168,23 @@ return (
             <th scope="col">Organization Name</th>
             <th scope="col">Product Name</th>
             <th scope="col">Committed Quantity</th>
-            <th scope="col">Committed Date</th>
+            <th scope="col">Fulfilled Quantity</th>
             <th scope="col">Expected Delivery</th>
-            <th scope="col">Status</th>
             </tr>
         </thead>
   <tbody>
  
-    <tr>
-        <td>A</td>
-        <td>A</td>
-        <td>A</td>
-        <td>A</td>
-        <td>A</td>
-        <td>A</td>
-    </tr>
+  {prodful.map((val)=>(
+  <tr>
+   <td>{val.org_name}</td>
+   <td>{val.product_name}</td>
+   <td>{val.comm_qty}</td>
+   <td>{val.qty_fullfilled}</td>
+   <td>{val.fullfilled_date}</td>
+ </tr>
+
+
+    ))}
         </tbody>
     </table>
 

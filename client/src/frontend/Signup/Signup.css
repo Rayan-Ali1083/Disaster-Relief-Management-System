@@ -1,16 +1,15 @@
-#pic{
-    background-image: url('../Login/images/disaster.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+.signup{
     position: fixed;
-    width: 100%;
-    height: 100%;
-
+    min-width: 100%; 
+    min-height: 120%;
+    /* width: auto; 
+    height: auto;  */
+    z-index: -100;
+    margin-top: -2%;
 }
 
 #mid-body{
-    position: fixed;
+    position: relative;
     width: 70%;
     height: 60%;
     margin-top: 10%;
@@ -29,4 +28,22 @@
     height: 100%;
     text-align: center;
     border-radius: 10px;
+}
+
+
+.btn-1{
+    width: 100px;
+    height: 40px;
+    border: none;
+    color: white;
+    background-color: #0D6EFD;
+    border-radius: 50px;
+    box-shadow: inset 0 0 0 0 #478484;
+    transition: ease-out 0.3s;
+    padding: 5px 10px;
+    font-weight: bold;
+    outline: none;
+}
+.btn-1:hover{
+    box-shadow: inset 100px 0 0 0 #478484;
 }

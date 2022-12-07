@@ -1,0 +1,16 @@
+
+.introbox{
+    float: right;
+    margin-top: -2.3%;
+    width: 39%;
+    text-align: justify;
+    text-justify: inter-word;
+}
+.card-body{
+    background-color:#396e4f;
+    border-radius: 50px;
+}
+.card{
+    color: #fffb00;
+    background-color: #396e4f;
+}

@@ -1,6 +1,23 @@
-#add_relief_progam{
+#add_relief_program {
     float: right;
     margin-right: 5%;
     margin-top: 2%;
     padding:   10px;
+    color: white;
+    border-radius: 50px;
+    background-color: #30574b;
+    border-color: transparent;
+
+}
+#add_relief_program a{
+    color: white;
+
+}
+
+#add_relief_progam a:hover{
+    color: #fffb00;
+    /* #42b625; */
+    box-shadow: inset 210px 0 0 0 #478484;
+    border-radius: 50px;
+    transition: ease-out 0.5s;
 }

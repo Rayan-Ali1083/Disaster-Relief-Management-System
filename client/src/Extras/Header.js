@@ -9,12 +9,12 @@ function Header() {
   const sidedispatch = useDispatch();
   return (
     <>
-        <nav className="navbar navbar-expand-lg" style={{'height': 80, 'fontSize': 25, 'backgroundColor':'#30574b'}}>
+        <nav className="navbar navbar-expand" style={{'height': 80, 'fontSize': 25, 'backgroundColor':'#30574b'}}>
         <div className="container-fluid">
           <a className="navbar-brand" href="/">
             <img src={require("../Extras/logo2.png")} style={{'height':'100px'}}></img>
           </a>
-          <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
+          <div className="collapse navbar-collapse">
             <ul className="navbar-nav" id='try'>
               <li className="nav-item">
                 <NavLink to='/Admin_Home.js' className="nav-link active" onClick={ () => sidedispatch(admin_home())} >Home</NavLink>

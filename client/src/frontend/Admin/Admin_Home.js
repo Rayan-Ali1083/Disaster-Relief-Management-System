@@ -2,7 +2,7 @@ import React from 'react'
 import Header from '../../Extras/Header'
 import Admin_sidebar from '../../Extras/Admin_sidebar'
 import './admin_style.css'
-
+import './admin_home.css'
 function Admin_Home() {
 
   
@@ -11,15 +11,13 @@ function Admin_Home() {
       
       <Header />
       <Admin_sidebar />
-      <div className="card">
-          
+      <div className="card" style={{'borderRadius':'50px', 'backgroundColor':'transparent', 'border':'none'}}>
       <div className="card-body">
         <div>
         <h2 id='WHOAREWE'>WHO ARE WE?</h2>
         <img src={require("../../Extras/map.png")} style={{'width':"60%" ,'height ':"60%"}}></img>
-        </div>
         <div className="vl"></div>
-        <div style={{"float":"right", "marginTop":"-34%", "width":"39%",  'text-align': 'justify','text-justify': 'inter-word'}}>
+        <div className='introbox'>
           <h3>Introduction: </h3>
           <h5>Welcome to Disaster Relief Management System.
           <br></br>Designed to aid you in managing resources and products keeping you updated and in control of the critical situtations.
@@ -28,6 +26,7 @@ function Admin_Home() {
           <br></br>LONG LIVE PAKITAN
           </h5>
         </div>
+        </div>
       </div>
       
     
@@ -35,7 +34,7 @@ function Admin_Home() {
 
           <h2 style={{'textAlign':'center'}}>MEET THE TEAM</h2>
         <div className="card-group"  id='ABOUT' style={{'marginLeft':'-25%', 'marginTop':'-3%'}}>
-      <div className="card">
+      <div className="card" style={{'backgroundColor':'#396e4f', 'borderStyle': 'none'}}>
         <img className="card-img-top" src={require("../../Extras/huzaifa.jpg")} alt="Card image cap"></img>
         <div className="card-body">
           <h5 className="card-title">HUZAIFA TANZEEL</h5>
@@ -43,14 +42,14 @@ function Admin_Home() {
         </div>
         
       </div>
-      <div className="card">
+      <div className="card" style={{'backgroundColor':'#396e4f', 'borderStyle': 'none'}}>
         <img className="card-img-top" src={require("../../Extras/maarij.jpg")} alt="Card image cap"></img>
         <div className="card-body">
           <h5 className="card-title">MAARIJ AMIR</h5>
         </div>
 
     </div>
-    <div className="card">
+    <div className="card" style={{'backgroundColor':'#396e4f', 'borderStyle': 'none'}}>
       <img className="card-img-top" src={require("../../Extras/rayan.jpg")} alt="Card image cap"></img>
       <div className="card-body">
         <h5 className="card-title">RAYAN ALI</h5>

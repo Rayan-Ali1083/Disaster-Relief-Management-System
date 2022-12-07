@@ -7,6 +7,13 @@ function Relief_Dashboard() {
   const [reliefdet, Setreliefdet] = useState([]);
   const [proddet, Setproddet] = useState([]);
   const [prodful, Setprodful] = useState([]);
+  const [productsreq, SetProductsreq] = useState([]);
+
+  const [dislocations, Setdislocations] = useState([]);
+  const [newrequirement, Setnewrequirement] = useState({
+     Product_name: "", Quantity: 0, date: "", program_id: "",Location_name: ""
+  });
+
 
   const { state } = useLocation();
   useEffect(() => {
@@ -29,19 +36,53 @@ function Relief_Dashboard() {
       console.log(response.data)
 
     })
-  }, [])
 
-
-
-  const [products, Setproducts] = useState([]);
-  useEffect(() => {
-    Axios.get("http://localhost:3001/api/products").then((response) => {
-      Setproducts(response.data)
+    Axios.post("http://localhost:3001/api/dislocations" , { dash: id }).then((response) => {
+      Setdislocations(response.data)
       console.log(response)
 
     })
 
   }, [])
+
+
+
+
+
+
+  useEffect(() => {
+    Axios.get("http://localhost:3001/api/productsinfo").then((response) => {
+      SetProductsreq(response.data)
+      console.log(response)
+
+    })
+
+    
+
+  }, [])
+
+
+
+  let name, value;
+
+  const handlerequirements = (e) => {
+    name = e.target.name;
+    value = e.target.value;
+    Setnewrequirement({ ...newrequirement, [name]: value });
+
+  }
+
+  const Addreq = () => {
+    const { id } = state
+     newrequirement.program_id=id
+    Axios.post("http://localhost:3001/api/addRequirement", { reqq: newrequirement }).then((resultx) => {
+      if (resultx.data.message) {
+        alert(resultx.data.message);
+      } else {
+        alert(resultx.data.message1);
+      }
+    })
+  };
 
   return (
     <>
@@ -122,34 +163,42 @@ function Relief_Dashboard() {
                       <tbody>
                         <tr>
                           <td>
-                            <select class="form-select" aria-label="Default select example">
+                            <select class="form-select" name='Product_name' value={newrequirement.Product_name} onChange={handlerequirements} aria-label="Default select example">
                               <option selected>--Select Product--</option>
-                              <option value="1">Milk</option>
-                              <option value="2">Choclate</option>
-                              <option value="3">Condom</option>
+                              {productsreq.map((val) => (
+                                <option >{val.Product_name}</option>
+                               
+                              ))}
+                                
                             </select>
                           </td>
                           <td>
-                            <select class="form-select" aria-label="Default select example">
+                            <select class="form-select" name='Location_name' value={newrequirement.Location_name} onChange={handlerequirements}aria-label="Default select example">
                               <option selected>--Disaster Location--</option>
-                              <option value="1">Your mom</option>
-                              <option value="2">Fast</option>
-                              <option value="3">lol</option>
+                              {dislocations.map((val) => (
+                                <option >{val.Location_name}</option>
+                              ))}
                             </select>
                           </td>
                           <td>
-                            <select class="form-select" aria-label="Default select example">
-                              <option selected>--Relief Program--</option>
-                              <option value="1">ABCD</option>
-                              <option value="2">AAA</option>
-                              <option value="3">XXX</option>
+                            <select class="form-select" name='Product_name' value={newrequirement.program_id} onChange={handlerequirements} aria-label="Default select example">
+                              {/* <option selected>--Relief Program--</option> */}
+                              {reliefdet.map((val) => (
+
+                                <option selected> {val.program_id}</option>
+
+
+
+
+                              ))}
+
                             </select>
                           </td>
                           <td>
-                            <input type="text" class="form-control" placeholder="Quantity" aria-label="Recipient's username" aria-describedby="basic-addon2"></input>
+                            <input type="number" min='0' className="form-control" value={newrequirement.Quantity} name='Quantity' onChange={handlerequirements} placeholder="Quantity" aria-label="Quantity" aria-describedby="basic-addon2"></input>
                           </td>
                           <td>
-                            <input type="date" style={{ "fontSize": "medium" }}></input>
+                            <input type="date" className="form-control" value={newrequirement.date} name='date' onChange={handlerequirements} style={{ "fontSize": "medium" }}></input>
                           </td>
                         </tr>
                       </tbody>
@@ -158,7 +207,7 @@ function Relief_Dashboard() {
                 </div>
                 <div class="modal-footer">
 
-                  <button type="button" className="btn btn-outline-success" data-bs-dismiss="modal">Add</button>
+                  <button type="button" onClick={Addreq} className="btn btn-outline-success" data-bs-dismiss="modal">Add</button>
                   <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Go Back</button>
 
                 </div>

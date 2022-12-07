@@ -34,7 +34,6 @@ function Remove_Org() {
             <th scope="col">Organization Name</th>
             <th scope="col">Organization type</th>
             <th scope="col">Organization Status</th>
-            <th scope="col">Program Name</th>
             <th scope="col">Option</th>
             </tr>
         </thead>
@@ -46,7 +45,6 @@ function Remove_Org() {
      <td>{val.org_name}</td>
     <td>{val.org_category_id}</td>
     <td>{val.org_status}</td>
-    <td>{val.program_name}</td>
     <button type="button" onClick={()=>{RemoveU(val.org_id)}} style={{"background":"#ff392e", "borderRadius":"5px", "borderStyle":"none"}}>REMOVE</button>
   </tr>
  ))}

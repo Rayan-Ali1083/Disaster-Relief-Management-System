@@ -1,23 +1,17 @@
-#add_relief_program {
+#add_relief_program{
     float: right;
     margin-right: 5%;
     margin-top: 2%;
-    padding:   10px;
-    color: white;
+    padding: 10px;
     border-radius: 50px;
+    color: white;
     background-color: #30574b;
     border-color: transparent;
-
+    box-shadow: inset 0 0 0 0 #478484;
+    transition: ease-out 0.3s;
+    font-weight: bold;
 }
-#add_relief_program a{
-    color: white;
-
-}
-
-#add_relief_progam a:hover{
-    color: #fffb00;
-    /* #42b625; */
+#add_relief_program:hover{
     box-shadow: inset 210px 0 0 0 #478484;
-    border-radius: 50px;
-    transition: ease-out 0.5s;
+    color: #fffb00;
 }

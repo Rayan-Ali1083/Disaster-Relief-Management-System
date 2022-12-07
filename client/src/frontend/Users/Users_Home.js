@@ -3,6 +3,9 @@ import {useLocation} from 'react-router-dom'
 import Axios from'axios'
 import '../Users/Users_home.css'
 import Users_Nav from './Users_Nav'
+import RemoveCookie from '../../hooks/removeCookie';
+import SetCookie from '../../hooks/setCookie';
+import GetCookie from '../../hooks/getCookie';
 function Users_Home() {
 
 
@@ -13,11 +16,9 @@ function Users_Home() {
     const [orgcontact,Setorgcontact] = useState(" ") 
     const [orgcategid,Setorgcategid] = useState(" ") 
     const [orgtype,Setorgtype] = useState("") 
-
-  
+    var id = ""
     useEffect(()=>{
-        const{id}= state;
-       console.log(id)
+        id = GetCookie('usrin')
         Axios.post("http://localhost:3001/api/orgdetails",{dash:id}).then((response)=>{
            Setorgname(response.data[0].org_name)
            Setorgid(response.data[0].org_id)

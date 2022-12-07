@@ -31,12 +31,12 @@ function Admin_Relief_Program() {
     <>
         <Header/>
         <Admin_sidebar />
-        <div class="card">
+        <div class="card" style={{'backgroundColor':'#30574b', 'borderStyle':'none', 'textAlign':'center'}}>
           <div className="card-body">
           <div className='button'>
-            <Link to={'/Create_Relief_Prog.js'} ><button type="button" className="btn btn-primary" id='add_relief_progam'>Create Relief Program</button></Link>
+            <Link to={'/Create_Relief_Prog.js'} ><button type="button" className="btn" id='add_relief_program'>Create Relief Program</button></Link>
           </div>
-          <table class="table">
+          <table class="table" style={{'color':'#fffb00', 'borderStyle':'none'}}>
             <thead>
               <tr>
                 <th scope="col">Program ID</th>
@@ -51,7 +51,7 @@ function Admin_Relief_Program() {
   <tbody>
 
 {reliefdet.map((val)=>(
-  <tr>
+  <tr style={{'backgroundColor':'#30574b', 'color':'white','borderStyle':'none', 'textAlign':'center'}}>
    <td>{val.program_id}</td>
    <td>{val.program_name}</td>
    <td>{val.program_status}</td>

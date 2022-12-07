@@ -47,21 +47,21 @@ function Admin_Organizations() {
     <>
         <Header />
         <Admin_sidebar />
-        <div className="card">
+        <div className="card" style={{'backgroundColor':'#30574b'}}>
           <div className='button'>
           
-          <button type="button" className="btn btn-primary" id='add_relief_progam' data-bs-toggle="modal" data-bs-target="#exampleModal">Add Organization Category</button>
+          <button type="button" className="btn" id='add_relief_program' data-bs-toggle="modal" data-bs-target="#exampleModal">Add Organization Category</button>
 
 
-          <div class="modal-centered modal-scrollable modal fade modal-lg" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h1 class="modal-title fs-5 text-black" id="exampleModalLabel">ADD ORGANIZATION CATEGORY</h1>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <div className="modal-centered modal-scrollable modal fade modal-lg" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div className="modal-dialog">
+                      <div className="modal-content">
+                        <div className="modal-header">
+                          <h1 className="modal-title fs-5 text-black" id="exampleModalLabel">ADD ORGANIZATION CATEGORY</h1>
+                          <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="modal-body">
-                            <div class="d-grid gap-2 col-6 mx-auto">
+                        <div className="modal-body">
+                            <div className="d-grid gap-2 col-6 mx-auto">
                                 
                             <input type="email" className='large-input' value={newCategory.Org_type} name='Org_type' onChange={handleInputs} placeholder="Organization Category"></input>
                             
@@ -69,10 +69,10 @@ function Admin_Organizations() {
                                
                               </div>                                  
                         </div>
-                        <div class="modal-footer">
+                        <div className="modal-footer">
 
                           <button type="button" onClick={SubmitU} className="btn btn-outline-success" data-bs-dismiss="modal">Add</button>
-                          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Go Back</button>
+                          <button type="button" className="btn btn-outline-secondary" data-bs-dismiss="modal">Go Back</button>
                          
                         </div>
                       </div>
@@ -81,12 +81,12 @@ function Admin_Organizations() {
 
 
 
-          <Link to={"/Add_Org.js"}><button type="button" className="btn btn-primary" id='add_relief_progam'>View/Add Organization</button></Link>
-          <Link to={"/Remove_Org.js"}><button type="button" className="btn btn-primary" id='add_relief_progam'>Remove Organization</button></Link>
+          <Link to={"/Add_Org.js"}><button type="button" className="btn" id='add_relief_program'>View/Add Organization</button></Link>
+          <Link to={"/Remove_Org.js"}><button type="button" className="btn" id='add_relief_program'>Remove Organization</button></Link>
           </div>
 
  
-          <table className="table">
+          <table className="table" style={{'color':'#fffb00'}}>
   <thead>
     <tr>
       <th scope="col">Organization ID</th>

@@ -3,7 +3,7 @@ import Header from '../../Extras/Header'
 import Admin_sidebar from '../../Extras/Admin_sidebar'
 import Axios from 'axios'
 import { Link } from 'react-router-dom';
-
+import './admin_relief_program.css'
 function Admin_Products_Services() {
 
   const [productsdet,Setproductsdet] = useState([]);
@@ -23,19 +23,19 @@ function Admin_Products_Services() {
     <>
         <Header />
         <Admin_sidebar />
-        <div class="card">
+        <div class="card" style={{'backgroundColor':'#30574b', 'color':'#fffb00'}}>
           <div className='button'>
           
-          <Link to={"/Remove_Products.js"}><button type="button" className="btn btn-primary" id='add_relief_progam'>Remove Product</button></Link>
-          <Link to={"/Edit_Products.js"}><button type="button" className="btn btn-primary" id='add_relief_progam'>Edit Product</button></Link>
-          <Link to={"/Add_Products.js"}><button type="button" className="btn btn-primary" id='add_relief_progam'>Add Product</button></Link>
+          <Link to={"/Remove_Products.js"}><button type="button" className="btn" id='add_relief_program'>Remove Product</button></Link>
+          <Link to={"/Edit_Products.js"}><button type="button" className="btn" id='add_relief_program'>Edit Product</button></Link>
+          <Link to={"/Add_Products.js"}><button type="button" className="btn" id='add_relief_program'>Add Product</button></Link>
 
 
 
           </div>
           <table class="table">
         <thead>
-    <tr>
+    <tr  style={{'backgroundColor':'#30574b', 'color':'#fffb00', 'textAlign':'center'}}>
       
       <th scope="col">Product ID</th>
       <th scope="col">Product Name</th>
@@ -47,7 +47,7 @@ function Admin_Products_Services() {
   <tbody>
 
 {productsdet.map((val)=>(
-  <tr>
+  <tr style={{'backgroundColor':'#30574b', 'color':'white', 'textAlign':'center', 'fontWeight': 'bold'}}>
    
    <td>{val.Product_id}</td>
    <td>{val.Product_name}</td>

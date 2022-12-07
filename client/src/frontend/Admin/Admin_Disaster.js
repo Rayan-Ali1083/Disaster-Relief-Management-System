@@ -314,7 +314,7 @@ function Admin_Disaster() {
           {/* yeh aik different page pe jaye ha */}
         </div>
 
-        <table className="table" style={{'backgroundColor':'#30574b', 'borderColor':'transparent', 'color':'#fffb00','borderStyle':'none'}}>
+        <table className="table" style={{'backgroundColor':'#30574b', 'color':'#fffb00','borderStyle':'none', 'textAlign':'center'}}>
           <thead>
             <tr>
               <th scope="col">Disaster ID</th>
@@ -326,7 +326,7 @@ function Admin_Disaster() {
           </thead>
           <tbody>
             {disasterdet.map((val) => (
-              <tr>
+              <tr style={{'backgroundColor':'#30574b', 'color':'white','borderStyle':'none', 'textAlign':'center'}}>
                 <td>{val.disaster_id}</td>
                 <td>{val.disaster_name}</td>
                 <td>{val.disaster_date}</td>

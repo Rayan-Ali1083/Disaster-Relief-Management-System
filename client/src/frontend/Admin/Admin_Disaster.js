@@ -138,37 +138,136 @@ function Admin_Disaster() {
 
 
 
+
+  
+  const [newDisaster,setnewDisaster] = useState({
+    dis_name: "", date: "",dis_type: "" 
+  });
+  const [disastertype,Setdisastertype] = useState([]);
+  useEffect(()=>{
+    Axios.get("http://localhost:3001/api/disastercateg").then((response)=>{
+      Setdisastertype(response.data)
+      console.log(response)
+
+    })
+
+  },[])
+
+  
+
+
+  let nname, vvalue;
+
+  const handleDisInputs = (e) =>{
+    nname = e.target.name;
+    vvalue = e.target.value;
+    setnewDisaster({...newDisaster, [nname]:vvalue});
+   
+   }
+
+
+   const addDis = ()=>{
+    Axios.post("http://localhost:3001/api/addDisaster",{dis:newDisaster}).then((resultx)=>{
+      if(resultx.data.message){
+        alert(resultx.data.message);
+      }else{
+        alert(resultx.data.message1);
+      }
+    })
+  };
   return (
     <>
       <Header />
       <Admin_sidebar />
       <div className="card" style={{'backgroundColor':'#30574b', 'borderColor':'transparent', 'borderStyle':'none'}}>
         <div className='button'>
-          <Link to={'/Add_Disaster.js'}><button type="button" className="btn" id='add_relief_program'>Add Disaster</button></Link>
+          
+          <button type="button" className="btn" id='add_relief_program' data-bs-toggle="modal" data-bs-target="#addDis">Add Disaster</button>
+
+          <div className="modal-centered modal-scrollable modal fade modal-lg" id="addDis" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal-dialog">
+              <div className="modal-content" style={{'backgroundColor':'#30574b', 'borderColor':'transparent'}}>
+                <div className="modal-header" style={{'backgroundColor':'#30574b', 'borderStyle':'none', 'borderColor':'transparent'}}>
+                  <h1 className="modal-title fs-5" id="exampleModalLabel" style={{'color':'white'}}>ADD DISASTER CATEGORY</h1>
+                  <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div className="modal-body" style={{ "margin": "auto", "width": "100%", "border": "3px solid black", "padding": "5%", 'backgroundColor':'#478484', 'borderRadius':'50px'}}>
+                  <div className="d-grid gap-2" >
+
+                  <table className="table" style={{'backgroundColor':'#30574b', 'color':'#fffb00', 'textAlign':'center'}}>
+                    <thead >
+                      <tr>
+                      <th scope="col">Disaster Name</th>
+                      <th scope="col">Date</th>
+                      <th scope="col">Disaster Type</th>
+                      <th scope="col">Option</th>
+                      </tr>
+                    </thead>
+                  <tbody>
+          
+                  <tr style={{'borderBottomColor':'transparent'}}>
+                    <td>  <input type="text" className="form-control" value={newDisaster.dis_name} name= 'dis_name' onChange={handleDisInputs} placeholder="Disaster Name" aria-label="Username"></input>
+                  </td>
+                  <td>
+                    <input type="date" value={newDisaster.date} name='date' onChange={handleDisInputs}  ></input></td>
+                  <td>
+                    <select class="form-select" name='dis_type' value={newDisaster.dis_type} onChange={handleDisInputs} aria-label="Default select example">
+                    <option selected>Disaster type</option>
+                      {disastertype.map((val)=>(
+                    <option>{val.disaster_type}</option> 
+                      ))}
+                    </select>
+                  </td>
+
+                  <button type="button" onClick={addDis} style={{"background":"#89bd79", "borderRadius":"5px", "borderStyle":"none"}}>Add</button>
+              </tr>
+            
+            </tbody>
+              </table>
+
+                  </div>
+                </div>
+                <div className="modal-footer" style={{'backgroundColor':'#30574b', 'borderColor':'white', 'marginTop':'5%'}}>
+
+                  <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Go Back</button>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+
+
+
+
+
+
+
           <button type="button" className="btn" id='add_relief_program' data-bs-toggle="modal" data-bs-target="#exampleModal">Add Disaster Category</button>
 
 
 
-          <div class="modal-centered modal-scrollable modal fade modal-lg" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h1 class="modal-title fs-5 text-black" id="exampleModalLabel">ADD DISASTER CATEGORY</h1>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <div className="modal-centered modal-scrollable modal fade modal-lg" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal-dialog">
+              <div className="modal-content" style={{'backgroundColor':'#30574b', 'borderColor':'transparent'}}>
+                <div className="modal-header" style={{'backgroundColor':'#30574b', 'borderStyle':'none', 'borderColor':'transparent'}}>
+                  <h1 className="modal-title fs-5" id="exampleModalLabel" style={{'color':'white'}}>ADD DISASTER CATEGORY</h1>
+                  <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                  <div class="d-grid gap-2 col-6 mx-auto">
+                <div className="modal-body" style={{ "margin": "auto", "width": "100%", "border": "3px solid black", "padding": "5%", 'backgroundColor':'#478484', 'borderRadius':'50px'}}>
+                  <div className="d-grid gap-2 col-9 mx-auto" >
 
                     <input type="email" className='large-input' value={newCategory.Disaster_type} name='Disaster_type' onChange={handleInputs} placeholder="Disaster Category"></input>
-
-
-
                   </div>
                 </div>
-                <div class="modal-footer">
+                <div className="modal-footer" style={{'backgroundColor':'#30574b', 'borderColor':'white', 'marginTop':'5%'}}>
 
-                  <button type="button" onClick={SubmitNewCateg} className="btn btn-outline-success" data-bs-dismiss="modal">Add</button>
-                  <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Go Back</button>
+                  <button type="button" onClick={SubmitNewCateg} className="btn btn-success" data-bs-dismiss="modal">Add</button>
+                  <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Go Back</button>
 
                 </div>
               </div>
@@ -176,17 +275,17 @@ function Admin_Disaster() {
           </div>
 
           <button type="button" className="btn" id='add_relief_program' data-bs-toggle="modal" data-bs-target="#examplesModal">Disaster Locations</button>
-          <div className="modal-centered modal-scrollable modal fade modal-xl" id="examplesModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div className="modal-dialog">
-              <div className="modal-content">
-                <div className="modal-header">
-                  <h3 className="modal-title fL-5 text-black" id="exampleModalLabel">ADD DISASTER LOCATION</h3>
+          <div className="modal-centered modal-scrollable modal fade modal-lg" id="examplesModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal-dialog" >
+              <div className="modal-content" style={{'backgroundColor':'#30574b', 'borderStyle':'none', 'borderColor':'transparent'}}>
+                <div className="modal-header" style={{'borderBottomStyle':'none'}}>
+                  <h3 className="modal-title fL-5" id="exampleModalLabel" style={{'color':'white', 'borderStyle':'none', 'borderColor':'transparent'}}>ADD DISASTER LOCATION</h3>
                   <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div className="modal-body" >
-                <div className="card" style={{"margin": "auto", "width": "100%","border": "4px solid black","padding":"5%"}}>
-          {/* <h3>ADD DISASTER LOCATION</h3> */}
-          <table className="table">
+                <div className="card"  style={{ "margin": "auto", "width": "100%", "border": "3px solid black", "padding": "5%", 'backgroundColor':'#478484', 'borderRadius':'50px'}}>
+
+          <table className="table" style={{'backgroundColor':'#30574b', 'color':'#fffb00', 'textAlign':'center'}}>
         <thead>
             <tr>
             <th scope="col">CITY</th>
@@ -194,11 +293,11 @@ function Admin_Disaster() {
             <th scope="col">LOCATION Name</th>
             </tr>
         </thead>
-                   <tbody>
-                    <tr >
+                   <tbody >
+                    <tr style={{'backgroundColor':'#30574b', 'color':'white', 'textAlign':'center', 'borderStyle':'none', 'borderColor':'transparent'}} >
 
                       <td>
-                        <select class="form-select" name='City_name' value={newDisasterLoc.City_name} onChange={handleDisLocInputs} aria-label="Default select example" >
+                        <select className="form-select" name='City_name' value={newDisasterLoc.City_name} onChange={handleDisLocInputs} aria-label="Default select example" >
                           <option selected>City</option>
                           {cities.map((val) => (
                             <option >{val.City_name}</option>
@@ -207,7 +306,7 @@ function Admin_Disaster() {
                       </td>
 
                       <td>
-                        <select class="form-select" name='Disaster_name' value={newDisasterLoc.Disaster_name} onChange={handleDisLocInputs} aria-label="Default select example">
+                        <select className="form-select" name='Disaster_name' value={newDisasterLoc.Disaster_name} onChange={handleDisLocInputs} aria-label="Default select example">
                           <option selected>Disaster</option>
                           {disasters.map((val) => (
                             <option >{val.Disaster_name}</option>
@@ -219,9 +318,6 @@ function Admin_Disaster() {
                       <td>  <input type="text" className="form-control" value={newDisasterLoc.dis_name} name='Location_name' onChange={handleDisLocInputs} placeholder="Location Name" aria-label="Username"></input>
                       </td>
 
-
-
-                      {/* <button type="button" onClick={addDis} style={{ "background": "#89bd79", "borderRadius": "5px", "borderStyle": "none" }}>Add</button> */}
                     </tr>
 
                     </tbody>
@@ -244,40 +340,37 @@ function Admin_Disaster() {
           <button type="button" className="btn " id='add_relief_program' data-bs-toggle="modal" data-bs-target="#removedismodal">Remove Disaster</button>
 
 
-          <div className="modal-centered modal-scrollable modal fade modal-xl" id="removedismodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div className="modal-dialog modal-fullscreen">
-              <div className="modal-content">
-                <div className="modal-header">
-                  <h3 className="modal-title fl-5 text-black" id="exampleModalLabel">REMOVE DISASTER</h3>
+          <div className="modal-centered modal-scrollable modal fade modal-lg" id="removedismodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal-dialog" style={{'backgroundColor':'transparent', 'borderStyle':'none'}}>
+              <div className="modal-content" style={{'backgroundColor':'#30574b', 'borderStyle':'none', 'borderColor':'transparent'}}>
+                <div className="modal-header" style={{'backgroundColor':'#30574b', 'borderStyle':'none', 'borderColor':'transparent'}}>
+                  <h3 className="modal-title fl-5" id="exampleModalLabel"  style={{'backgroundColor':'#30574b', 'borderStyle':'none', 'borderColor':'transparent', 'color':'white'}}>REMOVE DISASTER</h3>
                   <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div className="modal-body" >
-                
-
-
-
-                  <div className="card" style={{ "margin": "auto", "width": "100%", "border": "5px solid black", "padding": "5%" }}>
+                <div className="modal-body" style={{'backgroundColor':'#30574b','borderColor':'transparent'}}>
+                  <div className="card" style={{ "margin": "auto", "width": "100%", "border": "3px solid black", "padding": "5%", 'backgroundColor':'#478484', 'borderRadius':'50px'}}>
                     {/* <h3>REMOVE DISASTER</h3> */}
-                    <table className="table">
+                    <table className="table" style={{'borderRadius':'50px'}}>
 
-                      <thead>
-                        <tr>
+                      <thead style={{'backgroundColor':'#30574b', 'color':'#fffb00', 'textAlign':'center'}}>
+                        <tr >
                           <th scope="col">DISASTER ID</th>
                           <th scope="col">DISASTER NAME</th>
                           <th scope="col">DISASTER DATE</th>
                           <th scope="col">DISASTER TYPE</th>
+                          <th scope="col">OPTION</th>
 
                         </tr>
                       </thead>
                       <tbody>
                         {removeDis.map((val) => (
 
-                          <tr>
+                          <tr style={{'backgroundColor':'#30574b', 'color':'white', 'textAlign':'center', 'borderStyle':'none', 'borderColor':'transparent'}}>
                             <td>{val.Disaster_id}</td>
                             <td>{val.Disaster_name}</td>
                             <td>{val.Disaster_date}</td>
                             <td>{val.Disaster_type}</td>
-                            <button type="button" onClick={() => { RemoveDisas(val.Disaster_id) }} style={{ "background": "#ff392e", "borderRadius": "5px", "borderStyle": "none" }}>REMOVE</button>
+                            <button type="button" id='removebtn' onClick={() => { RemoveDisas(val.Disaster_id) }}>REMOVE</button>
                           </tr>
                         ))}
 
@@ -286,22 +379,10 @@ function Admin_Disaster() {
 
                   </div>
 
-
-
-
-
-
-
-
-
-
-
-
                   
                 </div>
                 <div className="modal-footer">
 
-                  <button type="button" onClick={addDisLoc} className="btn btn-success" data-bs-dismiss="modal">Add</button>
                   <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Go Back</button>
 
                 </div>
@@ -326,12 +407,12 @@ function Admin_Disaster() {
           </thead>
           <tbody>
             {disasterdet.map((val) => (
-              <tr style={{'backgroundColor':'#30574b', 'color':'white','borderStyle':'none', 'textAlign':'center'}}>
+              <tr style={{'backgroundColor':'#30574b','fontWeight':'bold', 'color':'white','borderStyle':'none', 'textAlign':'center'}}>
                 <td>{val.disaster_id}</td>
                 <td>{val.disaster_name}</td>
                 <td>{val.disaster_date}</td>
                 <td>{val.disaster_type}</td>
-                <td><button type="button" onClick={()=>{toComponentdisloc(val.disaster_id)}} class="btn btn-primary">Dashboard</button></td>
+                <td><button type="button"  onClick={()=>{toComponentdisloc(val.disaster_id)}} className="btn btn-primary">Dashboard</button></td>
               </tr>
 
 

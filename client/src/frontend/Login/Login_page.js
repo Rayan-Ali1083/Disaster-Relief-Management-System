@@ -51,7 +51,7 @@ const Login_page = () => {
             {/* <source src={backvid} type="video/mp4" /> */}
           </video>
           <div className="login">
-          <img id='pp' alt='Background' src={person}></img>
+          <img id='pp' alt='Background' src={person}  style={{"width":"30%", 'marginTop':'15%'}}></img>
           <div className="mb-3">
             <label className="form-label" id='text'><b>Email address</b></label>
             <input type="email" className="form-control" id="textarea" name='email' value={user.email}

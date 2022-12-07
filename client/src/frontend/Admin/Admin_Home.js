@@ -30,12 +30,12 @@ function Admin_Home() {
       </div>
       
     
-      <div className="card-body">
+      <div className="card-body" style={{'textAlign':'center'}}>
 
           <h2 style={{'textAlign':'center'}}>MEET THE TEAM</h2>
         <div className="card-group"  id='ABOUT' style={{'marginLeft':'-25%', 'marginTop':'-3%'}}>
       <div className="card" style={{'backgroundColor':'#396e4f', 'borderStyle': 'none'}}>
-        <img className="card-img-top" src={require("../../Extras/huzaifa.jpg")} alt="Card image cap"></img>
+        {/* <img className="card-img-top" src={require("../../Extras/huzaifa.jpg")} alt="Card image cap"></img> */}
         <div className="card-body">
           <h5 className="card-title">HUZAIFA TANZEEL</h5>
          
@@ -43,14 +43,14 @@ function Admin_Home() {
         
       </div>
       <div className="card" style={{'backgroundColor':'#396e4f', 'borderStyle': 'none'}}>
-        <img className="card-img-top" src={require("../../Extras/maarij.jpg")} alt="Card image cap"></img>
+        {/* <img className="card-img-top" src={require("../../Extras/maarij.jpg")} alt="Card image cap"></img> */}
         <div className="card-body">
           <h5 className="card-title">MAARIJ AMIR</h5>
         </div>
 
     </div>
     <div className="card" style={{'backgroundColor':'#396e4f', 'borderStyle': 'none'}}>
-      <img className="card-img-top" src={require("../../Extras/rayan.jpg")} alt="Card image cap"></img>
+      {/* <img className="card-img-top" src={require("../../Extras/rayan.jpg")} alt="Card image cap"></img> */}
       <div className="card-body">
         <h5 className="card-title">RAYAN ALI</h5>
       </div>

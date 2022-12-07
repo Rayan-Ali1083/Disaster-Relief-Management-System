@@ -15,7 +15,7 @@ const db = mysql.createPool({
 
     host:'localhost',
     user: 'root',
-    password: 'root',
+    password: 'fast123',
     database: 'drwms'
 
 });
@@ -152,9 +152,10 @@ app.get("/api/orginfo",(req,res)=>{
 app.post("/api/orgdetails",(req,res)=>{
 
     const user = req.body.dash
+    let user1= JSON.parse(user)
     const sqlget = 
     "Select o.org_id,o.org_name,o.org_status, oc.org_type,o.org_contact from organizations o, org_category oc where o.org_category_id = oc.org_category_id and org_id = ?";
-    db.query(sqlget,user, (err,result)=>{
+    db.query(sqlget,user1, (err,result)=>{
         console.log(err)
         console.log(result)
         res.send(result)
@@ -647,7 +648,21 @@ app.post("/api/login", (req,res)=>{
    
 });
 
+app.post("/api/commdetails",(req,res)=>{
 
+    const user = req.body.dash
+    let user1 = JSON.parse(user)
+    const SqlQ = "Select pc.p_commitment_id,pc.comm_date,pc.status,p.product_name,dl.location_name,pg.program_name,pc.comm_qty,pc.exp_delivery_date from product_committment pc,product p,relief_program pg,disaster_locations dl where pc.product_id = p.product_id and pc.disaster_location_id = dl.disaster_location_id and pc.program_id = pg.program_id and pc.org_id = ? "
+
+    db.query(SqlQ,user1,(err,result)=>{
+        if(err){console.log(err)}
+        else{
+            console.log("NO ERROR")
+            res.send(result)
+        }
+    })
+
+})
 
 app.post("/api/addRequirement", (req, res) => {
     const u = req.body.reqq
@@ -687,8 +702,28 @@ app.post("/api/addRequirement", (req, res) => {
                     db.query(SqlR, [productid, dislocid, u.program_id,u.Quantity,u.date], (err, result) => {
                         if (err) {
                             console.log(err)
-                        }
+                        }else{
                         res.send({ message: "Requirement Raised Successfully" })
+
+                        const SqlP = "Select * from product_requirement_summary where product_id = ? and disaster_location_id = ? and program_id = ?"
+                            db.query(SqlP,[productid,dislocid,u.program_id],(err,result)=>{
+                                if(result.length > 0 ){
+                                    SqlM = "Update product_requirement_summary set Total_qty_req = Total_qty_req + ? where product_id = ? and disaster_location_id = ? and program_id = ?"
+                                    db.query(SqlM,[u.Quantity,productid,dislocid,u.program_id],(err,result)=>{
+                                        if(err){console.log(err)}
+                                    })
+                                }
+                                else{
+                                    const SqlI = "Insert into product_requirement_summary(product_id,disaster_location_id,program_id,total_qty_req) VALUES (?,?,?,?)"
+                                    db.query(SqlI,[productid,dislocid,u.program_id,u.Quantity],(err,result)=>{
+                                        if(err){console.log(err)}
+                                    })
+                                
+                                
+                                }
+                            })
+                        }
+                        
                     })
                 }
             )
@@ -697,7 +732,85 @@ app.post("/api/addRequirement", (req, res) => {
 }
 )
 
+app.get("/api/rprograminfo",(req,res)=>{
 
+    const sqlget = 
+    "select p.Program_id,p.Program_name,p.Program_status,d.Disaster_name,p.Start_date,p.End_date from relief_program p,disaster d where p.Disaster_id=d.Disaster_id";
+    db.query(sqlget, (err,result)=>{
+        console.log(err)
+        res.send(result)
+    }); 
+})
+
+
+app.get("/api/rprogramsummary",(req,res)=>{
+
+    const sqlget = 
+    "select r.Program_name,p.Product_name, dl.Location_name,d.Disaster_name,s.Total_qty_req,s.Total_qty_comm,s.Total_qty_fullfilled  from relief_program r,product p,disaster_locations dl,disaster d,product_requirement_summary s where s.Program_id=r.Program_id and s.Product_id=p.Product_id and s.Disaster_location_id=dl.Disaster_location_id and dl.Disaster_id=d.DIsaster_id";
+    db.query(sqlget, (err,result)=>{
+        console.log(err)
+        res.send(result)
+    }); 
+})
+
+app.post("/api/registringorg", (req, res) => {
+    const prg = req.body.reg
+    const Oid=req.body.dash
+    let Oid1=JSON.parse(Oid)
+    
+   console.log(prg)
+   console.log(Oid)
+    
+    const SqlU = "Insert into relief_providers (Program_id,Org_id) Values(?,?)"
+
+    db.query(SqlU, [prg,Oid1], (err, result) => {
+        if (err) {
+            res.send(err)
+        } else {
+            res.send({ message: "Successfully Registered for Relief Program :"+prg})
+        }
+    })
+})
+
+app.post("/api/MYrprograminfo", (req, res) => {
+   
+    const Oid=req.body.dash
+    let Oid1=JSON.parse(Oid)
+    
+   
+   console.log(Oid1)
+    
+    const SqlU = "select p.Program_id, rp.Program_name, rp.Program_status from relief_providers p,relief_program rp where  p.Program_id=rp.Program_id and p.Org_id=?"
+
+    db.query(SqlU, Oid1, (err, result) => {
+        if (err) {
+            console.log(err)
+        } else {
+            console.log(result)
+            res.send(result)
+        }
+    })
+})
+
+
+app.post("/api/removingorg", (req, res) => {
+    const prg = req.body.reg
+    const Oid=req.body.dash
+    let Oid1=JSON.parse(Oid)
+    
+   console.log(prg)
+   console.log(Oid1)
+    
+    const SqlU = "Delete from relief_providers where Program_id=? and Org_id=?"
+
+    db.query(SqlU, [prg,Oid1], (err, result) => {
+        if (err) {
+            res.send(err)
+        } else {
+            res.send({ message: "Successfully Removed from Relief Program :"+prg})
+        }
+    })
+})
 
 
 app.listen(3001, () => {
@@ -705,3 +818,4 @@ app.listen(3001, () => {
     console.log("running on port 3001");
 
 });
+

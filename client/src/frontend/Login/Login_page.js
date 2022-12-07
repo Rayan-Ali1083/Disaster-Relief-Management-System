@@ -3,14 +3,10 @@ import { Link, NavLink, useNavigate } from 'react-router-dom';
 import person from './images/person.png'
 import React, {useState} from 'react'
 import Axios from 'axios'
-<<<<<<< HEAD
 // import backvid from '../../Extras/backvid.mp4'
-=======
-import backvid from '../../Extras/backvid.mp4'
 import RemoveCookie from '../../hooks/removeCookie';
 import SetCookie from '../../hooks/setCookie';
 import GetCookie from '../../hooks/getCookie';
->>>>>>> 4e04f5825bf7024974f0490777984b606a4208a2
 const Login_page = () => {
 
   const navigate = useNavigate();

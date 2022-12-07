@@ -27,16 +27,133 @@ function Admin_Relief_Program() {
     navigate('/Relief_Dashboard.js',{state:{id:program_id}});
       }
 
+      
+
+
+
+
+      const [newProgram,setnewProgram] = useState({
+        prog_name: "",prog_status: "",dis_name: "", sdate: ""
+      });
+    
+    
+      const [disastername,Setdisastername] = useState([]);
+    
+    
+      useEffect(()=>{
+        Axios.get("http://localhost:3001/api/disastername").then((response)=>{
+          Setdisastername(response.data)
+          console.log(response)
+    
+        })
+    
+      },[])
+    
+    
+      let name, value;
+    
+      const handleRelInputs = (e) =>{
+        name = e.target.name;
+        value = e.target.value;
+        setnewProgram({...newProgram, [name]:value});
+       
+       }
+    
+    
+    
+    
+       const addRelief = ()=>{
+        Axios.post("http://localhost:3001/api/addReliefP",{prog:newProgram}).then((resultx)=>{
+          if(resultx.data.message){
+            alert(resultx.data.message);
+          }else{
+            alert(resultx.data.message1);
+          }
+        })
+      };
+
+
+
+
+
+
+
+
+
+
+
+
   return (
     <>
         <Header/>
         <Admin_sidebar />
-        <div class="card" style={{'backgroundColor':'#30574b', 'borderStyle':'none', 'textAlign':'center'}}>
+        <div className="card" style={{'backgroundColor':'#30574b', 'borderStyle':'none', 'textAlign':'center'}}>
           <div className="card-body">
           <div className='button'>
-            <Link to={'/Create_Relief_Prog.js'} ><button type="button" className="btn" id='add_relief_program'>Create Relief Program</button></Link>
+          <button type="button" className="btn" id='add_relief_program' data-bs-toggle="modal" data-bs-target="#exampleModal">Create Relief Program</button>
+          <div className="modal-centered modal-scrollable modal fade modal-lg" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal-dialog">
+              <div className="modal-content" style={{'backgroundColor':'#30574b', 'borderColor':'transparent'}}>
+                <div className="modal-header" style={{'backgroundColor':'#30574b', 'borderStyle':'none', 'borderColor':'transparent'}}>
+                  <h1 className="modal-title fs-5" id="exampleModalLabel" style={{'color':'white'}}>ADD DISASTER CATEGORY</h1>
+                  <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div className="modal-body" style={{ "margin": "auto", "width": "100%", "border": "3px solid black", "padding": "5%", 'backgroundColor':'#478484', 'borderRadius':'50px'}}>
+                  <div className="d-grid gap-2" >
+          <table className="table" style={{'backgroundColor':'#30574b', 'color':'#fffb00', 'textAlign':'center'}}  >
+        <thead>
+            <tr>
+            <th scope="col">Program Name</th>
+            <th scope="col">Program Status</th>
+            <th scope="col">Disaster Name</th>
+            <th scope="col">Start Date</th>
+            <th scope="col">Option</th>            
+            </tr>
+        </thead>
+  <tbody style={{'borderColor':'transparent'}}>
+ 
+    <tr>
+        <td><input type="text" className="form-control" name='prog_name' value={newProgram.prog_name} onChange={handleRelInputs} placeholder="Relief Program Name" aria-label="Username" aria-describedby="basic-addon1"></input></td>
+        <td>
+                <select className="form-select"  name='prog_status' value={newProgram.prog_status} onChange={handleRelInputs} aria-label="Default select example">
+                <option value>INACTIVE</option>
+                <option>ACTIVE</option>
+            
+                </select>
+          </td>
+          <td>
+                
+                <select className="form-select" name='dis_name' value={newProgram.dis_name} onChange={handleRelInputs} aria-label="Default select example">
+                <option value>Default</option>
+                  
+                  {disastername.map((val)=>(
+                    <option>{val.disaster_name}</option>
+                  ))}
+                
+            
+                </select>
+          </td>
+          <td>  <input type="date" name='sdate' value={newProgram.sdate} onChange={handleRelInputs} ></input></td>
+        <button type="button" onClick={addRelief} style={{"background":"#89bd79", "borderRadius":"5px", "borderStyle":"none", 'padding':'8px'}}>Create</button>
+    </tr>
+   
+  </tbody>
+    </table>
+
+                    
+                  </div>
+                </div>
+                <div className="modal-footer" style={{'backgroundColor':'#30574b', 'borderColor':'white', 'marginTop':'5%'}}>
+
+                  <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Go Back</button>
+
+                </div>
+              </div>
+            </div>
           </div>
-          <table class="table" style={{'color':'#fffb00', 'borderStyle':'none'}}>
+
+          </div>
+          <table className="table" style={{'color':'#fffb00', 'borderStyle':'none'}}>
             <thead>
               <tr>
                 <th scope="col">Program ID</th>
@@ -51,14 +168,14 @@ function Admin_Relief_Program() {
   <tbody>
 
 {reliefdet.map((val)=>(
-  <tr style={{'backgroundColor':'#30574b', 'color':'white','borderStyle':'none', 'textAlign':'center'}}>
+  <tr style={{'backgroundColor':'#30574b', 'color':'white','borderStyle':'none', 'textAlign':'center', 'fontWeight':'bold'}}>
    <td>{val.program_id}</td>
    <td>{val.program_name}</td>
    <td>{val.program_status}</td>
    <td>{val.disaster_name}</td>
    <td>{val.start_date}</td>
    <td>{val.end_date}</td>
-   <td><button type="button" onClick={()=>{toComponentB(val.program_id)}} class="btn btn-primary">Dashboard</button></td>
+   <td><button type="button" onClick={()=>{toComponentB(val.program_id)}} className="btn btn-primary">Dashboard</button></td>
  </tr>
 
 

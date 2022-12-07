@@ -20,7 +20,7 @@ li {
 
 #try a:hover{
     color: #fffb00 !important;
-    box-shadow: inset 200px 0 0 0 #478484;
+    box-shadow: inset 220px 0 0 0 #478484;
     border-radius: 50px;
     transition: ease-out 0.5s;
     text-decoration: none;    

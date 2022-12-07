@@ -25,7 +25,6 @@ function Remove_Org() {
   return (
     <>
         <div className="card" style={{"margin": "auto", "width": "100%","border": "10px solid green","padding":"5%"}}>
-        <h3>REMOVE ORGANIZATIONS</h3>
           <table className="table">
 
         <thead>

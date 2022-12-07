@@ -23,6 +23,9 @@ function Users_Nav() {
                     <li className="nav-item">
                     <NavLink to='/Users_Fullfilment.js' className="nav-link active">Fullfillments</NavLink>
                     </li>
+                    <li className="nav-item">
+                    <NavLink className="nav-link active">LogOut</NavLink>
+                    </li>
                 </ul>
                 </div>
             </div>

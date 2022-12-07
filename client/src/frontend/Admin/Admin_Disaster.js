@@ -263,7 +263,7 @@ function Admin_Disaster() {
                       <thead>
                         <tr>
                           <th scope="col">DISASTER ID</th>
-                          <th scope="col">DISASTER Name</th>
+                          <th scope="col">DISASTER NAME</th>
                           <th scope="col">DISASTER DATE</th>
                           <th scope="col">DISASTER TYPE</th>
 

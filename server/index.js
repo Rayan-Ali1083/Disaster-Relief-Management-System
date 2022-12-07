@@ -15,13 +15,8 @@ const db = mysql.createPool({
 
     host:'localhost',
     user: 'root',
-<<<<<<< HEAD
     password: 'fast123',
     database: 'drwms'
-=======
-    password: 'fast',
-    database: 'dbtest'
->>>>>>> 4e04f5825bf7024974f0490777984b606a4208a2
 
 });
 
@@ -703,7 +698,85 @@ app.post("/api/addRequirement", (req, res) => {
 }
 )
 
+app.get("/api/rprograminfo",(req,res)=>{
 
+    const sqlget = 
+    "select p.Program_id,p.Program_name,p.Program_status,d.Disaster_name,p.Start_date,p.End_date from relief_program p,disaster d where p.Disaster_id=d.Disaster_id";
+    db.query(sqlget, (err,result)=>{
+        console.log(err)
+        res.send(result)
+    }); 
+})
+
+
+app.get("/api/rprogramsummary",(req,res)=>{
+
+    const sqlget = 
+    "select r.Program_name,p.Product_name, dl.Location_name,d.Disaster_name,s.Total_qty_req,s.Total_qty_comm,s.Total_qty_fullfilled  from relief_program r,product p,disaster_locations dl,disaster d,product_requirement_summary s where s.Program_id=r.Program_id and s.Product_id=p.Product_id and s.Disaster_location_id=dl.Disaster_location_id and dl.Disaster_id=d.DIsaster_id";
+    db.query(sqlget, (err,result)=>{
+        console.log(err)
+        res.send(result)
+    }); 
+})
+
+app.post("/api/registringorg", (req, res) => {
+    const prg = req.body.reg
+    const Oid=req.body.dash
+    let Oid1=JSON.parse(Oid)
+    
+   console.log(prg)
+   console.log(Oid)
+    
+    const SqlU = "Insert into relief_providers (Program_id,Org_id) Values(?,?)"
+
+    db.query(SqlU, [prg,Oid1], (err, result) => {
+        if (err) {
+            res.send(err)
+        } else {
+            res.send({ message: "Successfully Registered for Relief Program :"+prg})
+        }
+    })
+})
+
+app.post("/api/MYrprograminfo", (req, res) => {
+   
+    const Oid=req.body.dash
+    let Oid1=JSON.parse(Oid)
+    
+   
+   console.log(Oid1)
+    
+    const SqlU = "select p.Program_id, rp.Program_name, rp.Program_status from relief_providers p,relief_program rp where  p.Program_id=rp.Program_id and p.Org_id=?"
+
+    db.query(SqlU, Oid1, (err, result) => {
+        if (err) {
+            console.log(err)
+        } else {
+            console.log(result)
+            res.send(result)
+        }
+    })
+})
+
+
+app.post("/api/removingorg", (req, res) => {
+    const prg = req.body.reg
+    const Oid=req.body.dash
+    let Oid1=JSON.parse(Oid)
+    
+   console.log(prg)
+   console.log(Oid1)
+    
+    const SqlU = "Delete from relief_providers where Program_id=? and Org_id=?"
+
+    db.query(SqlU, [prg,Oid1], (err, result) => {
+        if (err) {
+            res.send(err)
+        } else {
+            res.send({ message: "Successfully Removed from Relief Program :"+prg})
+        }
+    })
+})
 
 
 app.listen(3001, () => {
@@ -711,3 +784,4 @@ app.listen(3001, () => {
     console.log("running on port 3001");
 
 });
+

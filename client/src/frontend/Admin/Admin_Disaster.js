@@ -142,7 +142,7 @@ function Admin_Disaster() {
     <>
       <Header />
       <Admin_sidebar />
-      <div className="card">
+      <div className="card" style={{'backgroundColor':'#30574b', 'borderColor':'transparent', 'borderStyle':'none'}}>
         <div className='button'>
           <Link to={'/Add_Disaster.js'}><button type="button" className="btn" id='add_relief_program'>Add Disaster</button></Link>
           <button type="button" className="btn" id='add_relief_program' data-bs-toggle="modal" data-bs-target="#exampleModal">Add Disaster Category</button>
@@ -314,7 +314,7 @@ function Admin_Disaster() {
           {/* yeh aik different page pe jaye ha */}
         </div>
 
-        <table className="table">
+        <table className="table" style={{'backgroundColor':'#30574b', 'borderColor':'transparent', 'color':'#fffb00','borderStyle':'none'}}>
           <thead>
             <tr>
               <th scope="col">Disaster ID</th>

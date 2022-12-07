@@ -4,6 +4,9 @@ import person from './images/person.png'
 import React, {useState} from 'react'
 import Axios from 'axios'
 import backvid from '../../Extras/backvid.mp4'
+import RemoveCookie from '../../hooks/removeCookie';
+import SetCookie from '../../hooks/setCookie';
+import GetCookie from '../../hooks/getCookie';
 const Login_page = () => {
 
   const navigate = useNavigate();
@@ -23,6 +26,8 @@ const Login_page = () => {
         alert(response.data.message);
       }else{
         setLoginStatus(response.data);
+        RemoveCookie('usrin')
+        SetCookie('usrin',JSON.stringify(response.data))
        toComponentC(response.data)
         
       }

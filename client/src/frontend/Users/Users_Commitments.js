@@ -1,7 +1,22 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Users_Nav from './Users_Nav'
-
+import Axios from 'axios'
+import RemoveCookie from '../../hooks/removeCookie';
+import SetCookie from '../../hooks/setCookie';
+import GetCookie from '../../hooks/getCookie';
 function Users_Commitments() {
+
+
+  const [commdet,Setcommdet] = useState([])
+  var id = ""
+  useEffect(()=>{
+    id = GetCookie('usrin')
+    Axios.post("http://localhost:3001/api/commdetails",{dash:id}).then((response)=>{
+     
+    Setcommdet(response.data)
+     })
+    },[])
+
   return (
     <>
         <Users_Nav/>
@@ -23,17 +38,22 @@ function Users_Commitments() {
                         </tr>
                     </thead>
                     <tbody>  
-                        <tr>
-                        <td>hello</td>
-                        <td>hello</td>
-                        <td>hello</td>
-                        <td>hello</td>
-                        <td>hello</td>
-                        <td>hello</td>
-                        <td>hello</td>
-                        <td>hello</td>
+                      {commdet.map((val)=>(
+
+                      <tr>
+                        <td>{val.p_commitment_id}</td>
+                        <td>{val.product_name}</td>
+                        <td>{val.location_name}</td>
+                        <td>{val.program_name}</td>
+                        <td>{val.comm_qty}</td>
+                        <td>{val.comm_date}</td>
+                        <td>{val.exp_delivery_date}</td>
+                        <td>{val.status}</td>
                         <td><button type="button" class="btn btn-primary">Fullfil</button></td>
                         </tr>   
+
+                      ))}
+                  
                     </tbody>
 </table>
 </div>

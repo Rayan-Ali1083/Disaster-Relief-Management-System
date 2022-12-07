@@ -648,7 +648,21 @@ app.post("/api/login", (req,res)=>{
    
 });
 
+app.post("/api/commdetails",(req,res)=>{
 
+    const user = req.body.dash
+    let user1 = JSON.parse(user)
+    const SqlQ = "Select pc.p_commitment_id,pc.comm_date,pc.status,p.product_name,dl.location_name,pg.program_name,pc.comm_qty,pc.exp_delivery_date from product_committment pc,product p,relief_program pg,disaster_locations dl where pc.product_id = p.product_id and pc.disaster_location_id = dl.disaster_location_id and pc.program_id = pg.program_id and pc.org_id = ? "
+
+    db.query(SqlQ,user1,(err,result)=>{
+        if(err){console.log(err)}
+        else{
+            console.log("NO ERROR")
+            res.send(result)
+        }
+    })
+
+})
 
 app.post("/api/addRequirement", (req, res) => {
     const u = req.body.reqq
@@ -688,8 +702,28 @@ app.post("/api/addRequirement", (req, res) => {
                     db.query(SqlR, [productid, dislocid, u.program_id,u.Quantity,u.date], (err, result) => {
                         if (err) {
                             console.log(err)
-                        }
+                        }else{
                         res.send({ message: "Requirement Raised Successfully" })
+
+                        const SqlP = "Select * from product_requirement_summary where product_id = ? and disaster_location_id = ? and program_id = ?"
+                            db.query(SqlP,[productid,dislocid,u.program_id],(err,result)=>{
+                                if(result.length > 0 ){
+                                    SqlM = "Update product_requirement_summary set Total_qty_req = Total_qty_req + ? where product_id = ? and disaster_location_id = ? and program_id = ?"
+                                    db.query(SqlM,[u.Quantity,productid,dislocid,u.program_id],(err,result)=>{
+                                        if(err){console.log(err)}
+                                    })
+                                }
+                                else{
+                                    const SqlI = "Insert into product_requirement_summary(product_id,disaster_location_id,program_id,total_qty_req) VALUES (?,?,?,?)"
+                                    db.query(SqlI,[productid,dislocid,u.program_id,u.Quantity],(err,result)=>{
+                                        if(err){console.log(err)}
+                                    })
+                                
+                                
+                                }
+                            })
+                        }
+                        
                     })
                 }
             )

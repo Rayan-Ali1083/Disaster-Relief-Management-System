@@ -15,7 +15,7 @@ function Admin_Disaster() {
     navigate('/Disaster_Dashboard.js',{state:{id:Disaster_id}});
     }
 
-
+    const [cities, SetCities] = useState([]);
   const [removeDis, SetremoveDis] = useState([]);
 
   useEffect(() => {
@@ -25,7 +25,7 @@ function Admin_Disaster() {
 
     })
 
-  })
+  },[])
 
   const RemoveDisas = (dis_id) => {
     Axios.post("http://localhost:3001/api/removingdisaster", { disas: dis_id }).then((resultx) => {
@@ -47,7 +47,8 @@ function Admin_Disaster() {
   });
 
 
-  const [cities, SetCities] = useState([]);
+  
+
   useEffect(() => {
     Axios.get("http://localhost:3001/api/cities").then((response) => {
       SetCities(response.data)

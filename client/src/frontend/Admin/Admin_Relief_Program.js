@@ -32,20 +32,22 @@ function Admin_Relief_Program() {
         <Header/>
         <Admin_sidebar />
         <div class="card">
+          <div className="card-body">
           <div className='button'>
             <Link to={'/Create_Relief_Prog.js'} ><button type="button" className="btn btn-primary" id='add_relief_progam'>Create Relief Program</button></Link>
           </div>
           <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Program ID</th>
-      <th scope="col">Program Name</th>
-      <th scope="col">Program Status</th>
-      <th scope="col">Disaster NAME</th>
-      <th scope="col">Start Date</th>
-      <th scope="col">End Date</th>
-    </tr>
-  </thead>
+            <thead>
+              <tr>
+                <th scope="col">Program ID</th>
+                <th scope="col">Program Name</th>
+                <th scope="col">Program Status</th>
+                <th scope="col">Disaster NAME</th>
+                <th scope="col">Start Date</th>
+                <th scope="col">End Date</th>
+                <th scope="col">Option</th>
+              </tr>
+    </thead>
   <tbody>
 
 {reliefdet.map((val)=>(
@@ -65,7 +67,7 @@ function Admin_Relief_Program() {
   </tbody>
 </table>
         </div>
-        
+        </div>
     </>
   )
 }

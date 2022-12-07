@@ -3,6 +3,8 @@ import { NavLink } from 'react-router-dom';
 import './Signup.css'
 import Axios from 'axios'
 
+import backvid from '../../Extras/backvid.mp4'
+
 
 function Signup() {
 
@@ -44,7 +46,10 @@ const [orgtype,Setorgtype] = useState([])
 
   return (
     <>
-      <div id="pic"></div>
+      <div className="signup" style={{"backgroundColor":"black"}}>
+      <video width="380" height="280" loop autoPlay muted className='loginpage'>
+            <source src={backvid} type="video/mp4" />
+          </video>
         <div className="card-body" id='mid-body'>
             <div>
               <h3 style={{"textAlign":"center", "marginTop":'4%'}}>Organization Details</h3>
@@ -57,15 +62,17 @@ const [orgtype,Setorgtype] = useState([])
                 <input type="email" className='small-input' value={newUser.org_province} name='org_province' onChange={handleInputs} placeholder="Province"></input>
 
                   <select className="form-select" value={newUser.org_cate} name='org_cate' onChange={handleInputs} style={{'width':'35%', 'marginLeft':'55%', 'marginTop':'-4%'}}>
-                  <option selected>Organization Category</option>
+                  <option value>Organization Category</option>
                   {orgtype.map((val) => (
                             <option >{val.org_type}</option>
                           ))}
                         </select>
-                 
-              <NavLink to='/' end><button type="button" className="btn btn-primary" style={{"marginLeft": "10%", "marginTop": "10%"}}>Go Back</button></NavLink>
-              <button type="button" onClick={SubmitU} className="btn btn-primary" style={{"marginTop": "10%", "marginLeft": "68%"}}>Submit</button>
+              <div style={{'marginTop':'3%', 'marginLeft':'10%', 'marginRight':'10%'}}>
+                <NavLink to='/' end><button type="button" className="btn-1" style={{'marginRight':'70%'}}>Go Back</button></NavLink>
+                <button type="button" onClick={SubmitU} className="btn-1">Submit</button>
+              </div>
             </div>
+        </div>
         </div>
     </>
   )

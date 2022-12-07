@@ -15,8 +15,8 @@ const db = mysql.createPool({
 
     host:'localhost',
     user: 'root',
-    password: 'fast',
-    database: 'dbtest'
+    password: 'root',
+    database: 'drwms'
 
 });
 
@@ -111,8 +111,14 @@ app.post("/api/signup", (req,res)=>{
                   const sqlInsert = 
                 "Insert into users (Username,password,Org_id) VALUES(?,?,?)";
                 db.query(sqlInsert, [user.user_name,hash,holder],(err,result)=>{
-                    console.log(err)
-                    res.send({message1:"Successfully Registered"})}
+                    if(err){
+
+                        console.log(err)
+                    }else{
+                        res.send({message1:"Successfully Registered"})}
+                    }
+                    
+                    
            )
                 })}
 
@@ -160,7 +166,7 @@ app.get("/api/remOrg",(req,res)=>{
 const status = "ACTIVE"
 const admin = "ORG_0001"
     const sqlget = 
-    "Select o.org_id,o.org_name,o.org_status, o.org_category_id,r.program_name from relief_program r, organizations o, relief_providers as rp where o.org_id = rp.org_id or rp.program_id = r.program_id and o.Org_status = ? and o.Org_id != ?";
+    "Select org_id,org_name,org_status, org_category_id from organizations  where Org_status = ? and Org_id != ?";
     db.query(sqlget,[status,admin], (err,result)=>{
         console.log(err)
         res.send(result)
@@ -303,7 +309,23 @@ app.post("/api/dislocdashinfo", (req, res) => {
 
 })
 
+app.post("/api/dislocations", (req, res) => {
+     
+    const user = req.body.dash
+    const sqlget =
+    "select dl.Location_name from disaster_locations dl,relief_program rp where rp.Program_id=? and rp.Disaster_id=dl.Disaster_id"
+    db.query(sqlget, user,(err, result) => {
+        if(err){
+         console.log(err)   
+         console.log(result)
+        }
+        else{
+            res.send(result)
+        }
+        
+    });
 
+})
 
 app.post("/api/dashmoreinfo", (req, res) => {
      
@@ -589,11 +611,15 @@ app.post("/api/login", (req,res)=>{
     
     db.query(check,[username,hold],(err,result)=>{
 
+        if(err){
+            console.log(err);
+        }
         if(result.length > 0){
             res.send({message:"Your Registration is Pending"})
         }
 
         else{
+
  const sqlRet = "Select * from users where username = ?";
     db.query(sqlRet, username,(err,result)=>{
         if(err){
@@ -620,6 +646,56 @@ app.post("/api/login", (req,res)=>{
     })
    
 });
+
+
+
+app.post("/api/addRequirement", (req, res) => {
+    const u = req.body.reqq
+
+    var productid = ""
+    var dislocid = ""
+    console.log(u)
+    
+    let dPromise = new Promise(function (Resolve, Reject) {
+        const SqlD = "Select Product_id from product where Product_name = ?"
+        db.query(SqlD, u.Product_name, (err, result) => {
+            let resultx = JSON.parse(JSON.stringify(result))
+            console.log(result)
+            productid = result[0].Product_id
+            console.log(productid)
+            Resolve("Ok")
+        })
+    })
+    dPromise.then(
+        function () {
+            let newPromise = new Promise(function (Solve, Reeject) {
+                const SqlL = "Select Disaster_location_id from disaster_locations where Location_name=?"
+                db.query(SqlL, u.Location_name, (err, result) => {
+                    let resultx = JSON.parse(JSON.stringify(result))
+                    console.log(result)
+                    dislocid = result[0].Disaster_location_id
+                    console.log(dislocid)
+                    Solve("Ok")
+                })
+            })
+            newPromise.then(
+                
+                 function () {
+                    console.log(productid)
+                     console.log(dislocid)
+                    SqlR = "Insert into product_requirements (Product_id,Disaster_location_id,Program_id,Req_qty,Request_date) VALUES (?,?,?,?,?)"
+                    db.query(SqlR, [productid, dislocid, u.program_id,u.Quantity,u.date], (err, result) => {
+                        if (err) {
+                            console.log(err)
+                        }
+                        res.send({ message: "Requirement Raised Successfully" })
+                    })
+                }
+            )
+        }
+    )
+}
+)
 
 
 

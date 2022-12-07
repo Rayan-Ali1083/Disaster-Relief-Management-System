@@ -57,17 +57,19 @@ const Login_page = () => {
             <input className="form-control" id="textarea" name='password' value={user.password} 
             onChange={handleInputs} placeholder='***********'></input>
           </div>
-          <button type="button" onClick={login} className="btn btn-primary" style={{"float":"centre"}}>Login</button>
+          <button type="button" onClick={login} className="btn-1">Login</button>
           <div id="text"><b>New user? Sign up</b>
           <NavLink to='Signup.js'><b> here</b></NavLink>
           </div>
         </div>
+        <div style={{'width':'fit-content', "position":'relative', "marginLeft": '80%'}}>
         <NavLink to='Admin_Home.js'>
-          <button type="button" className="btn btn-primary" style={{"marginLeft": "85%", "marginTop": "3%"}}>Admin</button>
+          <button type="button" className="btn-1" >Admin</button>
         </NavLink>
         <NavLink to='Users_Home.js'>
-          <button type="button" className="btn btn-primary" style={{"marginLeft": "70%", "marginTop": "-4.75%"}}>Users</button>
+          <button type="button" className="btn-1" >Users</button>
         </NavLink>
+        </div>
     <h1>{loginStatus}</h1>
       </div>
     </>

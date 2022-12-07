@@ -10,7 +10,5 @@ const SetCookie = (cookiename,usrin)=>{
 
     })
 
-console.log("HEREEEEE" + usrin)
-console.log("HEREEEEE" + cookiename)
 };
 export default SetCookie;

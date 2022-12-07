@@ -142,10 +142,10 @@ function Admin_Disaster() {
     <>
       <Header />
       <Admin_sidebar />
-      <div className="card">
+      <div className="card" style={{'backgroundColor':'#30574b', 'borderColor':'transparent', 'borderStyle':'none'}}>
         <div className='button'>
-          <Link to={'/Add_Disaster.js'}><button type="button" className="btn btn-primary" id='add_relief_progam'>Add Disaster</button></Link>
-          <button type="button" className="btn btn-primary" id='add_relief_progam' data-bs-toggle="modal" data-bs-target="#exampleModal">Add Disaster Category</button>
+          <Link to={'/Add_Disaster.js'}><button type="button" className="btn" id='add_relief_program'>Add Disaster</button></Link>
+          <button type="button" className="btn" id='add_relief_program' data-bs-toggle="modal" data-bs-target="#exampleModal">Add Disaster Category</button>
 
 
 
@@ -175,7 +175,7 @@ function Admin_Disaster() {
             </div>
           </div>
 
-          <button type="button" className="btn btn-primary" id='add_relief_progam' data-bs-toggle="modal" data-bs-target="#examplesModal">Disaster Locations</button>
+          <button type="button" className="btn" id='add_relief_program' data-bs-toggle="modal" data-bs-target="#examplesModal">Disaster Locations</button>
           <div className="modal-centered modal-scrollable modal fade modal-xl" id="examplesModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog">
               <div className="modal-content">
@@ -241,7 +241,7 @@ function Admin_Disaster() {
             </div>
           </div>
 
-          <button type="button" className="btn btn-primary" id='add_relief_progam' data-bs-toggle="modal" data-bs-target="#removedismodal">Remove Disaster</button>
+          <button type="button" className="btn " id='add_relief_program' data-bs-toggle="modal" data-bs-target="#removedismodal">Remove Disaster</button>
 
 
           <div className="modal-centered modal-scrollable modal fade modal-xl" id="removedismodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -314,7 +314,7 @@ function Admin_Disaster() {
           {/* yeh aik different page pe jaye ha */}
         </div>
 
-        <table className="table">
+        <table className="table" style={{'backgroundColor':'#30574b', 'borderColor':'transparent', 'color':'#fffb00','borderStyle':'none'}}>
           <thead>
             <tr>
               <th scope="col">Disaster ID</th>

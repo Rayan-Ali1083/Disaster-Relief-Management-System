@@ -43,4 +43,19 @@
     font-size: large;
 }
 
-
+.btn-1{
+    width: 100px;
+    height: 40px;
+    border: none;
+    color: white;
+    background-color: #0D6EFD;
+    border-radius: 50px;
+    box-shadow: inset 0 0 0 0 #478484;
+    transition: ease-out 0.3s;
+    padding: 5px 10px;
+    font-weight: bold;
+    outline: none;
+}
+.btn-1:hover{
+    box-shadow: inset 100px 0 0 0 #478484;
+}

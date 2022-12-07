@@ -57,7 +57,7 @@ const [orgtype,Setorgtype] = useState([])
                 <input type="email" className='small-input' value={newUser.org_province} name='org_province' onChange={handleInputs} placeholder="Province"></input>
 
                   <select className="form-select" value={newUser.org_cate} name='org_cate' onChange={handleInputs} style={{'width':'35%', 'marginLeft':'55%', 'marginTop':'-4%'}}>
-                  <option selected>Organization Category</option>
+                  <option value>Organization Category</option>
                   {orgtype.map((val) => (
                             <option >{val.org_type}</option>
                           ))}

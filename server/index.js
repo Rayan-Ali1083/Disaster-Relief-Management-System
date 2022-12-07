@@ -15,11 +15,7 @@ const db = mysql.createPool({
 
     host:'localhost',
     user: 'root',
-<<<<<<< HEAD
-    password: 'fast123',
-=======
     password: 'root',
->>>>>>> 3e97a445 (frontend)
     database: 'drwms'
 
 });

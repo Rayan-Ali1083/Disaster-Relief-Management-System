@@ -1,6 +1,1 @@
-node_modules
-client/node_modules/.cache/default-development/7.pack
-client/node_modules/.cache/default-development/12.pack
-client/node_modules/.cache/default-development/1.pack
-
-client/node_modules/.cache/default-development/1.pack 
+/node_modules

@@ -76,7 +76,7 @@ function Users_Commitments() {
                         <td>{val.comm_date}</td>
                         <td>{val.exp_delivery_date}</td>
                         <td>{val.status}</td>
-                        <td><button type="button" class="btn btn-primary" id='add_commitment' data-bs-toggle="modal" data-bs-target="#addDis">Fullfil</button></td>
+                        <td><button type="button" class="btn" id='bttn' data-bs-toggle="modal" data-bs-target="#addDis">Fullfill</button></td>
 
                         <div className="modal-centered modal-scrollable modal fade modal-lg" id="addDis" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog">
@@ -97,10 +97,6 @@ function Users_Commitments() {
                       </tr>
                     </thead>
                   <tbody>
-
-                  {/* {newfullfillment.p_commitment_id=val.p_commitment_id} */}
-                  {/* {newCommitment.Disaster_location_id=val.Disaster_location_id}
-                  {newCommitment.Program_id=val.Program_id} */}
                   
                   <tr style={{'borderBottomColor':'transparent'}}>
                     <td>  <input type="number" min='0' className="form-control" value={newfullfillment.Qty_fullfilled} name= 'Qty_fullfilled' onChange={handlefullfillments} placeholder="Quantity" aria-label="Username"></input>
@@ -127,11 +123,6 @@ function Users_Commitments() {
               </div>
             </div>
           </div>
-
-
-
-
-                        <td><button type="button" class="btn" id='bttn'>Fullfil</button></td>
                         </tr>   
 
                       ))}

@@ -63,10 +63,11 @@ function Users_Relief_Programs() {
     <>
       <Users_Nav />
 
-      <div className="card" style={{ 'margin-left': 'auto', 'margin-right': 'auto' }}>
-        <div className="card-body">
-          <table className="table">
-            <thead>
+      <div className="card" style={{"width":"70%", "marginLeft":"15%", "borderRadius":"1%", 'backgroundColor':'transparent', 'borderStyle':'none'}}>
+        <div className="card-body" style={{'borderStyle':'solid', 'borderColor':'black' }}>
+          <table className="table" style={{'backgroundColor':'#30574b', 'color':'#fffb00','borderStyle':'none', 'textAlign':'center'}}>
+
+            <thead style={{'borderStyle':'solid'}}>
               <tr>
                 <th scope="col">Program ID</th>
                 <th scope="col">Program Name</th>
@@ -77,7 +78,7 @@ function Users_Relief_Programs() {
                 <th scope="col">Option</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody style={{'color':'white', 'fontWeight':'bold'}}>
               
                 {Rprogram.map((val) => (
 
@@ -89,7 +90,7 @@ function Users_Relief_Programs() {
                     <td>{val.Start_date}</td>
                     <td>{val.End_date}</td>
                     <td>
-                  <button type="button" onClick={() => { Registerorg(val.Program_id) }} style={{ "background": "#89bd79", "borderRadius": "5px", "borderStyle": "none" }}>Register</button>
+                  <button type="button" onClick={() => { Registerorg(val.Program_id) }} id='bttn' >Register</button>
                  
 
                 </td>
@@ -103,10 +104,10 @@ function Users_Relief_Programs() {
 
       </div>
 
-      <div className="card" style={{ 'margin-left': 'auto', 'margin-right': 'auto' }}>
-        <div className="card-body">
-          <table className="table">
-            <thead>
+      <div className="card" style={{"width":"70%", "marginLeft":"15%", "borderRadius":"1%", 'backgroundColor':'transparent', 'borderStyle':'none'}}>
+        <div className="card-body" style={{'borderStyle':'solid', 'borderColor':'black' }}>
+          <table className="table" style={{'backgroundColor':'#30574b', 'color':'#fffb00','borderStyle':'none', 'textAlign':'center'}}>
+            <thead style={{'borderStyle':'solid'}}>
               <tr>
                 <th scope="col">Program ID</th>
                 <th scope="col">Program Name</th>
@@ -114,7 +115,7 @@ function Users_Relief_Programs() {
                 <th scope="col">Option</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody style={{'color':'white', 'fontWeight':'bold'}}>
               
                 {MYRlprogram.map((val) => (
                  
@@ -123,7 +124,7 @@ function Users_Relief_Programs() {
                     <td>{val.Program_name}</td>
                     <td>{val.Program_status}</td>
                     <td>
-                  <button type="button" onClick={() => { Removeorg(val.Program_id) }} style={{ "background": "#ff392e", "borderRadius": "5px", "borderStyle": "none" }}>Leave</button>
+                  <button type="button" onClick={() => { Removeorg(val.Program_id) }}  id='removebtn'>Leave</button>
 
                 </td>
                   </tr>

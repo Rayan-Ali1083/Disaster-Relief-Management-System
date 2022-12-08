@@ -4,6 +4,7 @@ import Axios from 'axios'
 import RemoveCookie from '../../hooks/removeCookie';
 import SetCookie from '../../hooks/setCookie';
 import GetCookie from '../../hooks/getCookie';
+import '../Users/Users_home.css'
 
 
 function Users_Requirements() {
@@ -31,7 +32,7 @@ function Users_Requirements() {
     
     const makecommit = (productid,dislocid,prgid) => {
       console.log(productid+"prd")      
-      Axios.post("http://localhost:3001/api/makecommit", { prd: productid,dl: dislocid,pid:prgid,commnewCommitment}).then((resultx) => {
+      Axios.post("http://localhost:3001/api/makecommit", { prd: productid,dl: dislocid,pid:prgid,comm:newCommitment}).then((resultx) => {
         if (resultx.data.message) {
           alert(resultx.data.message);
         }
@@ -50,10 +51,10 @@ function Users_Requirements() {
   return (
     <>
       <Users_Nav />
-      <div className="card" style={{ 'margin-left': 'auto', 'margin-right': 'auto' }}>
-        <div className="card-body">
-          <table className="table">
-            <thead>
+      <div className="card" style={{"width":"70%", "marginLeft":"15%", "borderRadius":"1%", 'backgroundColor':'transparent', 'borderStyle':'none'}}>
+      <div className="card-body" style={{'borderStyle':'solid', 'borderColor':'black' }}>
+      <table className="table" style={{'backgroundColor':'#30574b', 'color':'#fffb00','borderStyle':'none', 'textAlign':'center'}}>
+      <thead style={{'borderStyle':'solid'}}>
               <tr>
                 <th scope="col">Program Name</th>
                 <th scope="col">Product Name</th>
@@ -65,7 +66,7 @@ function Users_Requirements() {
                 <th scope="col">Option</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody style={{'color':'white', 'fontWeight':'bold'}}>
               {Rprogramsummary.map((val) => (
 
                 <tr>
@@ -95,6 +96,7 @@ function Users_Requirements() {
                       <th scope="col">Commit Quantity</th>
                       <th scope="col">Current Date</th>
                       <th scope="col">Expected Delivery Date</th>
+                      <th scope="col">Option</th>
                       </tr>
                     </thead>
                   <tbody>
@@ -111,9 +113,9 @@ function Users_Requirements() {
                   
                   <td>
                     <input type="date" value={newCommitment.E_delv_date} name='E_delv_date' onChange={handlecommitments}  ></input></td>
-                  
-
-                  <button type="button" onClick={()=>{makecommit(val.id,val.Disaster_location_id,val.Program_id)}} style={{"background":"#89bd79", "borderRadius":"5px", "borderStyle":"none"}}>Add</button>
+                  <td>
+                  <button type="button" onClick={()=>{makecommit(val.id,val.Disaster_location_id,val.Program_id)}} id='bttn' style={{'borderStyle':'solid'}}>Add</button>
+                  </td>
               </tr>
             
             </tbody>

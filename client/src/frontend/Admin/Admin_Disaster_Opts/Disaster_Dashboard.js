@@ -21,10 +21,10 @@ function Disaster_Dashboard() {
 
   return (
     <>
-        <div className="card" style={{"margin": "auto", "width": "100%","border": "10px solid green","padding":"5%"}}>
+        <div className="card" style={{"width":"70%", "marginLeft":"15%", "borderRadius":"1%", 'backgroundColor':'transparent', 'borderStyle':'none'}}>
           <h3>DISASTER DASHBOARD</h3>
-          <table className="table">
-        <thead>
+          <table className="table" style={{'backgroundColor':'#30574b', 'color':'#fffb00','borderStyle':'none', 'textAlign':'center'}}>
+        <thead style={{'borderStyle':'solid'}}>
             <tr>
             <th scope="col">Disaster Location ID</th>
             <th scope="col">Location Name</th>
@@ -33,7 +33,7 @@ function Disaster_Dashboard() {
             
             </tr>
         </thead>
-  <tbody>
+  <tbody style={{'color':'white', 'fontWeight':'bold'}}>
  
   {dislocdet.map((val)=>(
   <tr>

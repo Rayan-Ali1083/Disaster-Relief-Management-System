@@ -8,8 +8,6 @@ import Admin_Relief_Program from './frontend/Admin/Admin_Relief_Program';
 import Admin_sidebar from './Extras/Admin_sidebar';
 import Admin_Disaster from './frontend/Admin/Admin_Disaster'
 import Users_Home from './frontend/Users/Users_Home';
-import Remove_Org from './frontend/Admin/Admin_Org_Opts/Remove_Org';
-import Add_Products from './frontend/Admin/Admin_Prod_Ser_Opts/Add_Products';
 import Users_Relief_Programs from './frontend/Users/Users_Relief_Programs';
 import Users_Requirements from './frontend/Users/Users_Requirements';
 import Users_Commitments from './frontend/Users/Users_Commitments';
@@ -36,9 +34,7 @@ function App() {
         <Route path='/Admin_Relief_Program.js' element={<Admin_Relief_Program />} />
         <Route path='/Admin_Disaster.js' element={<Admin_Disaster />} />
         <Route path='/Users_Home.js' element={<Users_Home />} />
-        <Route path='/Remove_Org.js' element={<Remove_Org />} />
         <Route path='/Users_Relief_Programs.js' element={<Users_Relief_Programs />} />
-        <Route path='/Add_Products.js' element={<Add_Products />} />
         <Route path='/Disaster_Dashboard.js' element={<Disaster_Dashboard />} />
         <Route path='/Relief_Dashboard.js' element={<Relief_Dashboard />} />
         <Route path='/Users_Requirements.js' element={<Users_Requirements />} />

@@ -31,7 +31,7 @@ function Users_Requirements() {
     
     const makecommit = (productid,dislocid,prgid) => {
       console.log(productid+"prd")      
-      Axios.post("http://localhost:3001/api/makecommit", { prd: productid,dl: dislocid,pid:prgid,comm:newCommitment}).then((resultx) => {
+      Axios.post("http://localhost:3001/api/makecommit", { prd: productid,dl: dislocid,pid:prgid,commnewCommitment}).then((resultx) => {
         if (resultx.data.message) {
           alert(resultx.data.message);
         }

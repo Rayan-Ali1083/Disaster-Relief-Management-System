@@ -86,10 +86,10 @@ function Relief_Dashboard() {
 
   return (
     <>
-      <div className="card" style={{ "margin": "auto", "width": "100%", "border": "10px solid green", "padding": "5%" }}>
+      <div className="card" style={{"width":"70%", "marginLeft":"15%", "borderRadius":"1%", 'backgroundColor':'transparent', 'borderStyle':'none'}}>
         <h3>RELIEF PROGRAM DASHBOARD</h3>
-        <table className="table">
-          <thead>
+        <table className="table" style={{'backgroundColor':'#30574b', 'color':'#fffb00','borderStyle':'none', 'textAlign':'center'}}>
+          <thead  style={{'borderStyle':'solid'}}>
             <tr>
               <th scope="col">Program ID</th>
               <th scope="col">Program Name</th>
@@ -98,7 +98,7 @@ function Relief_Dashboard() {
               <th scope="col">Start Date</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody style={{'color':'white', 'fontWeight':'bold'}}>
 
             {reliefdet.map((val) => (
               <tr>
@@ -115,8 +115,8 @@ function Relief_Dashboard() {
           </tbody>
         </table>
         <h3>PRODUCT COMMITMENT</h3>
-        <table className="table">
-          <thead>
+        <table className="table" style={{'backgroundColor':'#30574b', 'color':'#fffb00','borderStyle':'none', 'textAlign':'center'}}>
+          <thead  style={{'borderStyle':'solid'}}>
             <tr>
               <th scope="col">Commitment ID</th>
               <th scope="col">Organization</th>
@@ -128,7 +128,7 @@ function Relief_Dashboard() {
               <th scope="col">Status</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody style={{'color':'white', 'fontWeight':'bold'}}>
 
             {reliefdet.map((val) => (
               <tr>
@@ -150,16 +150,15 @@ function Relief_Dashboard() {
           <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style={{ "marginLeft": "10%" }}>Raise Requirment</button>
           <div class="modal-centered modal-scrollable modal fade modal-xl" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
-              <div class="modal-content">
+              <div class="modal-content" style={{'backgroundColor':'#30574b', 'borderStyle':'none', 'borderColor':'transparent'}}>
                 <div class="modal-header">
-                  <h3 class="modal-title fL-5 text-black" id="exampleModalLabel">Raise Requirment</h3>
+                  <h3 class="modal-title fL-5" id="exampleModalLabel">Raise Requirment</h3>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                  <div className="card" style={{ "margin": "auto", "width": "100%", "border": "4px solid black", "padding": "5%" }}>
+                  <div className="card" style={{'backgroundColor':'#478484',  "margin": "auto", "width": "100%", "border": "4px solid black", 'borderRadius':'50px',"padding": "5%" }}>
                     {/* <h3>ADD DISASTER LOCATION</h3> */}
-                    <table className="table">
-
+                    <table className="table" style={{'backgroundColor':'#478484', 'borderBottomStyle ':'none','color':'#fffb00','borderStyle':'none', 'textAlign':'center'}}>
                       <tbody>
                         <tr>
                           <td>
@@ -207,16 +206,16 @@ function Relief_Dashboard() {
                 </div>
                 <div class="modal-footer">
 
-                  <button type="button" onClick={Addreq} className="btn btn-outline-success" data-bs-dismiss="modal">Add</button>
-                  <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Go Back</button>
+                  <button type="button" onClick={Addreq} className="btn btn-success" data-bs-dismiss="modal">Add</button>
+                  <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Go Back</button>
 
                 </div>
               </div>
             </div>
           </div>
         </h3>
-        <table className="table">
-          <thead>
+        <table className="table" style={{'backgroundColor':'#30574b', 'color':'#fffb00','borderStyle':'none', 'textAlign':'center'}}>
+          <thead  style={{'borderStyle':'solid'}}>
             <tr>
               <th scope="col">Requirement ID</th>
               <th scope="col">Product</th>
@@ -225,7 +224,7 @@ function Relief_Dashboard() {
               <th scope="col">Requested Date</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody style={{'color':'white', 'fontWeight':'bold'}}>
 
             {proddet.map((val) => (
               <tr>
@@ -241,8 +240,8 @@ function Relief_Dashboard() {
           </tbody>
         </table>
         <h3>PRODUCT FULLFILMENT</h3>
-        <table className="table">
-          <thead>
+        <table className="table" style={{'backgroundColor':'#30574b', 'color':'#fffb00','borderStyle':'none', 'textAlign':'center'}}>
+          <thead  style={{'borderStyle':'solid'}}>
             <tr>
               <th scope="col">Organization Name</th>
               <th scope="col">Product Name</th>
@@ -251,7 +250,7 @@ function Relief_Dashboard() {
               <th scope="col">Expected Delivery</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody style={{'color':'white', 'fontWeight':'bold'}}>
 
             {prodful.map((val) => (
               <tr>

@@ -188,7 +188,7 @@ function Admin_Disaster() {
             <div className="modal-dialog">
               <div className="modal-content" style={{'backgroundColor':'#30574b', 'borderColor':'transparent'}}>
                 <div className="modal-header" style={{'backgroundColor':'#30574b', 'borderStyle':'none', 'borderColor':'transparent'}}>
-                  <h1 className="modal-title fs-5" id="exampleModalLabel" style={{'color':'white'}}>ADD DISASTER</h1>
+                  <h1 className="modal-title fs-5" id="exampleModalLabel" style={{'color':'white'}}>ADD DISASTER CATEGORY</h1>
                   <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div className="modal-body" style={{ "margin": "auto", "width": "100%", "border": "3px solid black", "padding": "5%", 'backgroundColor':'#478484', 'borderRadius':'50px'}}>

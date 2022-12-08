@@ -5,7 +5,9 @@ function Users_Nav() {
   return (
     <nav className="navbar navbar-expand-lg" style={{'height': 80, 'fontSize': 25 ,'backgroundColor':'#30574b'}}>
             <div className="container-fluid">
-                <a className="navbar-brand" href="/Users_Home.js">LOGO</a>
+                <a className="navbar-brand" href="/Users_Home.js">
+                <img src={require("../../Extras/logo2.png")} style={{'height':'100px'}}></img>
+                </a>
                 <div className="collapse navbar-collapse"  id="navbarTogglerDemo03">
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0" id='try'>
                     <li className="nav-item">

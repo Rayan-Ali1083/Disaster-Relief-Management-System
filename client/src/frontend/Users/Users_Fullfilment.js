@@ -29,10 +29,10 @@ function Users_Fullfilment() {
      return (
       <>
         <Users_Nav />
-        <div className="card" style={{ 'margin-left': 'auto', 'margin-right': 'auto' }}>
-          <div className="card-body">
-            <table className="table">
-              <thead>
+        <div className="card" style={{"width":"70%", "marginLeft":"15%", "borderRadius":"1%", 'backgroundColor':'transparent', 'borderStyle':'none'}}>
+        <div className="card-body" style={{'borderStyle':'solid', 'borderColor':'black' }}>
+        <table className="table" style={{'backgroundColor':'#30574b', 'color':'#fffb00','borderStyle':'none', 'textAlign':'center'}}>
+        <thead style={{'borderStyle':'solid'}}>
                 <tr>
                   <th scope="col">FULLFILLMENT ID</th>
                   <th scope="col">COMMITMENT ID</th>
@@ -40,7 +40,7 @@ function Users_Fullfilment() {
                   <th scope="col">FULLFILLED DATE</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody style={{'color':'white', 'fontWeight':'bold'}}>
                 {fullfilldet.map((val) => (
   
                   <tr>

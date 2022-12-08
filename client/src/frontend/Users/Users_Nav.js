@@ -1,7 +1,18 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
-
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+import RemoveCookie from '../../hooks/removeCookie';
+import Login_page from '../Login/Login_page';
 function Users_Nav() {
+
+  const navigate = useNavigate()
+
+  const ClearD = ()=>{
+    RemoveCookie('usrin')
+    alert("Logged Out")
+    window.location.replace('http://localhost:3000');
+
+  }
+
   return (
     <nav className="navbar navbar-expand-lg" style={{'height': 80, 'fontSize': 25 ,'backgroundColor':'#30574b'}}>
             <div className="container-fluid">
@@ -25,8 +36,8 @@ function Users_Nav() {
                     <li className="nav-item">
                     <NavLink to='/Users_Fullfilment.js' className="nav-link active">Fullfillments</NavLink>
                     </li>
-                    <li className="nav-item">
-                    <NavLink className="nav-link active">LogOut</NavLink>
+                    <li className="nav-item" onClick={ClearD}>
+                    <NavLink  className="nav-link active" >LogOut</NavLink>
                     </li>
                 </ul>
                 </div>

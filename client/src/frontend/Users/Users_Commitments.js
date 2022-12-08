@@ -20,10 +20,10 @@ function Users_Commitments() {
   return (
     <>
         <Users_Nav/>
-        <div className="card" style={{'margin-left':'auto','margin-right':'auto'}}>
-                <div className="card-body">
-                <table className="table">
-                    <thead>
+        <div className="card" style={{"width":"70%", "marginLeft":"15%", "borderRadius":"1%", 'backgroundColor':'transparent', 'borderStyle':'none'}}>
+        <div className="card-body" style={{'borderStyle':'solid', 'borderColor':'black' }}>
+        <table className="table" style={{'backgroundColor':'#30574b', 'color':'#fffb00','borderStyle':'none', 'textAlign':'center'}}>
+        <thead style={{'borderStyle':'solid'}}>
                         <tr>
                         <th scope="col">Product Commitment ID</th>
                         <th scope="col">Product Name</th>
@@ -37,7 +37,7 @@ function Users_Commitments() {
                         
                         </tr>
                     </thead>
-                    <tbody>  
+                    <tbody style={{'color':'white', 'fontWeight':'bold'}}>
                       {commdet.map((val)=>(
 
                       <tr>
@@ -49,7 +49,7 @@ function Users_Commitments() {
                         <td>{val.comm_date}</td>
                         <td>{val.exp_delivery_date}</td>
                         <td>{val.status}</td>
-                        <td><button type="button" class="btn btn-primary">Fullfil</button></td>
+                        <td><button type="button" class="btn" id='bttn'>Fullfil</button></td>
                         </tr>   
 
                       ))}

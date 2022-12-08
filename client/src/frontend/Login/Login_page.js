@@ -6,7 +6,11 @@ import Axios from 'axios'
 import SetCookie from '../../hooks/setCookie';
 import GetCookie from '../../hooks/getCookie';
 import RemoveCookie from '../../hooks/removeCookie';
+<<<<<<< HEAD
 // import backvid from '../../Extras/backvid.mp4'
+=======
+import backvid from '../../Extras/backvid.mp4'
+>>>>>>> 6a94af46 (frontend updated)
 const Login_page = () => {
 
   const navigate = useNavigate();
@@ -48,7 +52,7 @@ const Login_page = () => {
       <div className="loginpage" style={{"backgroundColor":"black"}}> 
         
           <video width="380" height="280" loop autoPlay muted className='loginpage'>
-            {/* <source src={backvid} type="video/mp4" /> */}
+            <source src={backvid} type="video/mp4" />
           </video>
           <div className="login">
           <img id='pp' alt='Background' src={person}  style={{"width":"30%", 'marginTop':'15%'}}></img>

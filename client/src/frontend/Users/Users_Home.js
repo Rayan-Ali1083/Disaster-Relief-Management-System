@@ -33,14 +33,12 @@ function Users_Home() {
     <>
         <Users_Nav/>
         <div style={{"marginTop":"2%"}}>       
-            <img className="card-img-top" src={require("../../Extras/side_ad_user.jpg")} alt="ads" style={{"width":"12%", "marginLeft":"1%"}}></img>
-            <img className="card-img-top" src={require("../../Extras/side_ad_user.jpg")} alt="ads" style={{"width":"12%", "marginLeft":"87%", "marginTop":"-50%"}}></img>
-        <div className="card" style={{"width":"70%", "marginLeft":"15%", "marginTop":"-50%", "borderRadius":"1%"}}>
-            <div className="card-body">
+        <div className="card" style={{"width":"70%", "marginLeft":"15%", "borderRadius":"1%", 'backgroundColor':'transparent', 'borderStyle':'none'}}>
+            <div className="card-body" style={{'borderColor':'black', 'borderStyle':'solid'}}>
                 <h3 className="card-title">Organization Details:</h3>
-                <div style={{background: 'black', height: '2px',}}/>
+                <div style={{background: 'white', height: '2px',}}/>
                 <br></br>
-                <div className="card-body" style={{"background":"#e3e1e1", "borderRadius":"1%"}}>
+                <div className="card-body" style={{"background":"#478484", "borderRadius":"50px"}}>
                 <div style={{"padding":"3%"}}>
                     <div className="card-text">
                         <h5>Organiztion Name: {orgname.toUpperCase()}

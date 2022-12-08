@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Users_Nav from './Users_Nav'
 import Axios from 'axios'
+import '../Users/Users_home.css'
 
 
 function Users_Requirements() {
@@ -20,10 +21,10 @@ function Users_Requirements() {
   return (
     <>
       <Users_Nav />
-      <div className="card" style={{ 'margin-left': 'auto', 'margin-right': 'auto' }}>
-        <div className="card-body">
-          <table className="table">
-            <thead>
+      <div className="card" style={{"width":"70%", "marginLeft":"15%", "borderRadius":"1%", 'backgroundColor':'transparent', 'borderStyle':'none'}}>
+      <div className="card-body" style={{'borderStyle':'solid', 'borderColor':'black' }}>
+      <table className="table" style={{'backgroundColor':'#30574b', 'color':'#fffb00','borderStyle':'none', 'textAlign':'center'}}>
+      <thead style={{'borderStyle':'solid'}}>
               <tr>
                 <th scope="col">Program Name</th>
                 <th scope="col">Product Name</th>
@@ -35,7 +36,7 @@ function Users_Requirements() {
                 <th scope="col">Option</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody style={{'color':'white', 'fontWeight':'bold'}}>
               {Rprogramsummary.map((val) => (
 
                 <tr>
@@ -46,7 +47,7 @@ function Users_Requirements() {
                   <td>{val.Total_qty_req}</td>
                   <td>{val.Total_qty_comm}</td>
                   <td>{val.Total_qty_fullfilled}</td>
-                  <td><button type="button" class="btn btn-primary">Commit</button></td>
+                  <td><button type="button" id='bttn'>Commit</button></td>
                 </tr>
               ))}
               

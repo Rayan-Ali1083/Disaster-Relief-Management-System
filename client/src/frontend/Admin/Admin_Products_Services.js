@@ -167,7 +167,7 @@ function Admin_Products_Services() {
                           <h1 className="modal-title fs-5" id="exampleModalLabel" style={{'color':'white'}}>ADD PRODUCTS</h1>
                           <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div className="modal-body"  style={{ "margin": "auto", "width": "100%", "border": "3px solid black", "padding": "5%", 'backgroundColor':'#478484', 'borderRadius':'50px'}}>
+                        <div className="modal-body" style={{ "margin": "auto", "width": "100%", "border": "3px solid black", "padding": "5%", 'backgroundColor':'#478484', 'borderRadius':'50px'}}>
                             <div className="d-grid gap-2">
                             <table className="table" style={{'backgroundColor':'#30574b', 'color':'#fffb00', 'textAlign':'center'}}>
                               <thead>

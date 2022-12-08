@@ -6,11 +6,7 @@ import Axios from 'axios'
 import SetCookie from '../../hooks/setCookie';
 import GetCookie from '../../hooks/getCookie';
 import RemoveCookie from '../../hooks/removeCookie';
-<<<<<<< HEAD
-// import backvid from '../../Extras/backvid.mp4'
-=======
 import backvid from '../../Extras/backvid.mp4'
->>>>>>> 6a94af46 (frontend updated)
 const Login_page = () => {
 
   const navigate = useNavigate();

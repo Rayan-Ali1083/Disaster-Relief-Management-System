@@ -18,6 +18,14 @@ function Disaster_Dashboard() {
   
   },[])
 
+  const RemoveDisasloc = (disloc_id) => {
+    Axios.post("http://localhost:3001/api/removingdisasterloc", { disasloc: disloc_id }).then((resultx) => {
+      if (resultx.data.message) {
+        alert(resultx.data.message);
+      }
+    })
+  };
+
 
   return (
     <>
@@ -30,6 +38,7 @@ function Disaster_Dashboard() {
             <th scope="col">Location Name</th>
             <th scope="col">City Name</th>
             <th scope="col">Province Name</th>
+            <th scope="col">Option</th>
             
             </tr>
         </thead>
@@ -41,6 +50,7 @@ function Disaster_Dashboard() {
    <td>{val.Location_name}</td>
    <td>{val.City_name}</td>
    <td>{val.Province_name}</td>
+   <button type="button" id='removebtn' onClick={() => { RemoveDisasloc(val.Disaster_location_id) }}>REMOVE</button>
  </tr>
    ))}
   </tbody>

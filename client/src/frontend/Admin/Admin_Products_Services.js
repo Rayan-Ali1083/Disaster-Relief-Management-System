@@ -172,7 +172,7 @@ function Admin_Products_Services() {
                             <table className="table" style={{'backgroundColor':'#30574b', 'color':'#fffb00', 'textAlign':'center'}}>
                               <thead>
                               <tr>
-                              <th scope="col">Product ID</th>
+                              {/* <th scope="col">Product ID</th> */}
                                 <th scope="col">Product Name</th>
                                 <th scope="col">Product Category</th>
                                 <th scope="col">Option</th>
@@ -180,9 +180,9 @@ function Admin_Products_Services() {
                               </thead>
                                   <tbody style={{'color':'white'}}>
                                   <tr>
-                                    <td><input  placeholder='Example 001'></input></td>
-                                    <td><input value={newProduct.product_name} name='product_name' onChange={handleIn} placeholder='Example Milk'></input></td>
-                                    <td><input value={newProduct.product_cate} name='product_cate'onChange={handleIn} placeholder='Example Food'></input></td>
+                                   
+                                    <td><input value={newProduct.product_name} name='product_name' onChange={handleIn} placeholder='Product Name'></input></td>
+                                    <td><input value={newProduct.product_cate} name='product_cate'onChange={handleIn} placeholder='Product Category'></input></td>
                                     <td><button type="button" onClick={addProduct} style={{"background":"#89bd79", "borderRadius":"5px", "borderStyle":"none"}}>ADD</button></td>
                                   </tr>
                                     

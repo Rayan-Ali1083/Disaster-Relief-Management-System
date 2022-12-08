@@ -15,7 +15,7 @@ const db = mysql.createPool({
 
     host: 'localhost',
     user: 'root',
-    password: 'root',
+    password: 'fast123',
     database: 'drwms'
 
 });
@@ -171,7 +171,7 @@ app.get("/api/remOrg", (req, res) => {
     const status = "ACTIVE"
     const admin = "ORG_0001"
     const sqlget =
-        "Select org_id,org_name,org_status, org_category_id from organizations  where Org_status = ? and Org_id != ?";
+        "Select o.org_id,o.org_name,o.org_status, o.org_category_id,oc.Org_type from organizations o,org_category oc  where o.Org_status = ? and o.Org_id != ? and o.org_category_id=oc.org_category_id";
     db.query(sqlget, [status, admin], (err, result) => {
         console.log(err)
         res.send(result)
@@ -182,7 +182,18 @@ app.get("/api/remDis", (req, res) => {
     const status = "ACTIVE"
     const admin = "ORG_0001"
     const sqlget =
-        "select d.Disaster_id,d.Disaster_name,d.Disaster_date,dc.Disaster_type from disaster d, disaster_category dc where d.Disaster_type_id=dc.Disaster_type_id;";
+        "select d.Disaster_id,d.Disaster_name,d.Disaster_date,dc.Disaster_type from disaster d, disaster_category dc where d.Disaster_type_id=dc.Disaster_type_id";
+    db.query(sqlget, (err, result) => {
+        console.log(err)
+        res.send(result)
+    });
+})
+
+app.get("/api/remrelief", (req, res) => {
+    const status = "ACTIVE"
+    const admin = "ORG_0001"
+    const sqlget =
+        "select Program_id,Program_name,Program_status from relief_program";
     db.query(sqlget, (err, result) => {
         console.log(err)
         res.send(result)
@@ -945,6 +956,31 @@ app.post("/api/makefullfillment", (req, res) => {
 
 })
 
+app.post("/api/removingdisasterloc", (req, res) => {
+    const disast = req.body.disasloc
+    const SqlU = "Delete from disaster_locations where Disaster_location_id = ?"
+
+    db.query(SqlU, disast, (err, result) => {
+        if (err) {
+            res.send(err)
+        } else {
+            res.send({ message: "Disaster Location Removed" })
+        }
+    })
+})
+
+app.post("/api/removingreliefp", (req, res) => {
+    const disast = req.body.prg
+    const SqlU = "Delete from relief_program where Program_id = ?"
+
+    db.query(SqlU, disast, (err, result) => {
+        if (err) {
+            res.send(err)
+        } else {
+            res.send({ message: "Relief Program Removed Removed" })
+        }
+    })
+})
 
 
 app.listen(3001, () => {

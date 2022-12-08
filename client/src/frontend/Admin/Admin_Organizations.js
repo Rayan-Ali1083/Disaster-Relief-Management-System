@@ -204,7 +204,7 @@ function Admin_Organizations() {
                     <tr style={{'backgroundColor':'#30574b', 'color':'white', 'textAlign':'center', 'fontWeight':'bold', 'borderBottomColor':'transparent'}}>
                     <td>{val.org_id}</td>
                      <td>{val.org_name}</td>
-                    <td>{val.org_category_id}</td>
+                    <td>{val.Org_type}</td>
                     <td>{val.org_status}</td>
                     <button type="button" id='removebtn' onClick={()=>{RemoveU(val.org_id)}}>REMOVE</button>
                   </tr>

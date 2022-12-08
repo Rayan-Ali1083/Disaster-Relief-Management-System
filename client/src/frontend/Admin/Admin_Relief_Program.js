@@ -10,8 +10,18 @@ function Admin_Relief_Program() {
 
 
   const navigate= useNavigate()
+  const [removerelief, Setremoverelief] = useState([]);
   
   const [reliefdet,Setreliefdet] = useState([]);
+
+  useEffect(() => {
+    Axios.get("http://localhost:3001/api/remrelief").then((response) => {
+      Setremoverelief(response.data)
+      //console.log(response.data)
+
+    })
+
+  },[])
 
   useEffect(()=>{
     Axios.get("http://localhost:3001/api/reliefinfo").then((response)=>{
@@ -74,7 +84,13 @@ function Admin_Relief_Program() {
 
 
 
-
+      const Removereliefp = (prg_id) => {
+        Axios.post("http://localhost:3001/api/removingreliefp", { prg: prg_id }).then((resultx) => {
+          if (resultx.data.message) {
+            alert(resultx.data.message);
+          }
+        })
+      };
 
 
 
@@ -95,7 +111,7 @@ function Admin_Relief_Program() {
             <div className="modal-dialog">
               <div className="modal-content" style={{'backgroundColor':'#30574b', 'borderColor':'transparent'}}>
                 <div className="modal-header" style={{'backgroundColor':'#30574b', 'borderStyle':'none', 'borderColor':'transparent'}}>
-                  <h1 className="modal-title fs-5" id="exampleModalLabel" style={{'color':'white'}}>ADD DISASTER CATEGORY</h1>
+                  <h1 className="modal-title fs-5" id="exampleModalLabel" style={{'color':'white'}}>Create Relief Program</h1>
                   <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div className="modal-body" style={{ "margin": "auto", "width": "100%", "border": "3px solid black", "padding": "5%", 'backgroundColor':'#478484', 'borderRadius':'50px'}}>
@@ -151,6 +167,60 @@ function Admin_Relief_Program() {
               </div>
             </div>
           </div>
+
+          <button type="button" className="btn " id='add_relief_program' data-bs-toggle="modal" data-bs-target="#removedismodal">Remove Relief Program</button>
+
+
+<div className="modal-centered modal-scrollable modal fade modal-lg" id="removedismodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div className="modal-dialog" style={{'backgroundColor':'transparent', 'borderStyle':'none'}}>
+    <div className="modal-content" style={{'backgroundColor':'#30574b', 'borderStyle':'none', 'borderColor':'transparent'}}>
+      <div className="modal-header" style={{'backgroundColor':'#30574b', 'borderStyle':'none', 'borderColor':'transparent'}}>
+        <h3 className="modal-title fl-5" id="exampleModalLabel"  style={{'backgroundColor':'#30574b', 'borderStyle':'none', 'borderColor':'transparent', 'color':'white'}}>REMOVE Relief Program</h3>
+        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div className="modal-body" style={{'backgroundColor':'#30574b','borderColor':'transparent'}}>
+        <div className="card" style={{ "margin": "auto", "width": "100%", "border": "3px solid black", "padding": "5%", 'backgroundColor':'#478484', 'borderRadius':'50px'}}>
+          {/* <h3>REMOVE DISASTER</h3> */}
+          <table className="table" style={{'borderRadius':'50px'}}>
+
+            <thead style={{'backgroundColor':'#30574b', 'color':'#fffb00', 'textAlign':'center'}}>
+              <tr >
+                <th scope="col">PROGRAM ID</th>
+                <th scope="col">PROGRAM NAME</th>
+                <th scope="col">PROGRAM STATUS</th>
+                <th scope="col">OPTION</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              {removerelief.map((val) => (
+
+                <tr style={{'backgroundColor':'#30574b', 'color':'white', 'textAlign':'center', 'borderStyle':'none', 'borderColor':'transparent'}}>
+                  <td>{val.Program_id}</td>
+                  <td>{val.Program_name}</td>
+                  <td>{val.Program_status}</td>
+                  <button type="button" id='removebtn' onClick={() => { Removereliefp(val.Program_id) }}>REMOVE</button>
+                </tr>
+              ))}
+
+            </tbody>
+          </table>
+
+        </div>
+
+        
+      </div>
+      <div className="modal-footer">
+
+        <button type="button" className="btn btn-danger" data-bs-dismiss="modal">Go Back</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 
           </div>
           <table className="table" style={{'color':'#fffb00', 'borderStyle':'none'}}>

@@ -4,11 +4,12 @@ import Axios from 'axios'
 import RemoveCookie from '../../hooks/removeCookie';
 import SetCookie from '../../hooks/setCookie';
 import GetCookie from '../../hooks/getCookie';
+
 function Users_Commitments() {
 
 
   const [commdet,Setcommdet] = useState([])
-  var id = ""
+  var id = " "
   useEffect(()=>{
     id = GetCookie('usrin')
     Axios.post("http://localhost:3001/api/commdetails",{dash:id}).then((response)=>{
@@ -22,8 +23,24 @@ function Users_Commitments() {
       //  p_commitment_id: "",
     });
 
-    
+    const [pcid,setpcid] = useState("")
+    const [prid,setprid] = useState("")
+    const [prgid,setprgid] = useState("")
+    const [cq,setcq] = useState("")
+    const [cd,setcd] = useState("")
+    const [ed,seted] = useState("")
+    const [dlid,setdlid] = useState("")
 
+    const Setpcid = (pcdid,dlid,prid,prgid,cq,cd,ed) => {
+      setpcid(pcdid)
+      setdlid(dlid)
+      setprid(prid)
+      setprgid(prgid)
+      setcd(cd)
+      setcq(cq)
+      seted(ed)
+      
+  };
 
     let nname, vvalue;
 
@@ -35,21 +52,25 @@ function Users_Commitments() {
 
      }
 
-     const makefullfillment = (commid) => {
-      Axios.post("http://localhost:3001/api/makefullfillment", { commitmentid:commid,fullf: newfullfillment }).then((resultx) => {
+     const makefullfillment = () => {
+      var pid = GetCookie('usrin')
+      if(newfullfillment.Qty_fullfilled > cq){
+        alert("Fullfill Quantity should be less than or equal to Commit Quantity ")
+      }
+    
+      Axios.post("http://localhost:3001/api/makefullfillment", {n:newfullfillment, pcid:pcid,dlid:dlid,prid:prid,prgid:prgid,cd:cd,cq:cq,ed:ed,dash : pid }).then((resultx) => {
         if (resultx.data.message) {
           alert(resultx.data.message);
         }
       })
     };
 
-  
   return (
     <>
         <Users_Nav/>
         <div className="card" style={{"width":"70%", "marginLeft":"15%", "borderRadius":"1%", 'backgroundColor':'transparent', 'borderStyle':'none'}}>
         <div className="card-body" style={{'borderStyle':'solid', 'borderColor':'black' }}>
-        <table className="table" style={{'backgroundColor':'#30574b', 'color':'#fffb00','borderStyle':'none', 'textAlign':'center'}}>
+        <table className="table" style={{'backgroundColor':'#30574b', 'color':'#fffb00', 'textAlign':'center','borderStyle':'none',}}>
         <thead style={{'borderStyle':'solid'}}>
                         <tr>
                         <th scope="col">Product Commitment ID</th>
@@ -76,9 +97,10 @@ function Users_Commitments() {
                         <td>{val.comm_date}</td>
                         <td>{val.exp_delivery_date}</td>
                         <td>{val.status}</td>
-                        <td><button type="button" class="btn" id='bttn' data-bs-toggle="modal" data-bs-target="#addDis">Fullfill</button></td>
-
-                        <div className="modal-centered modal-scrollable modal fade modal-lg" id="addDis" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <td><button type="button" className="btn" id='bttn' onClick={()=>{Setpcid(val.p_commitment_id,val.disaster_location_id,val.product_id,val.program_id,val.comm_qty,val.comm_date,val.exp_delivery_date)}} data-bs-toggle="modal" data-bs-target="#addDis">Fullfil</button></td>
+           </tr>
+                      ))}
+                        <div className="modal-centered modal-scrollable modal fade modal-lg" id="addDis" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog">
               <div className="modal-content" style={{'backgroundColor':'#30574b', 'borderColor':'transparent'}}>
                 <div className="modal-header" style={{'backgroundColor':'#30574b', 'borderStyle':'none', 'borderColor':'transparent'}}>
@@ -97,6 +119,10 @@ function Users_Commitments() {
                       </tr>
                     </thead>
                   <tbody>
+
+                  {/* {newfullfillment.p_commitment_id=val.p_commitment_id} */}
+                  {/* {newCommitment.Disaster_location_id=val.Disaster_location_id}
+                  {newCommitment.Program_id=val.Program_id} */}
                   
                   <tr style={{'borderBottomColor':'transparent'}}>
                     <td>  <input type="number" min='0' className="form-control" value={newfullfillment.Qty_fullfilled} name= 'Qty_fullfilled' onChange={handlefullfillments} placeholder="Quantity" aria-label="Username"></input>
@@ -107,7 +133,7 @@ function Users_Commitments() {
                  
                   
 
-                  <button type="button" onClick={()=>{makefullfillment(val.p_commitment_id)}} style={{"background":"#89bd79", "borderRadius":"5px", "borderStyle":"none"}}>Add</button>
+                  <button type="button" onClick={makefullfillment} style={{"background":"#89bd79", "borderRadius":"5px", "borderStyle":"none"}}>Add</button>
               </tr>
             
             </tbody>
@@ -123,9 +149,8 @@ function Users_Commitments() {
               </div>
             </div>
           </div>
-                        </tr>   
 
-                      ))}
+
                   
                     </tbody>
 </table>

@@ -15,7 +15,9 @@ function Users_Fullfilment() {
   var id = ""
   useEffect(()=>{
     id = GetCookie('usrin')
-    Axios.get("http://localhost:3001/api/fullfilldetails").then((response)=>{
+    var d = GetCookie('usrin')
+    console.log(d)
+    Axios.get("http://localhost:3001/api/fullfilldetails",{dash:d}).then((response)=>{
      
       Setfullfilldet(response.data)
      })
@@ -46,7 +48,7 @@ function Users_Fullfilment() {
                   <tr>
                     <td>{val.p_fullfillment_id}</td>
                     <td>{val.p_commitment_id}</td>
-                    <td>{val.Quantity_fullfilled}</td>
+                    <td>{val.Qty_fullfilled}</td>
                     <td>{val.Fullfilled_date}</td>
 
   

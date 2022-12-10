@@ -171,7 +171,7 @@ app.get("/api/remOrg", (req, res) => {
     const status = "ACTIVE"
     const admin = "ORG_0001"
     const sqlget =
-        "Select o.org_id,o.org_name,o.org_status, o.org_category_id,oc.Org_type from organizations o,org_category oc  where o.Org_status = ? and o.Org_id != ? and o.org_category_id=oc.org_category_id";
+        "Select org_id,org_name,org_status, org_category_id from organizations  where Org_status = ? and Org_id != ?";
     db.query(sqlget, [status, admin], (err, result) => {
         console.log(err)
         res.send(result)
@@ -182,18 +182,7 @@ app.get("/api/remDis", (req, res) => {
     const status = "ACTIVE"
     const admin = "ORG_0001"
     const sqlget =
-        "select d.Disaster_id,d.Disaster_name,d.Disaster_date,dc.Disaster_type from disaster d, disaster_category dc where d.Disaster_type_id=dc.Disaster_type_id";
-    db.query(sqlget, (err, result) => {
-        console.log(err)
-        res.send(result)
-    });
-})
-
-app.get("/api/remrelief", (req, res) => {
-    const status = "ACTIVE"
-    const admin = "ORG_0001"
-    const sqlget =
-        "select Program_id,Program_name,Program_status from relief_program";
+        "select d.Disaster_id,d.Disaster_name,d.Disaster_date,dc.Disaster_type from disaster d, disaster_category dc where d.Disaster_type_id=dc.Disaster_type_id;";
     db.query(sqlget, (err, result) => {
         console.log(err)
         res.send(result)
@@ -292,7 +281,7 @@ app.post("/api/dashinfo", (req, res) => {
 
     const user = req.body.dash
     const sqlget =
-        "Select r.program_id,r.program_name,r.program_status,r.start_date,pc.p_commitment_id,o.org_name,p.product_name,dl.location_name,pc.comm_qty,pc.comm_date,pc.exp_delivery_date,pc.status,d.disaster_name from relief_program r,disaster d,disaster_locations dl,product_committment pc,organizations o,product p where r.program_id = ? and r.program_id = pc.program_id and pc.product_id = p.product_id and pc.disaster_location_id = dl.disaster_location_id and r.disaster_id = d.disaster_id and pc.org_id = o.org_id "
+        "Select r.program_id,r.program_name,r.program_status,r.start_date,d.disaster_name from relief_program r, disaster d where r.program_id = ? and r.disaster_id = d.disaster_id "
     db.query(sqlget, user, (err, result) => {
         if (err) {
             console.log(err)
@@ -306,6 +295,23 @@ app.post("/api/dashinfo", (req, res) => {
 
 })
 
+app.post("/api/commdashinfo", (req, res) => {
+
+    const user = req.body.dash
+    const sqlget =
+        "Select pc.p_commitment_id,pc.comm_qty,pc.comm_date,pc.exp_delivery_date,pc.status,o.org_name,p.product_name from product_committment pc, organizations o,product p where pc.org_id = o.org_id and pc.product_id = p.product_id and pc.program_id = ? "
+    db.query(sqlget, user, (err, result) => {
+        if (err) {
+            console.log(err)
+            console.log(result)
+        }
+        else {
+            res.send(result)
+        }
+
+    });
+
+})
 
 app.post("/api/dislocdashinfo", (req, res) => {
 
@@ -622,8 +628,25 @@ app.post("/api/login", (req, res) => {
 
     const username = req.body.username;
     const password = req.body.password;
+    const yes = "YES"
+    const no = "NO"
+    const admin = "admin"
+    if(username === admin){
+        const c = "Select * from users where password = ?"
+        db.query(c,password,(err,result)=>{
 
-    const hold = "PENDING"
+            if(result.length>0){
+                res.send({message1:"msg"})
+            }
+            else{
+                res.send({message:"Incorrect Combination"})
+            }
+        })
+    }
+
+        else{
+
+            const hold = "PENDING"
     const check = "Select * from users u, organizations o where u.username = ? and u.org_id = o.org_id and o.org_status = ?"
 
     db.query(check, [username, hold], (err, result) => {
@@ -661,14 +684,19 @@ app.post("/api/login", (req, res) => {
         }
 
     })
+        }
+   
+    
 
 });
+
+
 
 app.post("/api/commdetails", (req, res) => {
 
     const user = req.body.dash
     let user1 = JSON.parse(user)
-    const SqlQ = "Select pc.p_commitment_id,pc.comm_date,pc.status,p.product_name,dl.location_name,pg.program_name,pc.comm_qty,pc.exp_delivery_date from product_committment pc,product p,relief_program pg,disaster_locations dl where pc.product_id = p.product_id and pc.disaster_location_id = dl.disaster_location_id and pc.program_id = pg.program_id and pc.org_id = ? "
+    const SqlQ = "Select pc.p_commitment_id,pc.comm_date,pc.status,p.product_id,p.product_name,dl.disaster_location_id,dl.location_name,pg.program_id,pg.program_name,pc.comm_qty,pc.exp_delivery_date from product_committment pc,product p,relief_program pg,disaster_locations dl where pc.product_id = p.product_id and pc.disaster_location_id = dl.disaster_location_id and pc.program_id = pg.program_id and pc.org_id = ? "
 
     db.query(SqlQ, user1, (err, result) => {
         if (err) { console.log(err) }
@@ -834,56 +862,54 @@ app.post("/api/makecommit", (req, res) => {
     const productid=req.body.prd
     const locationid=req.body.dl
     const programid=req.body.pid
-    const commits=req.body.comm
-    console.log(comm)
+    const oid=req.body.comm
+    const commits = req.body.dat
     console.log(productid)
     console.log(locationid)
     console.log(programid)
 
     
-     let Oid1=JSON.parse(commits.Org_id)
+     let Oid1=JSON.parse(oid)
      console.log(Oid1)
 
     
-    //     console.log(commits)
 
-    // let dPromise = new Promise(function (Resolve, Reject) {
+    let dPromise = new Promise(function (Resolve, Reject) {
 
-    //     const SqlU = "Insert into product_committment (Org_id,Product_id,Disaster_location_id,Program_id,Comm_qty,Comm_date,Exp_delivery_date) values(?,?,?,?,?,?,?)"
+        const SqlU = "Insert into product_committment (Org_id,Product_id,Disaster_location_id,Program_id,Comm_qty,Comm_date,Exp_delivery_date) values(?,?,?,?,?,?,?)"
         
-    //     db.query(SqlU, [Oid1, productid, locationid,programid, commits.Comm_qty, commits.Comm_date, commits.E_delv_date], (err, result) => {
-    //         if (err) {
-    //             console.log(err)
-    //             // res.send(err)
-    //         } else {
-    //             res.send({ message: "Successfully Commited :" })
-    //             console.log(result)
-    //             Resolve("Ok")
-    //         }
+        db.query(SqlU, [Oid1, productid, locationid,programid, commits.Comm_qty, commits.Comm_date, commits.E_delv_date], (err, result) => {
+            if (err) {
+                console.log(err)
+                // res.send(err)
+            } else {
+                res.send({ message: "Successfully Commited :" })
+                console.log(result)
+                Resolve("Ok")
+            }
             
             
-    //     })
+        })
 
-    // })
+    })
 
-    // dPromise.then(
-    //     function () {
+    dPromise.then(
+        function () {
 
-    //        const SqlM = "Update product_requirement_summary set Total_qty_comm = Total_qty_comm + ? where product_id = ? and disaster_location_id = ? and program_id = ?"
+           const SqlM = "Update product_requirement_summary set Total_qty_comm = Total_qty_comm + ? where product_id = ? and disaster_location_id = ? and program_id = ?"
            
-    //        db.query(SqlM, [commits.Comm_qty,commits.Product_id, commits.Disaster_location_id, commits.Program_id], (err, result) => {
-    //         if (err) {
-    //             // res.send(err)
-    //             console.log(err)
-    //         } else {
-    //             // res.send({ message: "Requirement Summary Updated :" })
-    //             console.log(result)
-    //         }
+           db.query(SqlM, [commits.Comm_qty,productid, locationid, programid], (err, result) => {
+            if (err) {
+                // res.send(err)
+                console.log(err)
+            } else {
+                console.log(result)
+            }
             
-    //     })
-    //     }
+        })
+        }
             
-    // )
+    )
 
 })
 
@@ -892,7 +918,7 @@ app.get("/api/fullfilldetails", (req, res) => {
 
     // const user = req.body.dash
     // let user1 = JSON.parse(user)
-    const SqlQ = "Select pf.p_fullfillment_id,pf.p_commitment_id,pf.Qty_fullfilled,pf.Fullfilled_date from product_fullfillment pf,product_commitment pc where pf.p_commitment_id=pc.p_commitment_id"
+    const SqlQ = "Select pf.p_fullfillment_id,pf.p_commitment_id,pf.Qty_fullfilled,pf.Fullfilled_date from product_fullfillment pf,product_committment pc where pf.p_commitment_id=pc.p_commitment_id"
 
     db.query(SqlQ, (err, result) => {
         if (err) { console.log(err)
@@ -908,51 +934,65 @@ app.get("/api/fullfilldetails", (req, res) => {
 
 
 app.post("/api/makefullfillment", (req, res) => {
-    const commitid=req.body.commitmentid
    
-    const commitss = req.body.fullf
+    const pcid = req.body.pcid
+    const dlid= req.body.dlid
+    const prid = req.body.prid
+    const prgid = req.body.prgid
+    const cq = req.body.cq
+    const cd = req.body.cd
+    const ed = req.body.ed
+
+    const q = req.body.n
+
+   const oid = req.body.dash
    
-        console.log(commitid)
-        console.log(commitss)
+    let Oid1 = JSON.parse(oid)
+
+    let dPromise = new Promise(function (Resolve, Reject) {
+
+        const SqlU = "Insert into product_fullfillment (P_commitment_id,qty_fullfilled,fullfilled_date) VALUES (?,?,?)"
         
-
-    // let dPromise = new Promise(function (Resolve, Reject) {
-
-    //     const SqlU = "Insert into product_committment (Org_id,Product_id,Disaster_location_id,Program_id,Comm_qty,Comm_date,Exp_delivery_date) values(?,?,?,?,?,?,?)"
-        
-    //     db.query(SqlU, [Oid1, commits.Product_id, commits.Disaster_location_id, commits.Program_id, commits.Comm_qty, commits.Comm_date, commits.E_delv_date], (err, result) => {
-    //         if (err) {
-    //             console.log(err)
-    //             // res.send(err)
-    //         } else {
-    //             res.send({ message: "Successfully Commited :" })
-    //             console.log(result)
-    //             Resolve("Ok")
-    //         }
-            
-            
-    //     })
-
-    // })
-
-    // dPromise.then(
-    //     function () {
-
-    //        const SqlM = "Update product_requirement_summary set Total_qty_comm = Total_qty_comm + ? where product_id = ? and disaster_location_id = ? and program_id = ?"
+        db.query(SqlU, [pcid,q.Qty_fullfilled,q.Fullfilled_date], (err, result) => {
+            if (err) {
+                console.log(err)
+                // res.send(err)
+            } else {
+                
+                       res.send({ message: "Successfully FullFilled :" })
+                console.log(result)
+                Resolve("Ok") 
            
-    //        db.query(SqlM, [commits.Comm_qty,commits.Product_id, commits.Disaster_location_id, commits.Program_id], (err, result) => {
-    //         if (err) {
-    //             // res.send(err)
-    //             console.log(err)
-    //         } else {
-    //             // res.send({ message: "Requirement Summary Updated :" })
-    //             console.log(result)
-    //         }
+                
+            }
             
-    //     })
-    //     }
             
-    // )
+        })
+
+    })
+
+    dPromise.then(
+        function () {
+
+            
+            
+                    SqlM = "Update product_requirement_summary set Total_qty_req = Total_qty_req - ? where product_id = ? and disaster_location_id = ? and program_id = ?"
+                    db.query(SqlM, [q.Qty_fullfilled, prid, dlid, prgid], (err, result) => {
+                       if(err){console.log(err)}
+                       else{
+                        SqlM = "Update product_requirement_summary set Total_qty_fullfilled = Total_qty_fullfilled + ? where product_id = ? and disaster_location_id = ? and program_id = ?"
+                    db.query(SqlM, [q.Qty_fullfilled, prid, dlid, prgid],(err,result)=>{
+
+                    })
+
+                       }
+                    })
+                
+                
+            
+        }
+            
+    )
 
 })
 
@@ -981,6 +1021,7 @@ app.post("/api/removingreliefp", (req, res) => {
         }
     })
 })
+
 
 
 app.listen(3001, () => {

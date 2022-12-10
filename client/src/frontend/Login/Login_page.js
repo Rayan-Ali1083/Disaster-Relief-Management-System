@@ -6,7 +6,7 @@ import Axios from 'axios'
 import SetCookie from '../../hooks/setCookie';
 import GetCookie from '../../hooks/getCookie';
 import RemoveCookie from '../../hooks/removeCookie';
-// import backvid from '../../Extras/backvid.mp4'
+import backvid from '../../Extras/backvid.mp4'
 const Login_page = () => {
 
   const navigate = useNavigate();
@@ -24,6 +24,9 @@ const Login_page = () => {
       if(response.data.message){
        //setLoginStatus(response.data.message)
         alert(response.data.message);
+      }else if(response.data.message1){
+        navigate('/Admin_Home.js')
+
       }else{
         setLoginStatus(response.data);
         RemoveCookie('usrin')
@@ -48,7 +51,7 @@ const Login_page = () => {
       <div className="loginpage" style={{"backgroundColor":"black"}}> 
         
           <video width="380" height="280" loop autoPlay muted className='loginpage'>
-            {/* <source src={backvid} type="video/mp4" /> */}
+            <source src={backvid} type="video/mp4" />
           </video>
           <div className="login">
           <img id='pp' alt='Background' src={person}  style={{"width":"30%", 'marginTop':'15%'}}></img>
@@ -67,14 +70,14 @@ const Login_page = () => {
           <NavLink to='Signup.js'><b> here</b></NavLink>
           </div>
         </div>
-        <div style={{'width':'fit-content', "position":'relative', "marginLeft": '80%'}}>
+        {/* <div style={{'width':'fit-content', "position":'relative', "marginLeft": '80%'}}>
         <NavLink to='Admin_Home.js'>
           <button type="button" className="btn-1" >Admin</button>
         </NavLink>
         <NavLink to='Users_Home.js'>
           <button type="button" className="btn-1" >Users</button>
         </NavLink>
-        </div>
+        </div> */}
     <h1>{loginStatus}</h1>
       </div>
     </>

@@ -16,6 +16,23 @@ function Users_Requirements() {
     // Product_id: "",Disaster_location_id: "" ,Program_id:"",
   });
 
+  const [commdata,setcommdata] = useState({
+    prg_id: "", prd_id:"",dloc_id:""
+   
+  });
+
+  const [prgid,setprgid] = useState("")
+  const [prdid,setprdid] = useState("")
+  const [dlocid,setdlocid] = useState("")
+  const[q,setq] = useState("")
+
+  const Setcommit = (q,productid,dislocid,prgid) => {
+      setq(q)
+      setprdid(productid)
+      setdlocid(dislocid)
+      setprgid(prgid)
+      
+  };
 
   var id = ""
     useEffect(()=>{
@@ -30,14 +47,22 @@ function Users_Requirements() {
   
     }, [])
     
-    const makecommit = (productid,dislocid,prgid) => {
-      console.log(productid+"prd")      
-      Axios.post("http://localhost:3001/api/makecommit", { prd: productid,dl: dislocid,pid:prgid,comm:newCommitment}).then((resultx) => {
+    const makecommit = () => {
+     
+      if(newCommitment.Comm_qty > q){
+        alert("Commit Quantity Should be less than Requested Quantity")
+      }else{
+        Axios.post("http://localhost:3001/api/makecommit", { prd: prdid,dl:dlocid,pid:prgid,comm:id,dat : newCommitment}).then((resultx) => {
         if (resultx.data.message) {
           alert(resultx.data.message);
         }
       })
+      }
+      
     };
+
+
+
 
     let nname, vvalue;
 
@@ -77,10 +102,14 @@ function Users_Requirements() {
                   <td>{val.Total_qty_req}</td>
                   <td>{val.Total_qty_comm}</td>
                   <td>{val.Total_qty_fullfilled}</td>
-                  <td><button type="button" class="btn btn-primary" id='add_commitment' data-bs-toggle="modal" data-bs-target="#addDis">Commit</button></td>
 
+                  <td><button type="button" class="btn btn-primary" id='add_commitment' data-bs-toggle="modal" data-bs-target="#addDis" onClick={()=>{Setcommit(val.Total_qty_req,val.Product_id,val.Disaster_location_id,val.Program_id)}}>Commit</button></td>
 
-                  <div className="modal-centered modal-scrollable modal fade modal-lg" id="addDis" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+</tr>
+
+))}
+
+<div className="modal-centered modal-scrollable modal fade modal-lg" id="addDis" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog">
               <div className="modal-content" style={{'backgroundColor':'#30574b', 'borderColor':'transparent'}}>
                 <div className="modal-header" style={{'backgroundColor':'#30574b', 'borderStyle':'none', 'borderColor':'transparent'}}>
@@ -113,9 +142,9 @@ function Users_Requirements() {
                   
                   <td>
                     <input type="date" value={newCommitment.E_delv_date} name='E_delv_date' onChange={handlecommitments}  ></input></td>
-                  <td>
-                  <button type="button" onClick={()=>{makecommit(val.id,val.Disaster_location_id,val.Program_id)}} id='bttn' style={{'borderStyle':'solid'}}>Add</button>
-                  </td>
+                  
+
+                  <button type="button" onClick={makecommit} id='bttn' style={{'borderStyle':'solid'}}>Add</button>
               </tr>
             
             </tbody>
@@ -132,13 +161,6 @@ function Users_Requirements() {
             </div>
           </div>
 
-
-
-
-
-
-                </tr>
-              ))}
               
 
             

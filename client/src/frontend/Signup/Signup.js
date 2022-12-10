@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import './Signup.css'
 import Axios from 'axios'
 
-// import backvid from '../../Extras/backvid.mp4'
+import backvid from '../../Extras/backvid.mp4'
 
 
 function Signup() {
@@ -48,7 +48,7 @@ const [orgtype,Setorgtype] = useState([])
     <>
       <div className="signup" style={{"backgroundColor":"black"}}>
       <video width="380" height="280" loop autoPlay muted className='loginpage'>
-            {/* <source src={backvid} type="video/mp4" /> */}
+            <source src={backvid} type="video/mp4" />
           </video>
         <div className="card-body" id='mid-body'>
             <div>

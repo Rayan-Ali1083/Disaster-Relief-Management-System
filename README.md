@@ -37,6 +37,6 @@ Organizations can view their commitments and fulfillments
 ## Contributors
 The following contributors have participated in the development of this project:
 
-Huzaifa Tanzeel
-Maarij Baig
+Huzaifa Tanzeel | 
+Maarij Amir | 
 Rayan Ali

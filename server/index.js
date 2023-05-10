@@ -676,7 +676,7 @@ app.post("/api/login", (req, res) => {
                         }
                     })
                 } else {
-                    res.send({ message: "User doesn't exist" })
+                    res.send({ message: "Wrong username/password combination" })
                 }
 
             });

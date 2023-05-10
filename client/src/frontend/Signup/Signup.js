@@ -12,15 +12,24 @@ function Signup() {
     org_name: "", user_name: "", pass: "", email: "" , org_cate: "", org_province: "" 
   });
 
-  const SubmitU = ()=>{
-    Axios.post("http://localhost:3001/api/signup",{user:newUser}).then((resultx)=>{
-      if(resultx.data.message){
+
+  const SubmitU = () => {
+    // Check if any field is empty
+    for (const key in newUser) {
+      if (newUser[key].trim() === "") {
+        alert(`${key.replace('_', ' ').toUpperCase()} field cannot be empty.`);
+        return;
+      }
+    }
+    console.log('here')
+    Axios.post("http://localhost:3001/api/signup", { user: newUser }).then((resultx) => {
+      if (resultx.data.message) {
         alert(resultx.data.message);
-      }else{
+      } else {
         alert(resultx.data.message1);
       }
     })
-  };
+};
 
 const [orgtype,Setorgtype] = useState([])
 
@@ -53,13 +62,13 @@ const [orgtype,Setorgtype] = useState([])
         <div className="card-body" id='mid-body'>
             <div>
               <h3 style={{"textAlign":"center", "marginTop":'4%'}}>Organization Details</h3>
-                <input type="email" className='small-input' value={newUser.org_name} name='org_name' onChange={handleInputs} placeholder="Organization Name"></input>
-                <input type="email" className='small-input' value={newUser.user_name} name='user_name' onChange={handleInputs} placeholder="User Name"></input>
+                <input type="text" className='small-input' value={newUser.org_name} name='org_name' onChange={handleInputs} placeholder="Organization Name" required></input>
+                <input type="text" className='small-input' value={newUser.user_name} name='user_name' onChange={handleInputs} placeholder="User Name" required></input>
 
-                <input type="email" className='small-input' value={newUser.pass} name='pass' onChange={handleInputs} placeholder="Password"></input>
-                <input type="email" className='small-input' value={newUser.email} name='email' onChange={handleInputs} placeholder="Email Address"></input>
+                <input type="password" className='small-input' value={newUser.pass} name='pass' onChange={handleInputs} placeholder="Password" required></input>
+                <input type="email" className='small-input' value={newUser.email}  name='email' onChange={handleInputs} placeholder="Email Address" required></input>
                 
-                <input type="email" className='small-input' value={newUser.org_province} name='org_province' onChange={handleInputs} placeholder="Province"></input>
+                <input type="text" className='small-input' value={newUser.org_province} name='org_province' onChange={handleInputs} placeholder="Province" required></input>
 
                   <select className="form-select" value={newUser.org_cate} name='org_cate' onChange={handleInputs} style={{'width':'35%', 'marginLeft':'55%', 'marginTop':'-4%'}}>
                   <option value>Organization Category</option>

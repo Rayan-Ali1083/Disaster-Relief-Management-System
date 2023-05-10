@@ -57,12 +57,12 @@ const Login_page = () => {
           <img id='pp' alt='Background' src={person}  style={{"width":"30%", 'marginTop':'15%'}}></img>
           <div className="mb-3">
             <label className="form-label" id='text'><b>Email address</b></label>
-            <input type="email" className="form-control" id="textarea" name='email' value={user.email}
+            <input type="email" className="form-control" id="textareaemail" name='email' value={user.email}
             onChange={handleInputs} placeholder="name@example.com"></input>
           </div>
           <div className="mb-3">
             <label className="form-label" id='text'><b>Password</b></label>
-            <input className="form-control" id="textarea" name='password' value={user.password} 
+            <input className="form-control" id="textareapassword" name='password' value={user.password} 
             onChange={handleInputs} placeholder='***********' type = 'password'></input>
           </div>
           <button type="button" onClick={login} className="btn-1">Login</button>

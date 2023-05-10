@@ -70,7 +70,7 @@ function Users_Commitments() {
         <Users_Nav/>
         <div className="card" style={{"width":"70%", "marginLeft":"15%", "borderRadius":"1%", 'backgroundColor':'transparent', 'borderStyle':'none'}}>
         <div className="card-body" style={{'borderStyle':'solid', 'borderColor':'black' }}>
-        <table className="table" style={{'backgroundColor':'#30574b', 'color':'#fffb00', 'textAlign':'center','borderStyle':'none',}}>
+        <table>
         <thead style={{'borderStyle':'solid'}}>
                         <tr>
                         <th scope="col">Product Commitment ID</th>

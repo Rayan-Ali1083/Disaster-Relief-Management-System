@@ -63,7 +63,7 @@ const Login_page = () => {
           <div className="mb-3">
             <label className="form-label" id='text'><b>Password</b></label>
             <input className="form-control" id="textarea" name='password' value={user.password} 
-            onChange={handleInputs} placeholder='***********'></input>
+            onChange={handleInputs} placeholder='***********' type='password'></input>
           </div>
           <button type="button" onClick={login} className="btn-1">Login</button>
           <div id="text"><b>New user? Sign up</b>

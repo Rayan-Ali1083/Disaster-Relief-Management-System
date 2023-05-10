@@ -696,9 +696,10 @@ app.post("/api/commdetails", (req, res) => {
 
     const user = req.body.dash
     let user1 = JSON.parse(user)
-    const SqlQ = "Select pc.p_commitment_id,pc.comm_date,pc.status,p.product_id,p.product_name,dl.disaster_location_id,dl.location_name,pg.program_id,pg.program_name,pc.comm_qty,pc.exp_delivery_date from product_committment pc,product p,relief_program pg,disaster_locations dl where pc.product_id = p.product_id and pc.disaster_location_id = dl.disaster_location_id and pc.program_id = pg.program_id and pc.org_id = ? "
+    let hold = 'Complete'
+    const SqlQ = "Select pc.p_commitment_id,pc.comm_date,pc.status,p.product_id,p.product_name,dl.disaster_location_id,dl.location_name,pg.program_id,pg.program_name,pc.comm_qty,pc.exp_delivery_date from product_committment pc,product p,relief_program pg,disaster_locations dl where pc.product_id = p.product_id and pc.disaster_location_id = dl.disaster_location_id and pc.program_id = pg.program_id and pc.org_id = ? and pc.Status != ? "
 
-    db.query(SqlQ, user1, (err, result) => {
+    db.query(SqlQ, [user1,hold], (err, result) => {
         if (err) { console.log(err) }
         else {
             console.log("NO ERROR")
@@ -792,7 +793,7 @@ app.post("/api/rprogramsummary", (req, res) => {
     const Oid = req.body.dash
     let Oid1 = JSON.parse(Oid)
     const sqlget =
-        "select s.Product_id,s.Disaster_location_id,s.Program_id,r.Program_name,p.Product_name, dl.Location_name,d.Disaster_name,s.Total_qty_req,s.Total_qty_comm,s.Total_qty_fullfilled  from relief_program r,product p,disaster_locations dl,disaster d,product_requirement_summary s,relief_providers relp where s.Program_id=r.Program_id and s.Product_id=p.Product_id and s.Disaster_location_id=dl.Disaster_location_id and dl.Disaster_id=d.DIsaster_id and relp.Org_id=? and relp.Program_id=s.Program_id";
+        "select s.Product_id,s.Disaster_location_id,s.Program_id,r.Program_name,p.Product_name, dl.Location_name,d.Disaster_name,s.Total_qty_req,s.Total_qty_comm,s.Total_qty_fullfilled  from relief_program r,product p,disaster_locations dl,disaster d,product_requirement_summary s,relief_providers relp where s.Program_id=r.Program_id and s.Product_id=p.Product_id and s.Disaster_location_id=dl.Disaster_location_id and dl.Disaster_id=d.Disaster_id and relp.Org_id=? and relp.Program_id=s.Program_id";
     db.query(sqlget, Oid1, (err, result) => {
         console.log(err)
         res.send(result)
@@ -868,7 +869,7 @@ app.post("/api/makecommit", (req, res) => {
     console.log(locationid)
     console.log(programid)
 
-    
+    const hold = "Pending"
      let Oid1=JSON.parse(oid)
      console.log(Oid1)
 
@@ -876,37 +877,64 @@ app.post("/api/makecommit", (req, res) => {
 
     let dPromise = new Promise(function (Resolve, Reject) {
 
-        const SqlU = "Insert into product_committment (Org_id,Product_id,Disaster_location_id,Program_id,Comm_qty,Comm_date,Exp_delivery_date) values(?,?,?,?,?,?,?)"
-        
-        db.query(SqlU, [Oid1, productid, locationid,programid, commits.Comm_qty, commits.Comm_date, commits.E_delv_date], (err, result) => {
-            if (err) {
-                console.log(err)
-                // res.send(err)
-            } else {
-                res.send({ message: "Successfully Commited :" })
-                console.log(result)
-                Resolve("Ok")
+        let hold = "Complete"
+        const q = "Select Comm_qty from product_committment where Org_id = ? and Product_id = ? and Disaster_location_id = ? and Program_id = ? and Status != ?"
+
+        db.query(q,[Oid1,productid,locationid,programid,hold],(err,result)=>{
+
+            if(result.length > 0){
+
+ 
+                const SqlU = "Update product_committment set Comm_qty = Comm_qty + ? where Org_id = ? and Product_id = ? and Disaster_location_id = ? and Program_id = ?"
+                db.query(SqlU,[commits.Comm_qty,Oid1,productid,locationid,programid],(err,res)=>{
+                    if(err){
+                        console.log(err)
+                    }
+                    else{
+                        Resolve("ok")
+                    }
+                })
             }
-            
-            
+
+            else{
+                const SqlU = "Insert into product_committment (Org_id,Product_id,Disaster_location_id,Program_id,Comm_qty,Comm_date,Exp_delivery_date) values(?,?,?,?,?,?,?)"
+        
+                db.query(SqlU, [Oid1, productid, locationid,programid, commits.Comm_qty, commits.Comm_date, commits.E_delv_date], (err, result) => {
+                    if (err) {
+                        console.log(err)
+                    } else {
+                        //res.send({ message: "Successfully Commited " })
+                        //console.log(result)
+                        //Resolve("Ok")
+                    }
+                    
+                    
+                })
+            }
         })
+
 
     })
 
     dPromise.then(
         function () {
 
-           const SqlM = "Update product_requirement_summary set Total_qty_comm = Total_qty_comm + ? where product_id = ? and disaster_location_id = ? and program_id = ?"
-           
-           db.query(SqlM, [commits.Comm_qty,productid, locationid, programid], (err, result) => {
-            if (err) {
-                // res.send(err)
+
+
+        const SqlU = "Update product_requirement_summary set Total_qty_comm = Total_qty_comm +  ? where product_id = ? and disaster_location_id = ? and program_id = ? "
+        
+        db.query(SqlU,[commits.Comm_qty,productid, locationid, programid],(err,resr)=>{
+            if(err){
                 console.log(err)
-            } else {
-                console.log(result)
             }
-            
+            else{
+                res.send({ message: "Successfully Commited " })
+
+            }
         })
+    
+
+            
         }
             
     )
@@ -916,11 +944,11 @@ app.post("/api/makecommit", (req, res) => {
 
 app.get("/api/fullfilldetails", (req, res) => {
 
-    // const user = req.body.dash
-    // let user1 = JSON.parse(user)
-    const SqlQ = "Select pf.p_fullfillment_id,pf.p_commitment_id,pf.Qty_fullfilled,pf.Fullfilled_date from product_fullfillment pf,product_committment pc where pf.p_commitment_id=pc.p_commitment_id"
+    const user = req.body.dash
+    let user1 = JSON.parse(user)
+    const SqlQ = "Select pf.p_fullfillment_id,pf.p_commitment_id,pf.Qty_fullfilled,pf.Fullfilled_date from product_fullfillment pf,product_committment pc where pf.p_commitment_id=pc.p_commitment_id and pc.Org_id = ?"
 
-    db.query(SqlQ, (err, result) => {
+    db.query(SqlQ,user1, (err, result) => {
         if (err) { console.log(err)
              }
         else {
@@ -929,7 +957,7 @@ app.get("/api/fullfilldetails", (req, res) => {
         }
     })
 
-})
+}) 
 
 
 
@@ -942,6 +970,8 @@ app.post("/api/makefullfillment", (req, res) => {
     const cq = req.body.cq
     const cd = req.body.cd
     const ed = req.body.ed
+    var hold = "Pending"
+    var flag = 0
 
     const q = req.body.n
 
@@ -951,25 +981,45 @@ app.post("/api/makefullfillment", (req, res) => {
 
     let dPromise = new Promise(function (Resolve, Reject) {
 
-        const SqlU = "Insert into product_fullfillment (P_commitment_id,qty_fullfilled,fullfilled_date) VALUES (?,?,?)"
-        
-        db.query(SqlU, [pcid,q.Qty_fullfilled,q.Fullfilled_date], (err, result) => {
-            if (err) {
-                console.log(err)
-                // res.send(err)
-            } else {
-                
-                       res.send({ message: "Successfully FullFilled :" })
-                console.log(result)
-                Resolve("Ok") 
-           
-                
+
+        const s= "Select Comm_qty from product_committment where P_commitment_id = ? "
+        db.query(s,pcid,(err,result)=>{
+
+            if (result[0].Comm_qty == q.Qty_fullfilled){
+                hold = "Complete"
+                flag = 1
             }
-            
-            
+            if (result.length > 0 && flag === 1){
+                const SqlU = "Update product_committment set Status = ? where P_commitment_id = ?"
+                db.query(SqlU,[hold,pcid],(err,result)=>{
+                    if(err){
+                        console.log(err)
+                    }
+                })
+            }
+
         })
 
+    const SqlU = "Insert into product_fullfillment (P_commitment_id,qty_fullfilled,fullfilled_date) VALUES (?,?,?)"
+    
+    db.query(SqlU, [pcid,q.Qty_fullfilled,q.Fullfilled_date], (err, result) => {
+        if (err) {
+            console.log(err)
+            // res.send(err)
+        } else {
+            
+            
+            console.log(result)
+            Resolve("Ok") 
+        
+            
+        }
+        
+        
     })
+
+    })
+
 
     dPromise.then(
         function () {
@@ -982,6 +1032,17 @@ app.post("/api/makefullfillment", (req, res) => {
                        else{
                         SqlM = "Update product_requirement_summary set Total_qty_fullfilled = Total_qty_fullfilled + ? where product_id = ? and disaster_location_id = ? and program_id = ?"
                     db.query(SqlM, [q.Qty_fullfilled, prid, dlid, prgid],(err,result)=>{
+
+                        if(!err){     
+                            
+                            //res.send({ message: "Successfully FullFilled :" })
+                            const SqlU = "Update product_committment set comm_qty = comm_qty - ? where P_commitment_id = ?"
+                           db.query(SqlU,[q.Qty_fullfilled,pcid],(err,result)=>{
+                            if(!err){
+                                res.send({ message: "Successfully FullFilled :" })
+                            }
+                           }) 
+                        }
 
                     })
 
@@ -1009,6 +1070,19 @@ app.post("/api/removingdisasterloc", (req, res) => {
     })
 })
 
+
+app.get("/api/remrelief", (req, res) => {
+    const status = "ACTIVE"
+    const admin = "ORG_0001"
+    const sqlget =
+        "select p.Program_id,p.Program_name,p.Program_status from relief_program p";
+    db.query(sqlget, (err, result) => {
+        console.log(err)
+        res.send(result)
+    });
+})
+
+ 
 app.post("/api/removingreliefp", (req, res) => {
     const disast = req.body.prg
     const SqlU = "Delete from relief_program where Program_id = ?"

@@ -56,6 +56,7 @@ function Users_Commitments() {
       var pid = GetCookie('usrin')
       if(newfullfillment.Qty_fullfilled > cq){
         alert("Fullfill Quantity should be less than or equal to Commit Quantity ")
+        return
       }
     
       Axios.post("http://localhost:3001/api/makefullfillment", {n:newfullfillment, pcid:pcid,dlid:dlid,prid:prid,prgid:prgid,cd:cd,cq:cq,ed:ed,dash : pid }).then((resultx) => {
@@ -77,7 +78,7 @@ function Users_Commitments() {
                         <th scope="col">Product Name</th>
                         <th scope="col">Disaster Location Name</th>
                         <th scope="col">Program Name</th>
-                        <th scope="col">Committed Quantity</th>
+                        <th scope="col">Pending Quantity</th>
                         <th scope="col">Committed Date</th>
                         <th scope="col">ETA</th>
                         <th scope="col">Status</th>

@@ -12,12 +12,11 @@ function Users_Fullfilment() {
   });
 
   const [fullfilldet,Setfullfilldet] = useState([])
-  var id = ""
+  var id = " "
   useEffect(()=>{
     id = GetCookie('usrin')
-    var d = GetCookie('usrin')
-    console.log(d)
-    Axios.get("http://localhost:3001/api/fullfilldetails",{dash:d}).then((response)=>{
+    console.log(id)
+    Axios.get("http://localhost:3001/api/fullfilldetails",{dash:id}).then((response)=>{
      
       Setfullfilldet(response.data)
      })

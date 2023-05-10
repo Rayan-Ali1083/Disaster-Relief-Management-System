@@ -21,7 +21,7 @@ function Admin_Relief_Program() {
 
     })
 
-  },[])
+  })
 
   useEffect(()=>{
     Axios.get("http://localhost:3001/api/reliefinfo").then((response)=>{
@@ -30,7 +30,7 @@ function Admin_Relief_Program() {
 
     })
 
-  },[])
+  })
 
 
   const toComponentB=(program_id)=>{
@@ -57,7 +57,7 @@ function Admin_Relief_Program() {
     
         })
     
-      },[])
+      })
     
     
       let name, value;

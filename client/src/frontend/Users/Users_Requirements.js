@@ -25,8 +25,10 @@ function Users_Requirements() {
   const [prdid,setprdid] = useState("")
   const [dlocid,setdlocid] = useState("")
   const[q,setq] = useState("")
+  const[qc,setqc] = useState("")
 
-  const Setcommit = (q,productid,dislocid,prgid) => {
+  const Setcommit = (qc,q,productid,dislocid,prgid) => {
+      setqc(qc)
       setq(q)
       setprdid(productid)
       setdlocid(dislocid)
@@ -48,10 +50,15 @@ function Users_Requirements() {
     }, [])
     
     const makecommit = () => {
-     
-      if(newCommitment.Comm_qty > q){
+      console.log('q:', q);
+      console.log('qc:', qc);
+      console.log('newCommitment.Comm_qty:', newCommitment.Comm_qty);
+      if( (parseInt(newCommitment.Comm_qty ) + parseInt(qc)) > parseInt(q)){
+        
         alert("Commit Quantity Should be less than Requested Quantity")
-      }else{
+        return
+      }
+      else{
         Axios.post("http://localhost:3001/api/makecommit", { prd: prdid,dl:dlocid,pid:prgid,comm:id,dat : newCommitment}).then((resultx) => {
         if (resultx.data.message) {
           alert(resultx.data.message);
@@ -103,7 +110,7 @@ function Users_Requirements() {
                   <td>{val.Total_qty_comm}</td>
                   <td>{val.Total_qty_fullfilled}</td>
 
-                  <td><button type="button" class="btn btn-primary" id='add_commitment' data-bs-toggle="modal" data-bs-target="#addDis" onClick={()=>{Setcommit(val.Total_qty_req,val.Product_id,val.Disaster_location_id,val.Program_id)}}>Commit</button></td>
+                  <td><button type="button" class="btn btn-primary" id='add_commitment' data-bs-toggle="modal" data-bs-target="#addDis" onClick={()=>{Setcommit(val.Total_qty_comm,val.Total_qty_req,val.Product_id,val.Disaster_location_id,val.Program_id)}}>Commit</button></td>
 
 </tr>
 

@@ -245,7 +245,7 @@ function Relief_Dashboard() {
             <tr>
               <th scope="col">Organization Name</th>
               <th scope="col">Product Name</th>
-              <th scope="col">Committed Quantity</th>
+              <th scope="col">Pending Quantity</th>
               <th scope="col">Fulfilled Quantity</th>
               <th scope="col">Expected Delivery</th>
             </tr>

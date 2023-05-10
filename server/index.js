@@ -1025,31 +1025,24 @@ app.post("/api/makefullfillment", (req, res) => {
         function () {
 
             
-            
-                    SqlM = "Update product_requirement_summary set Total_qty_req = Total_qty_req - ? where product_id = ? and disaster_location_id = ? and program_id = ?"
-                    db.query(SqlM, [q.Qty_fullfilled, prid, dlid, prgid], (err, result) => {
-                       if(err){console.log(err)}
-                       else{
-                        SqlM = "Update product_requirement_summary set Total_qty_fullfilled = Total_qty_fullfilled + ? where product_id = ? and disaster_location_id = ? and program_id = ?"
-                    db.query(SqlM, [q.Qty_fullfilled, prid, dlid, prgid],(err,result)=>{
+         SqlM = "Update product_requirement_summary set Total_qty_fullfilled = Total_qty_fullfilled + ? where product_id = ? and disaster_location_id = ? and program_id = ?"
+        db.query(SqlM, [q.Qty_fullfilled, prid, dlid, prgid],(err,result)=>{
 
-                        if(!err){     
-                            
-                            //res.send({ message: "Successfully FullFilled :" })
-                            const SqlU = "Update product_committment set comm_qty = comm_qty - ? where P_commitment_id = ?"
-                           db.query(SqlU,[q.Qty_fullfilled,pcid],(err,result)=>{
-                            if(!err){
-                                res.send({ message: "Successfully FullFilled :" })
-                            }
-                           }) 
-                        }
-
-                    })
-
-                       }
-                    })
+            if(!err){     
                 
-                
+                //res.send({ message: "Successfully FullFilled :" })
+                const SqlU = "Update product_committment set comm_qty = comm_qty - ? where P_commitment_id = ?"
+                db.query(SqlU,[q.Qty_fullfilled,pcid],(err,result)=>{
+                if(!err){
+                    res.send({ message: "Successfully FullFilled :" })
+                }
+                }) 
+            }
+
+        })
+
+        
+    
             
         }
             

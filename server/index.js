@@ -299,7 +299,7 @@ app.post("/api/commdashinfo", (req, res) => {
 
     const user = req.body.dash
     const sqlget =
-        "Select pc.p_commitment_id,pc.comm_qty,pc.comm_date,pc.exp_delivery_date,pc.status,o.org_name,p.product_name from product_committment pc, organizations o,product p where pc.org_id = o.org_id and pc.product_id = p.product_id and pc.program_id = ? "
+        "Select pc.p_commitment_id,pc.comm_qty,pc.comm_date,d.location_name,pc.exp_delivery_date,pc.status,o.org_name,p.product_name from product_committment pc, organizations o,product p,disaster_locations d where pc.org_id = o.org_id and pc.product_id = p.product_id and pc.program_id = ? and pc.disaster_location_id = d.disaster_location_id "
     db.query(sqlget, user, (err, result) => {
         if (err) {
             console.log(err)

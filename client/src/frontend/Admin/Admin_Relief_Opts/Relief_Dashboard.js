@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom'
 import Axios from 'axios'
 function Relief_Dashboard() {
 
-
+  const [commdet, Setcommdet] = useState([]);
   const [reliefdet, Setreliefdet] = useState([]);
   const [proddet, Setproddet] = useState([]);
   const [prodful, Setprodful] = useState([]);
@@ -21,6 +21,12 @@ function Relief_Dashboard() {
     console.log(id)
     Axios.post("http://localhost:3001/api/dashinfo", { dash: id }).then((response) => {
       Setreliefdet(response.data)
+      //console.log(response.data)
+
+    })
+
+    Axios.post("http://localhost:3001/api/commdashinfo", { dash: id }).then((response) => {
+      Setcommdet(response.data)
       //console.log(response.data)
 
     })
@@ -130,15 +136,16 @@ function Relief_Dashboard() {
           </thead>
           <tbody style={{'color':'white', 'fontWeight':'bold'}}>
 
-            {reliefdet.map((val) => (
+            {commdet.map((val) => (
               <tr>
                 <td>{val.p_commitment_id}</td>
                 <td>{val.org_name}</td>
                 <td>{val.product_name}</td>
                 <td>{val.location_name}</td>
                 <td>{val.comm_qty}</td>
-                <td>{val.comm_date}</td>
-                <td>{val.exp_delivery_date}</td>
+                <td>{new Date(val.comm_date).toLocaleDateString()}</td>
+                <td>{new Date(val.exp_delivery_date).toLocaleDateString()}</td>
+                {/* <td>{val.exp_delivery_date}</td> */}
                 <td>{val.status}</td>
               </tr>
 

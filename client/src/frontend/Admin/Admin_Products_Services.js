@@ -195,11 +195,6 @@ function Admin_Products_Services() {
                   </div>                        </div>
                       </div>
                     </div>
-
-
-
-
-
           </div>
           <table className="table">
         <thead>

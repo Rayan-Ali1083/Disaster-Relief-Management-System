@@ -135,3 +135,39 @@ def Requirement_Defect():
 
 # Requirement_Defect()
 
+def Commit_valid():
+    Login()
+    time.sleep(3)
+    driver.get(r'http://localhost:3000/Users_Commitments.js')
+    time.sleep(5)
+    fullfill_btn = driver.find_element('id',"bttn")
+    fullfill_btn.send_keys("\n")      
+    time.sleep(3)
+    modal = driver.find_element('id',"addDis")
+    
+    fullfill_quant = modal.find_element('id','Qty_fullfilled')
+    table = driver.find_element('xpath', '//*[@id="root"]/div/div/table')
+    element = table.find_element('xpath','.//tr[1]/td[5]')
+    
+    quant = element.text
+    fullfill_quant.send_keys(quant)
+
+
+    c_date = modal.find_element('id','Fullfilled_date')
+    c_date.send_keys(datetime.today().strftime("%m-%d-%Y"))
+   
+    add_btn = modal.find_element('id','bttn')
+    add_btn.send_keys("\n")
+    time.sleep(3)
+
+    alert = Alert(driver)
+    alert_text = alert.text
+
+    assert alert_text == "Successfully FullFilled :", 'Fullfillment Failed'
+    print("Fullfilled")
+    
+
+    driver.quit()
+
+# Commit_valid()
+

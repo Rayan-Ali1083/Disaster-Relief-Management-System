@@ -126,15 +126,15 @@ function Users_Commitments() {
                   {newCommitment.Program_id=val.Program_id} */}
                   
                   <tr style={{'borderBottomColor':'transparent'}}>
-                    <td>  <input type="number" min='0' className="form-control" value={newfullfillment.Qty_fullfilled} name= 'Qty_fullfilled' onChange={handlefullfillments} placeholder="Quantity" aria-label="Username"></input>
+                    <td>  <input type="number" min='0' className="form-control" value={newfullfillment.Qty_fullfilled} name= 'Qty_fullfilled' id='Qty_fullfilled' onChange={handlefullfillments} placeholder="Quantity" aria-label="Username"></input>
                   </td>
                   <td>
-                    <input type="date" value={newfullfillment.Fullfilled_date} name='Fullfilled_date' onChange={handlefullfillments}  ></input></td>
+                    <input type="date" value={newfullfillment.Fullfilled_date} name='Fullfilled_date' onChange={handlefullfillments} id='Fullfilled_date' ></input></td>
                   
                  
                   
 
-                  <button type="button" onClick={makefullfillment} style={{"background":"#89bd79", "borderRadius":"5px", "borderStyle":"none"}}>Add</button>
+                  <button type="button" onClick={makefullfillment} style={{"background":"#89bd79", "borderRadius":"5px", "borderStyle":"none"}} id='bttn'>Add</button>
               </tr>
             
             </tbody>

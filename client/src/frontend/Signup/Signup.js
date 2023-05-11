@@ -68,7 +68,14 @@ const [orgtype,Setorgtype] = useState([])
                 <input type="password" className='small-input' value={newUser.pass} name='pass' onChange={handleInputs} placeholder="Password" required></input>
                 <input type="email" className='small-input' value={newUser.email}  name='email' onChange={handleInputs} placeholder="Email Address" required></input>
                 
-                <input type="text" className='small-input' value={newUser.org_province} name='org_province' onChange={handleInputs} placeholder="Province" required></input>
+                <select type="text" className='small-input' value={newUser.org_province} name='org_province' onChange={handleInputs} placeholder="Province" required>
+                  <option>Sindh</option>
+                  <option>Punjab</option>
+                  <option>Balochistan</option>
+                  <option>KPK</option>
+                  <option>Kashmir</option>
+
+                </select>
 
                   <select className="form-select" value={newUser.org_cate} name='org_cate' onChange={handleInputs} style={{'width':'35%', 'marginLeft':'55%', 'marginTop':'-4%'}}>
                   <option value>Organization Category</option>

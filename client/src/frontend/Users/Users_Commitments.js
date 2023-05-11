@@ -135,10 +135,6 @@ function Users_Commitments() {
                   </td>
                   <td>
                     <input type="date" value={newfullfillment.Fullfilled_date} name='Fullfilled_date' onChange={handlefullfillments} id='Fullfilled_date' ></input></td>
-                  
-                 
-                  
-
                   <button type="button" onClick={makefullfillment} style={{"background":"#89bd79", "borderRadius":"5px", "borderStyle":"none"}} id='bttn'>Add</button>
               </tr>
             

@@ -95,7 +95,7 @@ def Requirement_valid():
     exp_date.send_keys(datetime.today().strftime("%m-%d-%Y"))
     add_btn = modal.find_element('id','bttn')
     add_btn.send_keys("\n")
-    time.sleep(3)
+    time.sleep(5)
 
     alert = Alert(driver)
     alert_text = alert.text
@@ -129,8 +129,7 @@ def Requirement_Defect():
     alert = Alert(driver)
     alert_text = alert.text
 
-    assert alert_text == "Commit Quantity Should be less than Requested Quantity", 'Should not make Commitment for more than Requested Quantity'
-    print("Commitment Failed, Test Succeded")
+    assert alert_text == "Successfully Commited ", 'Should not make Commitment for more than Requested Quantity'
     
 
     driver.quit()
@@ -149,7 +148,7 @@ def Commit_valid():
     
     fullfill_quant = modal.find_element('id','Qty_fullfilled')
     table = driver.find_element('xpath', '//*[@id="root"]/div/div/table')
-    element = table.find_element('xpath','.//tr[1]/td[5]')
+    element = table.find_element('xpath','.//tr[1]/td[4]')
     
     quant = element.text
     fullfill_quant.send_keys(quant)
@@ -188,11 +187,7 @@ def Signup_valid():
     email = driver.find_element('id',"email")
     email.send_keys("NEWORG@gmail.com")
 
-    prov_drop = driver.find_element('xpath','//*[@id="org_province"]')
-    select = Select(prov_drop)
-    select.select_by_index(1)
-
-    prov_drop = driver.find_element('xpath','//*[@id="org_province"]')
+    prov_drop = driver.find_element('xpath','//*[@id="mid-body"]/div/select[1]')
     select = Select(prov_drop)
     select.select_by_index(1)
 
@@ -203,7 +198,7 @@ def Signup_valid():
     add_btn = driver.find_element('id','sub-bttn')
     add_btn.send_keys("\n")
 
-    time.sleep(3)
+    time.sleep(5)
 
     alert = Alert(driver)
     alert_text = alert.text

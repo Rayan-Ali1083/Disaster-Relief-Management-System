@@ -15,8 +15,8 @@ const db = mysql.createPool({
 
     host: 'localhost',
     user: 'root',
-    password: 'root',
-    database: 'drwms'
+    password: 'fast',
+    database: 'dbtest'
 
 });
 
@@ -146,7 +146,7 @@ app.post("/api/signup", (req, res) => {
 app.get("/api/orginfo", (req, res) => {
 
     const sqlget =
-        "Select o.org_id,o.org_name,o.org_status, o.org_category_id,r.program_name from relief_program r, organizations o, relief_providers as rp where o.org_id = rp.org_id and rp.program_id = r.program_id";
+        "Select o.org_id,o.org_name,o.org_status, o.org_category_id,oc.org_type,r.program_name from relief_program r, organizations o,org_category oc, relief_providers as rp where o.org_id = rp.org_id and rp.program_id = r.program_id and o.org_category_id = oc.org_category_id";
     db.query(sqlget, (err, result) => {
         console.log(err)
         res.send(result)
@@ -171,7 +171,7 @@ app.get("/api/remOrg", (req, res) => {
     const status = "ACTIVE"
     const admin = "ORG_0001"
     const sqlget =
-        "Select org_id,org_name,org_status, org_category_id from organizations  where Org_status = ? and Org_id != ?";
+        "Select o.org_id,o.org_name,o.org_status, o.org_category_id,oc.org_type from organizations o, org_category oc where Org_status = ? and Org_id != ? and o.org_category_id = oc.org_category_id";
     db.query(sqlget, [status, admin], (err, result) => {
         console.log(err)
         res.send(result)
@@ -869,7 +869,7 @@ app.post("/api/makecommit", (req, res) => {
     console.log(locationid)
     console.log(programid)
 
-    const hold = "Pending"
+    //const hold = "Pending"
     let Oid1=JSON.parse(oid)
     console.log(Oid1)
     let dPromise = new Promise(function (Resolve, Reject) {

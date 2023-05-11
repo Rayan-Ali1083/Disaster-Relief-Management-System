@@ -80,6 +80,7 @@ function Admin_Organizations() {
 
    useEffect(()=>{
      Axios.get("http://localhost:3001/api/remOrg").then((response)=>{
+      console.log(response.data)
        Setremovedet(response.data)
        //console.log(response.data)
  
@@ -204,7 +205,7 @@ function Admin_Organizations() {
                     <tr style={{'backgroundColor':'#30574b', 'color':'white', 'textAlign':'center', 'fontWeight':'bold', 'borderBottomColor':'transparent'}}>
                     <td>{val.org_id}</td>
                      <td>{val.org_name}</td>
-                    <td>{val.Org_type}</td>
+                    <td>{val.org_type}</td>
                     <td>{val.org_status}</td>
                     <button type="button" id='removebtn' onClick={()=>{RemoveU(val.org_id)}}>REMOVE</button>
                   </tr>
@@ -232,7 +233,7 @@ function Admin_Organizations() {
           <table className="table" style={{'color':'#fffb00'}}>
   <thead>
     <tr style={{'backgroundColor':'#30574b', 'color':'#fffb00', 'textAlign':'center', 'fontWeight':'bold'}}>
-      <th scope="col">Organization ID</th>
+      
       <th scope="col">Organization Name</th>
       <th scope="col">Organization type</th>
       <th scope="col">Organization Status</th>
@@ -243,9 +244,9 @@ function Admin_Organizations() {
  {orgname.map((val)=>(
   
     <tr style={{'backgroundColor':'#30574b', 'color':'white', 'textAlign':'center', 'fontWeight':'bold'}}>
-      <td>{val.org_id}</td>
+      
        <td>{val.org_name}</td>
-      <td>{val.org_category_id}</td>
+      <td>{val.org_type}</td>
       <td>{val.org_status}</td>
       <td>{val.program_name}</td>
     </tr>

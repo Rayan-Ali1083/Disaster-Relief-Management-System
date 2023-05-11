@@ -15,10 +15,10 @@ const db = mysql.createPool({
 
     host: 'localhost',
     user: 'root',
-    password: 'root',
-    database: 'drwms'
+    password: 'fast',
+    database: 'dbtest'
 
-});
+});  
 
 
 app.use(cors());
@@ -388,7 +388,7 @@ app.get("/api/getpending", (req, res) => {
 
     const hold = "PENDING";
     const sqlget =
-        "Select org_id,org_name,org_status,org_contact, org_category_id from organizations where org_status=?";
+        "Select o.org_id,o.org_name,o.org_status,o.org_contact, o.org_category_id,oc.org_type from organizations o ,org_category oc  where oc.org_category_id = o.org_category_id and org_status=?";
     db.query(sqlget, hold, (err, result) => {
         console.log(err)
         res.send(result)

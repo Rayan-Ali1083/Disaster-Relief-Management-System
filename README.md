@@ -39,4 +39,5 @@ The following contributors have participated in the development of this project:
 
 Huzaifa Tanzeel | 
 Maarij Amir | 
-Rayan Ali
+Rayan Ali | 
+Imtiaz Mushfiq

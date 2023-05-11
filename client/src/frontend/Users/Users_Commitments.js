@@ -101,7 +101,7 @@ function Users_Commitments() {
                         <td>{val.program_name}</td>
                         <td>{val.comm_qty}</td>
                         <td>{val.comm_date}</td>
-                        <td>{val.exp_delivery_date}</td>
+                        <td>{new Date(val.exp_delivery_date).toLocaleDateString()}</td>
                         <td>{val.status}</td>
                         <td><button type="button" className="btn" id='bttn' onClick={()=>{Setpcid(val.p_commitment_id,val.disaster_location_id,val.product_id,val.program_id,val.comm_qty,val.comm_date,val.exp_delivery_date)}} data-bs-toggle="modal" data-bs-target="#addDis">Fullfil</button></td>
            </tr>

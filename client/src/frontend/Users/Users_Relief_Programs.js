@@ -73,7 +73,6 @@ function Users_Relief_Programs() {
                 <th scope="col">Program Status</th>
                 <th scope="col">Disaster Name</th>
                 <th scope="col">Start Date</th>
-                <th scope="col">End Date</th>
                 <th scope="col">Option</th>
               </tr>
             </thead>
@@ -87,7 +86,6 @@ function Users_Relief_Programs() {
                     <td>{val.Program_status}</td>
                     <td>{val.Disaster_name}</td>
                     <td>{val.Start_date}</td>
-                    <td>{val.End_date}</td>
                     <td>
                   <button type="button" onClick={() => { Registerorg(val.Program_id) }} id='bttn' >Register</button>
                  
@@ -102,7 +100,6 @@ function Users_Relief_Programs() {
         </div>
 
       </div>
-
       <div className="card" style={{"width":"70%", "marginLeft":"15%", "borderRadius":"1%", 'backgroundColor':'transparent', 'borderStyle':'none'}}>
         <div className="card-body" style={{'borderStyle':'solid', 'borderColor':'black' }}>
           <table className="table" style={{'backgroundColor':'#30574b', 'color':'#fffb00','borderStyle':'none', 'textAlign':'center'}}>

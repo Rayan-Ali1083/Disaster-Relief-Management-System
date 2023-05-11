@@ -50,7 +50,7 @@ function Users_Fullfilment() {
                     <td>{val.program_name}</td>
                     <td>{val.product_name}</td>
                     <td>{val.Qty_fullfilled}</td>
-                    <td>{val.Fullfilled_date}</td>
+                    <td>{new Date(val.Fullfilled_date).toLocaleDateString()}</td>
 
   
                   </tr>

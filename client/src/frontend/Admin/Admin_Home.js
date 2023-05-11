@@ -55,6 +55,13 @@ function Admin_Home() {
         <h5 className="card-title">RAYAN ALI</h5>
       </div>
     </div>
+    <div className="card" style={{'backgroundColor':'#396e4f', 'borderStyle': 'none'}}>
+        {/* <img className="card-img-top" src={require("../../Extras/maarij.jpg")} alt="Card image cap"></img> */}
+        <div className="card-body">
+          <h5 className="card-title">IMTIAZ ALI</h5>
+        </div>
+
+    </div>
     </div>
         </div>
         <div className="card-body" id='CONTACT'>

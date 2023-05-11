@@ -156,7 +156,7 @@ function Admin_Organizations() {
                             <tr>
                               <td>{val.org_id}</td>
                               <td>{val.org_name}</td>
-                              <td>{val.org_category_id}</td>
+                              <td>{val.org_type}</td>
                               <td>{val.org_status}</td>
                               <button type="button" onClick={()=>{ApproveU(val.org_id)}} style={{"background":"#89bd79", "borderRadius":"5px", "borderStyle":"none"}}>Approve</button>
                               <button type="button" onClick={()=>{DeclineU(val.org_id)}} style={{"background":"#ff392e", "borderRadius":"5px", "borderStyle":"none"}}>Decline</button>

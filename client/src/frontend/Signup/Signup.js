@@ -21,7 +21,15 @@ function Signup() {
         return;
       }
     }
-    
+    if (newUser.pass.length < 8) {
+      alert(`Password must be at least 8 characters.`);
+      return;
+    }
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(newUser.email)) {
+      alert('Invalid email address.');
+      return;
+    }
     Axios.post("http://localhost:3001/api/signup", { user: newUser }).then((resultx) => {
       if (resultx.data.message) {
         alert(resultx.data.message);
@@ -69,6 +77,7 @@ const [orgtype,Setorgtype] = useState([])
                 <input type="email" className='small-input' value={newUser.email}  name='email' onChange={handleInputs} placeholder="Email Address" required></input>
                 
                 <select type="text" className='small-input' value={newUser.org_province} name='org_province' onChange={handleInputs} placeholder="Province" required>
+                 <option>Select Province</option>
                   <option>Sindh</option>
                   <option>Punjab</option>
                   <option>Balochistan</option>

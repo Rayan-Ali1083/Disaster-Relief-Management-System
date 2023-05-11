@@ -231,7 +231,7 @@ function Admin_Relief_Program() {
                 <th scope="col">Program Status</th>
                 <th scope="col">Disaster NAME</th>
                 <th scope="col">Start Date</th>
-                <th scope="col">End Date</th>
+                {/* <th scope="col">End Date</th> */}
                 <th scope="col">Option</th>
               </tr>
     </thead>
@@ -244,7 +244,7 @@ function Admin_Relief_Program() {
    <td>{val.program_status}</td>
    <td>{val.disaster_name}</td>
    <td>{val.start_date}</td>
-   <td>{val.end_date}</td>
+   {/* <td>{val.end_date}</td> */}
    <td><button type="button" onClick={()=>{toComponentB(val.program_id)}} className="btn btn-primary">Dashboard</button></td>
  </tr>
 

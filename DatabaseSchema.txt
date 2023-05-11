@@ -1,0 +1,821 @@
+CREATE SCHEMA `drwms` ;
+
+
+/*DISASTER_CATEGORY*/
+
+CREATE TABLE `drwms`.`disaster_category` (
+  `Disaster_type_id` varchar(15) NOT NULL PRIMARY KEY DEFAULT '0',
+  `Disaster_type` VARCHAR(20) NOT NULL
+  );
+
+
+CREATE TABLE drwms.table_dc
+(
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY
+);
+
+
+
+
+DROP TRIGGER IF EXISTS `drwms`.`disaster_category_BEFORE_INSERT`;
+
+DELIMITER $$
+USE `drwms`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `drwms`.`disaster_category_BEFORE_INSERT` BEFORE INSERT ON `disaster_category` FOR EACH ROW
+BEGIN
+	INSERT INTO drwms.table_dc VALUES (NULL);
+  SET NEW.Disaster_type_id = CONCAT('DIS_CAT_', LPAD(LAST_INSERT_ID(), 3, '0'));
+END$$
+DELIMITER ;
+
+
+INSERT INTO drwms.disaster_category (Disaster_type) 
+VALUES ('FLOOD');
+
+INSERT INTO drwms.disaster_category (Disaster_type) 
+VALUES ('EARTHQUAKE');
+
+SELECT * FROM drwms.disaster_category;
+
+
+
+
+
+  /*DISASTER*/
+  
+  
+  CREATE TABLE `drwms`.`disaster` (
+  `Disaster_id` varchar(15) NOT NULL PRIMARY KEY DEFAULT '0',
+  `Disaster_name` VARCHAR(30) NOT NULL,
+  `Disaster_date` DATE NULL,
+  `Disaster_type_id` varchar(15) NOT NULL,
+  CONSTRAINT `Disaster_type_id`
+    FOREIGN KEY (`Disaster_type_id`)
+    REFERENCES `drwms`.`disaster_category` (`Disaster_type_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE);
+    
+    
+    
+ CREATE TABLE drwms.table_d
+(
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY
+);  
+
+
+
+
+
+DROP TRIGGER IF EXISTS `drwms`.`disaster_BEFORE_INSERT`;
+
+DELIMITER $$
+USE `drwms`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `drwms`.`disaster_BEFORE_INSERT` BEFORE INSERT ON `disaster` FOR EACH ROW
+BEGIN
+	INSERT INTO drwms.table_d VALUES (NULL);
+  SET NEW.Disaster_id = CONCAT('DISASTER_', LPAD(LAST_INSERT_ID(), 3, '0'));
+END$$
+DELIMITER ;
+
+
+INSERT INTO drwms.disaster (Disaster_name,Disaster_date,Disaster_type_id) 
+VALUES ("FLOOD'2022",'2022-06-14','DIS_CAT_001');    
+
+select * from drwms.disaster;
+
+
+
+
+
+
+
+
+ /*RELIEF_PROGRAMS*/
+    
+    CREATE TABLE `drwms`.`relief_program` (
+  `Program_id` varchar(15) NOT NULL PRIMARY KEY DEFAULT '0',
+  `Program_name` VARCHAR(60) NOT NULL,
+  `Program_status` VARCHAR(20) NULL,
+  `Start_date` DATE NULL,
+  `End_date` DATE NULL,
+  `Disaster_id` varchar(15) NOT NULL,
+  CONSTRAINT `Diaster_id`
+    FOREIGN KEY (`Disaster_id`)
+    REFERENCES `drwms`.`disaster` (`Disaster_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE);
+
+
+CREATE TABLE drwms.table_prg
+(
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY
+);   
+
+
+
+DROP TRIGGER IF EXISTS `drwms`.`relief_program_BEFORE_INSERT`;
+
+DELIMITER $$
+USE `drwms`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `drwms`.`relief_program_BEFORE_INSERT` BEFORE INSERT ON `relief_program` FOR EACH ROW
+BEGIN
+	INSERT INTO drwms.table_prg VALUES (NULL);
+  SET NEW.Program_id = CONCAT('PRG_', LPAD(LAST_INSERT_ID(), 3, '0'));
+END$$
+DELIMITER ;
+
+
+
+INSERT INTO drwms.relief_program (Program_name,Program_status,Start_date,End_date,Disaster_id) 
+VALUES ("GOVT RELIEF PROGRAM FOR FLOOD 2022",'ACTIVE','2022-06-20',NULL,'DISASTER_001');    
+
+SELECT * FROM relief_program;
+
+
+
+
+
+
+/*PROVINCES*/
+
+CREATE TABLE `drwms`.`provinces` (
+  `Province_id` varchar(15) NOT NULL PRIMARY KEY DEFAULT '0',
+  `Province_name` VARCHAR(20) NOT NULL
+  );
+
+CREATE TABLE drwms.table_prv
+(
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY
+);   
+
+
+
+
+DROP TRIGGER IF EXISTS `drwms`.`provinces_BEFORE_INSERT`;
+
+DELIMITER $$
+USE `drwms`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `drwms`.`provinces_BEFORE_INSERT` BEFORE INSERT ON `provinces` FOR EACH ROW
+BEGIN
+	INSERT INTO drwms.table_prv VALUES (NULL);
+  SET NEW.Province_id = CONCAT('PROV_', LPAD(LAST_INSERT_ID(), 3, '0'));
+END$$
+DELIMITER ;
+
+
+
+INSERT INTO drwms.provinces (Province_name) 
+VALUES ('SINDH');  
+INSERT INTO drwms.provinces (Province_name) 
+VALUES ('PUNJAB'); 
+INSERT INTO drwms.provinces (Province_name) 
+VALUES ('BALOCHISTAN'); 
+INSERT INTO drwms.provinces (Province_name) 
+VALUES ('KPK');   
+
+SELECT * FROM drwms.provinces;
+
+
+
+
+
+
+
+/*CITIES*/
+
+
+CREATE TABLE `drwms`.`cities` (
+  `City_id` varchar(15) NOT NULL PRIMARY KEY DEFAULT '0',
+  `City_name` VARCHAR(20) NOT NULL,
+  `Province_id` varchar(15) NULL,
+  CONSTRAINT `Province_id`
+    FOREIGN KEY (`Province_id`)
+    REFERENCES `drwms`.`provinces` (`Province_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE);
+
+CREATE TABLE drwms.table_cit
+(
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY
+);   
+
+
+
+DROP TRIGGER IF EXISTS `drwms`.`cities_BEFORE_INSERT`;
+
+DELIMITER $$
+USE `drwms`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `drwms`.`cities_BEFORE_INSERT` BEFORE INSERT ON `cities` FOR EACH ROW
+BEGIN
+	INSERT INTO drwms.table_cit VALUES (NULL);
+  SET NEW.City_id = CONCAT('CITY_', LPAD(LAST_INSERT_ID(), 3, '0'));
+END$$
+DELIMITER ;
+
+
+
+
+INSERT INTO drwms.cities (City_name,Province_id) 
+VALUES ('Karachi','PROV_001'); 
+INSERT INTO drwms.cities (City_name,Province_id) 
+VALUES ('Hyderabad','PROV_001'); 
+INSERT INTO drwms.cities (City_name,Province_id) 
+VALUES ('Sukkur','PROV_001'); 
+INSERT INTO drwms.cities (City_name,Province_id) 
+VALUES ('Larkana','PROV_001'); 
+INSERT INTO drwms.cities (City_name,Province_id) 
+VALUES ('Mirpur Khas','PROV_001'); 
+INSERT INTO drwms.cities (City_name,Province_id) 
+VALUES ('Shikarpur','PROV_001'); 
+
+INSERT INTO drwms.cities (City_name,Province_id) 
+VALUES ('Faisalabad','PROV_002'); 
+INSERT INTO drwms.cities (City_name,Province_id) 
+VALUES ('Rawalpindi','PROV_002'); 
+INSERT INTO drwms.cities (City_name,Province_id) 
+VALUES ('Gujranwala','PROV_002'); 
+INSERT INTO drwms.cities (City_name,Province_id) 
+VALUES ('Bahawalpur','PROV_002'); 
+INSERT INTO drwms.cities (City_name,Province_id) 
+VALUES ('Sargodha','PROV_002'); 
+
+INSERT INTO drwms.cities (City_name,Province_id) 
+VALUES ('Quetta','PROV_003'); 
+INSERT INTO drwms.cities (City_name,Province_id) 
+VALUES ('Turbat','PROV_003'); 
+INSERT INTO drwms.cities (City_name,Province_id) 
+VALUES ('Khuzdar','PROV_003'); 
+
+INSERT INTO drwms.cities (City_name,Province_id) 
+VALUES ('Peshawar','PROV_004'); 
+INSERT INTO drwms.cities (City_name,Province_id) 
+VALUES ('Mardan','PROV_004'); 
+INSERT INTO drwms.cities (City_name,Province_id) 
+VALUES ('Mingora','PROV_004'); 
+INSERT INTO drwms.cities (City_name,Province_id) 
+VALUES ('Abbotabad','PROV_004'); 
+INSERT INTO drwms.cities (City_name,Province_id) 
+VALUES ('Charsadda','PROV_004'); 
+
+select * from cities;
+
+
+
+
+
+
+/*DISASTER_LOCATIONS*/
+
+
+CREATE TABLE `drwms`.`disaster_locations` (
+  `Disaster_location_id` varchar(15) NOT NULL PRIMARY KEY DEFAULT '0',
+  `City_id` varchar(15) NOT NULL,
+  `Disaster_id` varchar(15) NOT NULL,
+  `Location_name` VARCHAR(30) NULL,
+  CONSTRAINT `fk_city`
+    FOREIGN KEY (`City_id`)
+    REFERENCES `drwms`.`cities` (`City_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_disaster`
+    FOREIGN KEY (`Disaster_id`)
+    REFERENCES `drwms`.`disaster` (`Disaster_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE);
+
+CREATE TABLE drwms.table_dis_loc
+(
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY
+);   
+
+
+
+DROP TRIGGER IF EXISTS `drwms`.`disaster_locations_BEFORE_INSERT`;
+
+DELIMITER $$
+USE `drwms`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `drwms`.`disaster_locations_BEFORE_INSERT` BEFORE INSERT ON `disaster_locations` FOR EACH ROW
+BEGIN
+	INSERT INTO drwms.table_dis_loc VALUES (NULL);
+  SET NEW.Disaster_location_id = CONCAT('DIS_LOC_', LPAD(LAST_INSERT_ID(), 4, '0'));
+END$$
+DELIMITER ;
+
+INSERT INTO drwms.disaster_locations (City_id,Disaster_id,Location_name) 
+VALUES ('CITY_003','DISASTER_001','Sukkur City'); 
+INSERT INTO drwms.disaster_locations (City_id,Disaster_id,Location_name) 
+VALUES ('CITY_003','DISASTER_001','Rohri');
+
+INSERT INTO drwms.disaster_locations (City_id,Disaster_id,Location_name) 
+VALUES ('CITY_004','DISASTER_001','Larkana');
+INSERT INTO drwms.disaster_locations (City_id,Disaster_id,Location_name) 
+VALUES ('CITY_004','DISASTER_001','Kashmore');
+
+INSERT INTO drwms.disaster_locations (City_id,Disaster_id,Location_name) 
+VALUES ('CITY_011','DISASTER_001','Sarghoda district');
+
+INSERT INTO drwms.disaster_locations (City_id,Disaster_id,Location_name) 
+VALUES ('CITY_012','DISASTER_001','Chaman district');
+
+INSERT INTO drwms.disaster_locations (City_id,Disaster_id,Location_name) 
+VALUES ('CITY_017','DISASTER_001','Kalam');
+INSERT INTO drwms.disaster_locations (City_id,Disaster_id,Location_name) 
+VALUES ('CITY_017','DISASTER_001','Sawat');
+select * from cities;
+select * from disaster_locations;
+
+
+
+
+/*ORG TYPE*/
+
+CREATE TABLE `drwms`.`org_category` (
+  `Org_category_id` varchar(15) NOT NULL PRIMARY KEY DEFAULT '0',
+  `Org_type` VARCHAR(30) NOT NULL
+  );
+
+CREATE TABLE drwms.table_O_cat
+(
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY
+);   
+
+
+DROP TRIGGER IF EXISTS `drwms`.`org_category_BEFORE_INSERT`;
+
+DELIMITER $$
+USE `drwms`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `drwms`.`org_category_BEFORE_INSERT` BEFORE INSERT ON `org_category` FOR EACH ROW
+BEGIN
+	INSERT INTO drwms.table_o_cat VALUES (NULL);
+  SET NEW.Org_category_id = CONCAT('ORG_CAT_', LPAD(LAST_INSERT_ID(), 3, '0'));
+END$$
+DELIMITER ;
+
+
+
+INSERT INTO drwms.org_category (Org_type) 
+VALUES ('CONTROLLING_BODY');
+INSERT INTO drwms.org_category (Org_type) 
+VALUES ('NGO');
+INSERT INTO drwms.org_category (Org_type) 
+VALUES ('MILITARY');
+INSERT INTO drwms.org_category (Org_type) 
+VALUES ('GROUPS');
+
+SELECT * FROM org_category;
+
+
+
+
+
+/*ORGANIZATIONS */
+
+
+
+CREATE TABLE `drwms`.`organizations` (
+  `Org_id` varchar(15) NOT NULL PRIMARY KEY DEFAULT '0',
+  `Org_name` VARCHAR(40) NOT NULL,
+  `Org_status` VARCHAR(20) NULL DEFAULT 'PENDING',
+  `Org_category_id` varchar(15) NULL,
+  CONSTRAINT `fk_org_category`
+    FOREIGN KEY (`Org_category_id`)
+    REFERENCES `drwms`.`org_category` (`Org_category_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE);
+
+
+CREATE TABLE drwms.table_o
+(
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY
+);   
+
+
+
+
+DROP TRIGGER IF EXISTS `drwms`.`organizations_BEFORE_INSERT`;
+
+DELIMITER $$
+USE `drwms`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `drwms`.`organizations_BEFORE_INSERT` BEFORE INSERT ON `organizations` FOR EACH ROW
+BEGIN
+	INSERT INTO drwms.table_o VALUES (NULL);
+  SET NEW.Org_id = CONCAT('ORG_', LPAD(LAST_INSERT_ID(), 4, '0'));
+END$$
+DELIMITER ;
+
+INSERT INTO drwms.organizations (Org_name,Org_status,Org_category_id) 
+VALUES ('PDMA','ACTIVE','ORG_CAT_001');
+ALTER TABLE `drwms`.`organizations` 
+ADD COLUMN `Org_contact` VARCHAR(45) NULL AFTER `Org_category_id`;
+
+
+INSERT INTO drwms.organizations (Org_name,Org_status,Org_category_id,Org_contact) 
+VALUES ('ABC_KPK','ACTIVE','ORG_CAT_002','abckpk@org.pk');
+
+INSERT INTO drwms.organizations (Org_name,Org_category_id,Org_contact) 
+VALUES ('ABC_PUNJAB','ORG_CAT_002','abcpunjab@org.pk');
+
+
+
+
+
+
+/*USERS*/
+
+
+
+CREATE TABLE `drwms`.`users` (
+  `Username` VARCHAR(20) NOT NULL ,
+  `password` VARCHAR(15) NULL,
+  `Org_id` varchar(15) NOT NULL,
+  PRIMARY KEY (`Username`),
+  CONSTRAINT `fk_org_id`
+    FOREIGN KEY (`Org_id`)
+    REFERENCES `drwms`.`organizations` (`Org_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE);
+    
+    select * from organizations;
+    
+	INSERT INTO drwms.users (Username,password,Org_id) 
+VALUES ('pdmapak','pdma9211','ORG_0001');
+
+	INSERT INTO drwms.users (Username,password,Org_id) 
+VALUES ('abckpk','abc4290','ORG_0002');
+
+INSERT INTO drwms.users (Username,password,Org_id) 
+VALUES ('abcpunjab','abc6291','ORG_0003');
+
+
+
+
+
+/*RELIEF PROVIDERS*/
+
+
+CREATE TABLE `drwms`.`relief_providers` (
+  `Program_id` varchar(15) NOT NULL,
+  `Org_id` varchar(15) NOT NULL,
+  `status` VARCHAR(20) NULL,
+  PRIMARY KEY (`Program_id`, `Org_id`),
+  CONSTRAINT `fk_Relief_program`
+    FOREIGN KEY (`Program_id`)
+    REFERENCES `drwms`.`relief_program` (`Program_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_organizations`
+    FOREIGN KEY (`Org_id`)
+    REFERENCES `drwms`.`organizations` (`Org_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE);
+    
+    select * from relief_program;
+	
+    INSERT INTO drwms.relief_providers (Program_id,Org_id,status) 
+VALUES ('PRG_001','ORG_0002','ACTIVE');
+ INSERT INTO drwms.relief_providers (Program_id,Org_id,status) 
+VALUES ('PRG_001','ORG_0003','NOT_ACTIVE');
+
+
+
+
+
+/*PRODUCTS*/
+
+
+CREATE TABLE `drwms`.`product` (
+  `Product_id` varchar(15) NOT NULL PRIMARY KEY DEFAULT '0',
+  `Product_name` VARCHAR(30) NOT NULL,
+  `Product_category` VARCHAR(30) NULL
+  );
+
+
+
+CREATE TABLE drwms.table_prd
+(
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY
+);   
+
+
+
+
+
+DROP TRIGGER IF EXISTS `drwms`.`product_BEFORE_INSERT`;
+
+DELIMITER $$
+USE `drwms`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `drwms`.`product_BEFORE_INSERT` BEFORE INSERT ON `product` FOR EACH ROW
+BEGIN
+	INSERT INTO drwms.table_prd VALUES (NULL);
+  SET NEW.Product_id = CONCAT('PRD_', LPAD(LAST_INSERT_ID(), 4, '0'));
+END$$
+DELIMITER ;
+
+
+ INSERT INTO drwms.product (Product_name,Product_category) 
+VALUES ('MOSQUITO_NETS','Camping');
+INSERT INTO drwms.product (Product_name,Product_category) 
+VALUES ('Tents','Camping');
+INSERT INTO drwms.product (Product_name,Product_category) 
+VALUES ('Medical Camps','Medical');
+INSERT INTO drwms.product (Product_name,Product_category) 
+VALUES ('Water_Bottles','Food');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*PRODUCT REQUIREMENTS*/
+
+CREATE TABLE `drwms`.`product_requirements` (
+  `P_requirement_id` varchar(15) NOT NULL PRIMARY KEY DEFAULT '0',
+  `Product_id` varchar(15) NOT NULL,
+  `Disaster_location_id` varchar(15) NOT NULL,
+  `Program_id` varchar(15) NOT NULL,
+  `Req_qty` INT NOT NULL,
+  `Request_date` DATE NULL,
+  CONSTRAINT `fk_product`
+    FOREIGN KEY (`Product_id`)
+    REFERENCES `drwms`.`product` (`Product_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_disaster_location`
+    FOREIGN KEY (`Disaster_location_id`)
+    REFERENCES `drwms`.`disaster_locations` (`Disaster_location_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_reliefprogram`
+    FOREIGN KEY (`Program_id`)
+    REFERENCES `drwms`.`relief_program` (`Program_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE);
+
+
+CREATE TABLE drwms.table_pr
+(
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY
+);   
+
+
+
+
+DROP TRIGGER IF EXISTS `drwms`.`product_requirements_BEFORE_INSERT`;
+
+DELIMITER $$
+USE `drwms`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `drwms`.`product_requirements_BEFORE_INSERT` BEFORE INSERT ON `product_requirements` FOR EACH ROW
+BEGIN
+	INSERT INTO drwms.table_pr VALUES (NULL);
+  SET NEW.P_requirement_id = CONCAT('PRD_REQ_', LPAD(LAST_INSERT_ID(), 5, '0'));
+END$$
+DELIMITER ;
+
+
+INSERT INTO drwms.product_requirements (Product_id,Disaster_location_id,Program_id,Req_qty,Request_date) 
+VALUES ('PRD_0001','DIS_LOC_0001','PRG_001',1000,'2022-07-10');
+INSERT INTO drwms.product_requirements (Product_id,Disaster_location_id,Program_id,Req_qty,Request_date) 
+VALUES ('PRD_0003','DIS_LOC_0006','PRG_001',500,'2022-07-12');
+INSERT INTO drwms.product_requirements (Product_id,Disaster_location_id,Program_id,Req_qty,Request_date) 
+VALUES ('PRD_0001','DIS_LOC_0001','PRG_001',500,'2022-07-15');
+
+SELECT * FROM product_requirements;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*PRODUCT COMMITMENT*/
+
+
+CREATE TABLE `drwms`.`product_committment` (
+  `P_commitment_id` varchar(15) NOT NULL PRIMARY KEY DEFAULT '0',
+  `Org_id` varchar(15) NOT NULL,
+  `Product_id` varchar(15) NOT NULL,
+  `Disaster_location_id` varchar(15) NOT NULL,
+  `Program_id` varchar(15) NOT NULL,
+  `Comm_qty` INT NOT NULL,
+  `Comm_date` DATE NULL,
+  `Exp_delivery_date` DATE NULL,
+  `Status` VARCHAR(20) NULL DEFAULT 'Pending',
+  CONSTRAINT `fk__org`
+    FOREIGN KEY (`Org_id`)
+    REFERENCES `drwms`.`organizations` (`Org_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fjk__prod`
+    FOREIGN KEY (`Product_id`)
+    REFERENCES `drwms`.`product` (`Product_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk__dis_loc`
+    FOREIGN KEY (`Disaster_location_id`)
+    REFERENCES `drwms`.`disaster_locations` (`Disaster_location_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_Rprog`
+    FOREIGN KEY (`Program_id`)
+    REFERENCES `drwms`.`relief_program` (`Program_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE);
+
+CREATE TABLE drwms.table_pc
+(
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY
+);   
+
+
+DROP TRIGGER IF EXISTS `drwms`.`product_committment_BEFORE_INSERT`;
+
+DELIMITER $$
+USE `drwms`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `drwms`.`product_committment_BEFORE_INSERT` BEFORE INSERT ON `product_committment` FOR EACH ROW
+BEGIN
+	INSERT INTO drwms.table_pc VALUES (NULL);
+  SET NEW.P_commitment_id = CONCAT('PRD_COMM_', LPAD(LAST_INSERT_ID(), 5, '0'));
+END$$
+DELIMITER ;
+
+
+INSERT INTO drwms.product_committment (Org_id,Product_id,Disaster_location_id,Program_id,Comm_qty,Comm_date,Exp_delivery_date,Status) 
+VALUES ('ORG_0002','PRD_0001','DIS_LOC_0001','PRG_001',300,'2022-07-11','2022-07-14','Pending');
+
+
+
+/*PRODUCT FULLFILLMENT*/
+
+
+CREATE TABLE `drwms`.`product_fullfillment` (
+  `P_fullfillment_id` varchar(15) NOT NULL PRIMARY KEY DEFAULT '0',
+  `P_commitment_id` varchar(15) NOT NULL,
+  `Qty_fullfilled` INT NOT NULL,
+  `Fullfilled_date` DATE NULL,
+  CONSTRAINT `fk_prod_commitment`
+    FOREIGN KEY (`P_commitment_id`)
+    REFERENCES `drwms`.`product_committment` (`P_commitment_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE);
+
+CREATE TABLE drwms.table_pf
+(
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY
+);   
+
+
+DROP TRIGGER IF EXISTS `drwms`.`product_fullfillment_BEFORE_INSERT`;
+
+DELIMITER $$
+USE `drwms`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `drwms`.`product_fullfillment_BEFORE_INSERT` BEFORE INSERT ON `product_fullfillment` FOR EACH ROW
+BEGIN
+	INSERT INTO drwms.table_pf VALUES (NULL);
+  SET NEW.P_fullfillment_id = CONCAT('PRD_FF_', LPAD(LAST_INSERT_ID(), 5, '0'));
+END$$
+DELIMITER ;
+
+
+
+INSERT INTO drwms.product_fullfillment (P_commitment_id,Qty_fullfilled,Fullfilled_date) 
+VALUES ('PRD_COMM_00001',300,'2022-07-13');
+
+
+
+
+/*DAMAGES CATEGORY*/
+
+
+CREATE TABLE `drwms`.`damages_category` (
+  `Damage_categor_id` varchar(15) NOT NULL PRIMARY KEY DEFAULT '0',
+  `Damage_type` VARCHAR(30) NOT NULL
+  );
+
+CREATE TABLE drwms.table_dmc
+(
+  id INT NOT NULL AUTO_INCREMENT PRIMARY KEY
+);   
+
+
+
+DROP TRIGGER IF EXISTS `drwms`.`damages_category_BEFORE_INSERT`;
+
+DELIMITER $$
+USE `drwms`$$
+CREATE DEFINER = CURRENT_USER TRIGGER `drwms`.`damages_category_BEFORE_INSERT` BEFORE INSERT ON `damages_category` FOR EACH ROW
+BEGIN
+	INSERT INTO drwms.table_dmc VALUES (NULL);
+  SET NEW.Damage_categor_id = CONCAT('DMG_CAT_', LPAD(LAST_INSERT_ID(), 5, '0'));
+END$$
+DELIMITER ;
+
+
+
+
+
+
+
+
+/*DAMAGES*/
+
+
+CREATE TABLE `drwms`.`damages` (
+  `Disaster_id` varchar(15) NOT NULL,
+  `Disaster_location_id` varchar(15) NOT NULL,
+  `Date` DATE NOT NULL,
+  `Damage_category_id` varchar(15) NOT NULL,
+  `Quantity` INT NULL,
+  `Comulative_qty` INT NULL DEFAULT 0,
+  PRIMARY KEY (`Disaster_id`, `Disaster_location_id`, `Date`),
+  CONSTRAINT `fk_dmg_cat`
+    FOREIGN KEY (`Damage_category_id`)
+    REFERENCES `drwms`.`damages_category` (`Damage_categor_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_DISASTERR`
+    FOREIGN KEY (`Disaster_id`)
+    REFERENCES `drwms`.`disaster` (`Disaster_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `FK_LOC_DISASTERS`
+    FOREIGN KEY (`Disaster_location_id`)
+    REFERENCES `drwms`.`disaster_locations` (`Disaster_location_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE);
+
+/PRODUCT_REQUIREMENT_SUMMARY/
+
+
+CREATE TABLE `drwms`.`product_requirement_summary` (
+  `Product_id` varchar(15) NOT NULL,
+  `Disaster_location_id` varchar(15) NOT NULL,
+  `Program_id` varchar(15) NOT NULL,
+  `Total_qty_req` INT NULL,
+  `Total_qty_comm` INT NULL,
+  `Total_qty_fullfilled` INT NULL,
+  PRIMARY KEY (`Product_id`, `Disaster_location_id`, `Program_id`),
+  CONSTRAINT `fk_product_req`
+    FOREIGN KEY (`Product_id`)
+    REFERENCES `drwms`.`product` (`Product_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_disaster__locations`
+    FOREIGN KEY (`Disaster_location_id`)
+    REFERENCES `drwms`.`disaster_locations` (`Disaster_location_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_prg`
+    FOREIGN KEY (`Program_id`)
+    REFERENCES `drwms`.`relief_program` (`Program_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE);
+
+
+ALTER TABLE `drwms`.`relief_providers` 
+DROP COLUMN `status`;
+
+
+ALTER TABLE `drwms`.`product_requirement_summary` 
+CHANGE COLUMN `Total_qty_req` `Total_qty_req` INT(11) NULL DEFAULT 0 ,
+CHANGE COLUMN `Total_qty_comm` `Total_qty_comm` INT(11) NULL DEFAULT 0 ,
+CHANGE COLUMN `Total_qty_fullfilled` `Total_qty_fullfilled` INT(11) NULL DEFAULT 0 ;

@@ -938,11 +938,11 @@ app.post("/api/makecommit", (req, res) => {
 })
 
 
-app.get("/api/fullfilldetails", (req, res) => {
+app.post("/api/fullfilldetails", (req, res) => {
 
     const user = req.body.dash
     let user1 = JSON.parse(user)
-    const SqlQ = "Select pf.p_fullfillment_id,pf.p_commitment_id,pf.Qty_fullfilled,pf.Fullfilled_date from product_fullfillment pf,product_committment pc where pf.p_commitment_id=pc.p_commitment_id and pc.Org_id = ?"
+    const SqlQ = "Select r.program_name,p.product_name , pf.p_fullfillment_id,pf.p_commitment_id,pf.Qty_fullfilled,pf.Fullfilled_date from relief_program r,product_fullfillment pf,product_committment pc,product p where pf.P_commitment_id=pc.P_commitment_id and pc.product_id = p.product_id and pc.program_id = r.program_id and pc.Org_id = ?"
 
     db.query(SqlQ,user1, (err, result) => {
         if (err) { console.log(err)

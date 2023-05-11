@@ -16,8 +16,8 @@ function Users_Fullfilment() {
   useEffect(()=>{
     id = GetCookie('usrin')
     console.log(id)
-    Axios.get("http://localhost:3001/api/fullfilldetails",{dash:id}).then((response)=>{
-     
+    Axios.post("http://localhost:3001/api/fullfilldetails",{dash:id}).then((response)=>{
+     console.log(response.data)
       Setfullfilldet(response.data)
      })
     },[])
@@ -35,8 +35,9 @@ function Users_Fullfilment() {
         <table className="table" style={{'backgroundColor':'#30574b', 'color':'#fffb00','borderStyle':'none', 'textAlign':'center'}}>
         <thead style={{'borderStyle':'solid'}}>
                 <tr>
-                  <th scope="col">FULLFILLMENT ID</th>
-                  <th scope="col">COMMITMENT ID</th>
+                  {/* <th scope="col">FULLFILLMENT ID</th> */}
+                  <th scope="col">Relief Program</th>
+                  <th scope="col">Product</th>
                   <th scope="col">QUANTITY FULLFILLED</th>
                   <th scope="col">FULLFILLED DATE</th>
                 </tr>
@@ -45,8 +46,9 @@ function Users_Fullfilment() {
                 {fullfilldet.map((val) => (
   
                   <tr>
-                    <td>{val.p_fullfillment_id}</td>
-                    <td>{val.p_commitment_id}</td>
+                    {/* <td>{val.p_fullfillment_id}</td> */}
+                    <td>{val.program_name}</td>
+                    <td>{val.product_name}</td>
                     <td>{val.Qty_fullfilled}</td>
                     <td>{val.Fullfilled_date}</td>
 

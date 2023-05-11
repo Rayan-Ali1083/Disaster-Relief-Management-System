@@ -53,6 +53,11 @@ function Users_Requirements() {
       console.log('q:', q);
       console.log('qc:', qc);
       console.log('newCommitment.Comm_qty:', newCommitment.Comm_qty);
+
+      if (parseInt(newCommitment.Comm_qty) <= 0){
+        alert("Commit Quantity Should be at least one")
+        return
+      }
       if( (parseInt(newCommitment.Comm_qty ) + parseInt(qc)) > parseInt(q)){
         
         alert("Commit Quantity Should be less than Requested Quantity")

@@ -54,6 +54,11 @@ function Users_Commitments() {
 
      const makefullfillment = () => {
       var pid = GetCookie('usrin')
+
+      if(parseInt(newfullfillment.Qty_fullfilled) <=0 ){
+        alert("Fulfill Quantity Should be atleast One")
+        return
+      }
       if(newfullfillment.Qty_fullfilled > cq){
         alert("Fullfill Quantity should be less than or equal to Commit Quantity ")
         return

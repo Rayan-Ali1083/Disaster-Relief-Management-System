@@ -3,6 +3,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.common.alert import Alert
+from selenium.webdriver.support.ui import Select
 import ast
 import time
 from datetime import datetime
@@ -77,7 +78,6 @@ def LoginDefect():
 
 # LoginDefect()
 
-
 def Requirement_valid():
     Login()
     time.sleep(3)
@@ -104,6 +104,8 @@ def Requirement_valid():
     print("Commitment Validation succeeded")
 
     driver.quit()
+
+# Requirement_valid()
 
 def Requirement_Defect():
     Login()
@@ -171,3 +173,54 @@ def Commit_valid():
 
 # Commit_valid()
 
+
+def Signup_valid():
+    driver.get(r'http://localhost:3000/Signup.js')
+    org_name = driver.find_element('id',"org_name")
+    org_name.send_keys("A NEW ORG")
+
+    user_name = driver.find_element('id',"user_name")
+    user_name.send_keys("NEW ORG")
+
+    password = driver.find_element('id',"pass")
+    password.send_keys("123456789")
+
+    email = driver.find_element('id',"email")
+    email.send_keys("NEWORG@gmail.com")
+
+    prov_drop = driver.find_element('xpath','//*[@id="org_province"]')
+    select = Select(prov_drop)
+    select.select_by_index(1)
+
+    prov_drop = driver.find_element('xpath','//*[@id="org_province"]')
+    select = Select(prov_drop)
+    select.select_by_index(1)
+
+    cat_drop = driver.find_element('xpath','//*[@id="org_cate"]')
+    select = Select(cat_drop)
+    select.select_by_index(1)
+
+    add_btn = driver.find_element('id','sub-bttn')
+    add_btn.send_keys("\n")
+
+    time.sleep(3)
+
+    alert = Alert(driver)
+    alert_text = alert.text
+
+    assert alert_text == "Successfully Registered", 'Registration Failed'
+    print("Registration Successfull")
+    driver.quit()
+
+Signup_valid()
+
+
+
+
+
+
+
+
+
+
+# Signup defect and Commit defect

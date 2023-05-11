@@ -74,7 +74,7 @@ function Users_Commitments() {
         <table className="card-body" style={{'backgroundColor':'#30574b', 'color':'#fffb00', 'textAlign':'center','borderStyle':'none',}}>
         <thead style={{'borderStyle':'solid'}}>
                         <tr>
-                        <th scope="col">Product Commitment ID</th>
+                        {/* <th scope="col">Product Commitment ID</th> */}
                         <th scope="col">Product Name</th>
                         <th scope="col">Disaster Location Name</th>
                         <th scope="col">Program Name</th>
@@ -90,7 +90,7 @@ function Users_Commitments() {
                       {commdet.map((val)=>(
 
                       <tr>
-                        <td>{val.p_commitment_id}</td>
+                        {/* <td>{val.p_commitment_id}</td> */}
                         <td>{val.product_name}</td>
                         <td>{val.location_name}</td>
                         <td>{val.program_name}</td>

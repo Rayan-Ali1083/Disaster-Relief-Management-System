@@ -6,6 +6,13 @@ import { admin_home, admin_organization, admin_relief_program, admin_products_se
 
 function Header() {
 
+  const ClearD = ()=>{
+    //RemoveCookie('usrin')
+    alert("Logged Out")
+    window.location.replace('http://localhost:3000');
+
+  }
+
   const sidedispatch = useDispatch();
   return (
     <>
@@ -31,6 +38,9 @@ function Header() {
               <li className="nav-item">
                 <NavLink to='/Admin_Products_Services.js' className="nav-link active" onClick={ () => sidedispatch(admin_products_services())}>Products/Services</NavLink>
               </li>
+              <li className="nav-item" onClick={ClearD}>
+                    <NavLink  className="nav-link active" >LogOut</NavLink>
+                    </li>
               
             </ul>
             

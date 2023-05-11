@@ -114,7 +114,7 @@ function Admin_Products_Services() {
                     </div>
                   </div>
 
-                  <button type="button" className="btn" id='add_relief_program'  data-bs-toggle="modal" data-bs-target="#editProd">Edit Product</button>
+                  {/* <button type="button" className="btn" id='add_relief_program'  data-bs-toggle="modal" data-bs-target="#editProd">Edit Product</button> */}
 
                   <div className="modal-centered modal-scrollable modal fade modal-lg" id="editProd" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div className="modal-dialog">

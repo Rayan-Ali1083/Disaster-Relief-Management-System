@@ -142,13 +142,13 @@ function Users_Requirements() {
                   {newCommitment.Program_id=val.Program_id} */}
                   
                   <tr style={{'borderBottomColor':'transparent'}}>
-                    <td>  <input type="number" min='0' className="form-control" value={newCommitment.Comm_qty} name= 'Comm_qty' onChange={handlecommitments} placeholder="Quantity" aria-label="Username"></input>
+                    <td>  <input type="number" min='0' className="form-control" value={newCommitment.Comm_qty} name= 'Comm_qty' id='Comm_qty' onChange={handlecommitments} placeholder="Quantity" aria-label="Username"></input>
                   </td>
                   <td>
-                    <input type="date" value={newCommitment.Comm_date} name='Comm_date' onChange={handlecommitments}  ></input></td>
+                    <input type="date" value={newCommitment.Comm_date} name='Comm_date' onChange={handlecommitments} id='Comm_date' ></input></td>
                   
                   <td>
-                    <input type="date" value={newCommitment.E_delv_date} name='E_delv_date' onChange={handlecommitments}  ></input></td>
+                    <input type="date" value={newCommitment.E_delv_date} name='E_delv_date' onChange={handlecommitments} id='E_delv_date' ></input></td>
                   
 
                   <button type="button" onClick={makecommit} id='bttn' style={{'borderStyle':'solid'}}>Add</button>

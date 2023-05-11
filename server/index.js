@@ -15,8 +15,8 @@ const db = mysql.createPool({
 
     host: 'localhost',
     user: 'root',
-    password: 'fast',
-    database: 'dbtest'
+    password: 'root',
+    database: 'drwms'
 
 });
 
@@ -870,11 +870,8 @@ app.post("/api/makecommit", (req, res) => {
     console.log(programid)
 
     const hold = "Pending"
-     let Oid1=JSON.parse(oid)
-     console.log(Oid1)
-
-    
-
+    let Oid1=JSON.parse(oid)
+    console.log(Oid1)
     let dPromise = new Promise(function (Resolve, Reject) {
 
         let hold = "Complete"
@@ -895,7 +892,6 @@ app.post("/api/makecommit", (req, res) => {
                     }
                 })
             }
-
             else{
                 const SqlU = "Insert into product_committment (Org_id,Product_id,Disaster_location_id,Program_id,Comm_qty,Comm_date,Exp_delivery_date) values(?,?,?,?,?,?,?)"
         
@@ -905,7 +901,7 @@ app.post("/api/makecommit", (req, res) => {
                     } else {
                         //res.send({ message: "Successfully Commited " })
                         //console.log(result)
-                        //Resolve("Ok")
+                        Resolve("Ok")
                     }
                     
                     

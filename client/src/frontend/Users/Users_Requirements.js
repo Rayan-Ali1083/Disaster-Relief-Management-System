@@ -47,7 +47,7 @@ function Users_Requirements() {
         SetRprogramsummary(response.data)
       })
   
-    }, [])
+    })
     
     const makecommit = () => {
       console.log('q:', q);
